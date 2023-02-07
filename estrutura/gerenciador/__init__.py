@@ -1,0 +1,1 @@
+from .gerenciadorArquivos import GerenciadorArquivos

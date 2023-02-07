@@ -1,0 +1,65 @@
+class Livro:
+    def __init__(self, codigo: int, nome: str, autor: str, editora: str, paginas: int, genero: str, preco: float, disponivel: bool, dataCadastro: str) -> None:
+        self.__codigo = codigo
+        self.__nome = nome
+        self.__autor = autor
+        self.__editora = editora
+        self.__paginas = paginas
+        self.__genero = genero
+        self.__preco = preco
+        self.__disponivel = disponivel
+        self.__dataCadastro = dataCadastro
+    
+    def info(self) -> None:
+        print(
+f'''_____________________________________________________
+    * Livro {self.__codigo} *
+Nome: {self.__nome}
+Autor: {self.__autor}
+Editora: {self.__editora}
+Páginas: {self.__paginas}
+Gênero: {self.__genero}
+Disponível: {self.__disponivel}
+Data de cadastro: {self.__dataCadastro}
+_____________________________________________________ ''')
+    
+    def getCodigo(self) -> int:
+        return self.__codigo
+    
+    def getNome(self) -> str:
+        return self.__nome
+    
+    def getAutor(self) -> str:
+        return self.__autor
+    
+    def getEditora(self) -> str:
+        return self.__editora
+    
+    def getPaginas(self) -> int:
+        return self.__paginas
+    
+    def getGenero(self) -> str:
+        return self.__genero
+    
+    def getPreco(self) -> float:
+        return self.__preco
+    
+    def getDisponivel(self) -> bool:
+        return self.__disponivel
+    
+    def validarAluguel(self):
+        if self.__disponivel == True:
+            self.__disponivel = False
+            return True
+        else:
+            return False
+    
+    def validarDevolucao(self):
+        if self.__disponivel == False:
+            self.__disponivel = True
+            return True
+        else:
+            return False
+        
+    def getDataCadastro(self) -> bool:
+        return self.__dataCadastro

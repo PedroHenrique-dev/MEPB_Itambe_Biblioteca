@@ -1,0 +1,16 @@
+{
+    "igreja": "Missao Evangelica Pentecostal do Brasil - Itambe",
+    "livros": [
+        {
+            "codigo": 1001,
+            "nome": "1",
+            "autor": "1",
+            "editora": "1",
+            "paginas": 1,
+            "genero": "1",
+            "preco": 1.0,
+            "disponivel": true,
+            "dataCadastro": "07/02/2023"
+        }
+    ]
+}
