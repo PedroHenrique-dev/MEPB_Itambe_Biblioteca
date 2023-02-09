@@ -1,0 +1,1 @@
+from .funcoesAuxiliares import FuncoesAuxiliares

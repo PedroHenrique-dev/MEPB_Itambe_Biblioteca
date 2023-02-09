@@ -2,6 +2,61 @@
     "igreja": "Missao Evangelica Pentecostal do Brasil - Itambe",
     "livros": [
         {
+            "codigo": 1006,
+            "nome": "8",
+            "autor": "8",
+            "editora": "8",
+            "paginas": 8,
+            "genero": "8",
+            "preco": 8.0,
+            "disponivel": true,
+            "dataCadastro": "09/02/2023"
+        },
+        {
+            "codigo": 1005,
+            "nome": "2",
+            "autor": "2",
+            "editora": "2",
+            "paginas": 2,
+            "genero": "2",
+            "preco": 2.0,
+            "disponivel": true,
+            "dataCadastro": "09/02/2023"
+        },
+        {
+            "codigo": 1004,
+            "nome": "1",
+            "autor": "1",
+            "editora": "1",
+            "paginas": 1,
+            "genero": "1",
+            "preco": 1.0,
+            "disponivel": false,
+            "dataCadastro": "08/02/2023"
+        },
+        {
+            "codigo": 1003,
+            "nome": "2",
+            "autor": "2",
+            "editora": "2",
+            "paginas": 2,
+            "genero": "2",
+            "preco": 2.0,
+            "disponivel": false,
+            "dataCadastro": "08/02/2023"
+        },
+        {
+            "codigo": 1002,
+            "nome": "1",
+            "autor": "1",
+            "editora": "1",
+            "paginas": 1,
+            "genero": "1",
+            "preco": 1.0,
+            "disponivel": false,
+            "dataCadastro": "08/02/2023"
+        },
+        {
             "codigo": 1001,
             "nome": "1",
             "autor": "1",
@@ -10,7 +65,7 @@
             "genero": "1",
             "preco": 1.0,
             "disponivel": true,
-            "dataCadastro": "07/02/2023"
+            "dataCadastro": "08/02/2023"
         }
     ]
 }

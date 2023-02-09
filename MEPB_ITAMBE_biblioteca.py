@@ -1,42 +1,53 @@
 from estrutura import Biblioteca
 
-mepb = Biblioteca()
+class MEPBbiblioteca():
+    def __init__(self) -> None:
+        self.__nomeIgreja = 'M.E.P.B. Itambé'
+        self.__mepb = Biblioteca()
 
-def menu():
-    print('''
-******************************************************
-************  Biblioteca M.E.P.B. Itambé  ************
-******************************************************
-1. Cadastrar            |       2. Alugar
-3. Remover              |       4. Devolver
-5. Pesquisar livro      |       6. Pesquisar aluguel
-0. Sair
-          ''')
-    return int(input('Digite a opção da ação desejada: '))
-
-while True:
-    escolha = menu()
+    def __menu(self):
+        print(f'''
+    ******************************************************
+    ************  Biblioteca {self.__nomeIgreja}  ************
+    ******************************************************
+    1. Cadastrar            |       2. Alugar
+    3. Remover              |       4. Devolver
+    5. Pesquisar livro      |       6. Pesquisar aluguel
+    7. Todos os livros      |       8. Todos os alugueis
+    0. Sair
+            ''')
+        return int(input('Digite a opção da ação desejada: '))
     
-    match(escolha):
-        case 1:
-            mepb.cadastrarLivroBiblioteca()
-        case 2:
-            mepb.alugarLivroBiblioteca()
-        case 3:
-            mepb.removerLivroBiblioteca()
-        case 4:
-            mepb.devolucaoLivroBiblioteca()
-        case 5:
-            mepb.pesquisarLivro()
-        case 6:
-            mepb.pesquisarAluguel()
-        case 123:
-            mepb.mostrarLivros()
-        case 321:
-            mepb.mostrarAlugados()
-        case 0:
-            break
+    def iniciar(self):
+        separador = '______________________________________________________'
+        
+        while True:
+            escolha = self.__menu()
             
-    input("\nAperte 'Enter' para continuar.")
-
-print('******************************************************')
+            print(separador)
+            match(escolha):
+                case 1:
+                    self.__mepb.cadastrarLivroBiblioteca()
+                case 2:
+                    self.__mepb.alugarLivroBiblioteca()
+                case 3:
+                    self.__mepb.removerLivroBiblioteca()
+                case 4:
+                    self.__mepb.devolucaoLivroBiblioteca()
+                case 5:
+                    self.__mepb.pesquisarLivroBiblioteca()
+                case 6:
+                    self.__mepb.pesquisarAluguelBiblioteca()
+                case 7:
+                    self.__mepb.mostrarLivrosBiblioteca()
+                case 8:
+                    self.__mepb.mostrarAlugadosBiblioteca()
+                case 0:
+                    break
+            
+            print(separador)
+            input("\nAperte 'Enter' para continuar.")
+        print('******************************************************')
+        
+itambe = MEPBbiblioteca()
+itambe.iniciar()

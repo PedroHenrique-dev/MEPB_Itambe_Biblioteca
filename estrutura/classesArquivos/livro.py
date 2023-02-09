@@ -11,6 +11,12 @@ class Livro:
         self.__dataCadastro = dataCadastro
     
     def info(self) -> None:
+        disponibilidade = ''
+        if self.__disponivel == True:
+            disponibilidade = 'Disponível'
+        else:
+            disponibilidade = 'Indisponível'
+            
         print(
 f'''_____________________________________________________
     * Livro {self.__codigo} *
@@ -19,7 +25,7 @@ Autor: {self.__autor}
 Editora: {self.__editora}
 Páginas: {self.__paginas}
 Gênero: {self.__genero}
-Disponível: {self.__disponivel}
+Disponibilidade para alugar: {disponibilidade}
 Data de cadastro: {self.__dataCadastro}
 _____________________________________________________ ''')
     
