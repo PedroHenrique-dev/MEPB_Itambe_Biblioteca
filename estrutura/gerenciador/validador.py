@@ -1,9 +1,6 @@
-class Validador:
-    def __init__(self) -> None:
-        self.__senha = 'm0kon9ji'
-        
+class Validador:        
     def validarEntrada(self, senha: str):
-        if self.__senha == senha:
+        if senha == 'm0kon9ji':
             return True
         else:
             print('\nSenha errada.')

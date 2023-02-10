@@ -1,4 +1,7 @@
-class AcaoPesquisar:   
+from estrutura.tratamento import *
+from os import system
+
+class AcaoPesquisar(TratamentoErro):
     def __menuPesquisaLivro(self):
         print('''
 ======================================================
@@ -8,45 +11,65 @@ class AcaoPesquisar:
 4. Editora  |    5. Gênero    |    6. Disponibilidade
 0. Sair
               ''')
-        return int(input('Digite a opção da ação desejada: '))
+        try:
+            escolhaOpcao = int(input('Digite a opção da ação desejada: '))
+            
+            if escolhaOpcao < 0 or escolhaOpcao > 6:
+                raise ErroSoftware('Opção inválida!')
+            
+            return escolhaOpcao
+        except Exception as erro:
+            self.erro(erro)
     
     def pesquisarLivro(self, biblioteca: any):
         while True:
+            system('clear')
             escolha = self.__menuPesquisaLivro()
             
             livrosBuscados = []
-            match(escolha):
-                case 1:
-                    codigoLivro = int(input('Qual o código do livro? '))
-                    livrosBuscados = self.__pesquisarLivroPorInfo(codigoLivro, 'codigo', biblioteca)
-                case 2:
-                    nomeLivro = str(input('Qual o nome do livro? '))
-                    livrosBuscados = self.__pesquisarLivroPorInfo(nomeLivro, 'nome', biblioteca)
-                case 3:
-                    autorLivro = str(input('Qual o nome do autor? '))
-                    livrosBuscados = self.__pesquisarLivroPorInfo(autorLivro, 'autor', biblioteca)
-                case 4:
-                    editoraLivro = str(input('Qual o nome da editora? '))
-                    livrosBuscados = self.__pesquisarLivroPorInfo(editoraLivro, 'editora', biblioteca)
-                case 5:
-                    generoLivro = str(input('Qual o gênero do livro? '))
-                    livrosBuscados = self.__pesquisarLivroPorInfo(generoLivro, 'genero', biblioteca)
-                case 6:
-                    disponibilidadeLivro = str(input('Qual a disponibilidade do livro? (Disponível | Indisponível): '))
-                    if disponibilidadeLivro == 'Disponível':
-                        livrosBuscados = self.__pesquisarLivroPorInfo(True, 'disponibilidade', biblioteca)
-                    elif disponibilidadeLivro == 'Indisponível':
-                        livrosBuscados = self.__pesquisarLivroPorInfo(False, 'disponibilidade', biblioteca)
-                    else:
-                        print('\nVocê não digitou corretamente o status de disponibilidade do livro.')
-                case 0:
-                    break
-                    
+            try:
+                match(escolha):
+                    case 1:
+                        codigoLivro = int(input('Qual o código do livro? '))
+                        livrosBuscados = self.__pesquisarLivroPorInfo(codigoLivro, 'codigo', biblioteca)
+                    case 2:
+                        nomeLivro = self.inserirNome('Qual o nome do livro? ')
+                        livrosBuscados = self.__pesquisarLivroPorInfo(nomeLivro, 'nome', biblioteca)
+                    case 3:
+                        autorLivro = self.inserirNome('Qual o nome do autor? ')
+                        livrosBuscados = self.__pesquisarLivroPorInfo(autorLivro, 'autor', biblioteca)
+                    case 4:
+                        editoraLivro = self.inserirNome('Qual o nome da editora? ')
+                        livrosBuscados = self.__pesquisarLivroPorInfo(editoraLivro, 'editora', biblioteca)
+                    case 5:
+                        generoLivro = self.inserirNome('Qual o gênero do livro? ')
+                        livrosBuscados = self.__pesquisarLivroPorInfo(generoLivro, 'genero', biblioteca)
+                    case 6:
+                        disponibilidadeLivro = self.inserirNome('Qual a disponibilidade do livro? (Disponível | Indisponível): ')
+                        
+                        if disponibilidadeLivro == 'Disponível':
+                            livrosBuscados = self.__pesquisarLivroPorInfo(True, 'disponibilidade', biblioteca)
+                        elif disponibilidadeLivro == 'Indisponível':
+                            livrosBuscados = self.__pesquisarLivroPorInfo(False, 'disponibilidade', biblioteca)
+                        else:
+                            raise ErroSoftware('Status incompatível.')
+                    case 0:
+                        break
+            except Exception as erro:
+                self.erro(erro)
+                return
+            
             if livrosBuscados != []:
                 total = len(livrosBuscados)
+                
+                j = 0
                 for i in range(total):
                     livrosBuscados[i].info()
-                    input(f"\nAperte 'Enter' para continuar. ({i+1}/{total})")
+                    j += 1
+                    
+                    if j == 5:
+                        input(f"\nAperte 'Enter' para continuar. ({i+1}/{total})")
+                        j = 0
             else:
                 print('\nNão há livro com esta informação.')
                 
@@ -91,37 +114,56 @@ class AcaoPesquisar:
 4. Data de aluguel  |    5. Data de entrega
 0. Sair
               ''')
-        return int(input('Digite a opção da ação desejada: '))
+        try:
+            escolhaOpcao = int(input('Digite a opção da ação desejada: '))
+            
+            if escolhaOpcao < 0 or escolhaOpcao > 5:
+                raise ErroSoftware('Opção inválida!')
+            
+            return escolhaOpcao
+        except Exception as erro:
+            self.erro(erro)
     
     def pesquisarAluguel(self, alugados: any):
         while True:
+            system('clear')
             escolha = self.__menuPesquisaAluguel()
             
-            alugueiBuscados = []
-            match(escolha):
-                case 1:
-                    codigoLivro = int(input('Qual o código do livro? '))
-                    alugueiBuscados = self.__pesquisarAluguelPorInfo(codigoLivro, 'codigoLivro', alugados)
-                case 2:
-                    nomeLivro = str(input('Qual o nome do livro? '))
-                    alugueiBuscados = self.__pesquisarAluguelPorInfo(nomeLivro, 'nomeLivro', alugados)
-                case 3:
-                    nomePessoa = str(input('Qual o nome da pessoa? '))
-                    alugueiBuscados = self.__pesquisarAluguelPorInfo(nomePessoa, 'nomePessoa', alugados)
-                case 4:
-                    dataAluguel = str(input('Qual a data do aluguel? '))
-                    alugueiBuscados = self.__pesquisarAluguelPorInfo(dataAluguel, 'dataAluguel', alugados)
-                case 5:
-                    dataEntega = str(input('Qual a data de devolução? '))
-                    alugueiBuscados = self.__pesquisarAluguelPorInfo(dataEntega, 'dataEntega', alugados)
-                case 0:
-                    break
-                    
+            try:
+                alugueiBuscados = []
+                match(escolha):
+                    case 1:
+                        codigoLivro = int(input('Qual o código do livro? '))
+                        alugueiBuscados = self.__pesquisarAluguelPorInfo(codigoLivro, 'codigoLivro', alugados)
+                    case 2:
+                        nomeLivro = self.inserirNome('Qual o nome do livro? ')
+                        alugueiBuscados = self.__pesquisarAluguelPorInfo(nomeLivro, 'nomeLivro', alugados)
+                    case 3:
+                        nomePessoa = self.inserirNome('Qual o nome da pessoa? ')
+                        alugueiBuscados = self.__pesquisarAluguelPorInfo(nomePessoa, 'nomePessoa', alugados)
+                    case 4:
+                        dataAluguel = self.inserirNome('Qual a data do aluguel? ')
+                        alugueiBuscados = self.__pesquisarAluguelPorInfo(dataAluguel, 'dataAluguel', alugados)
+                    case 5:
+                        dataEntega = self.inserirNome('Qual a data de devolução? ')
+                        alugueiBuscados = self.__pesquisarAluguelPorInfo(dataEntega, 'dataEntega', alugados)
+                    case 0:
+                        break
+            except Exception as erro:
+                self.erro(erro)
+                return
+            
             if alugueiBuscados != []:
                 total = len(alugueiBuscados)
+                
+                j = 0
                 for i in range(total):
                     alugueiBuscados[i].info()
-                    input(f"\nAperte 'Enter' para continuar. ({i+1}/{total})")
+                    j += 1
+                    
+                    if j == 5:
+                        input(f"\nAperte 'Enter' para continuar. ({i+1}/{total})")
+                        j = 0
             else:
                 print('\nNão há livro alugado com esta informação.')
                 

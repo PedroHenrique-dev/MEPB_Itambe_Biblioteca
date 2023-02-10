@@ -1,22 +1,30 @@
 from estrutura.classesArquivos import *
 from estrutura.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
-from datetime import date
 
-class AcaoCadastro(FuncoesAuxiliares):
+from estrutura.tratamento import *
+
+class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
     def cadastrarLivro(self, arquivos: any, biblioteca: any) -> None:
+        
         self.__tituloCadastrar()
         codigo = 1001
         if biblioteca != []:
             codigo += biblioteca.__len__()
-        nome = str(input('Qual o nome do livro? '))
-        autor = str(input('Qual o nome do autor? '))
-        editora = str(input('Qual o nome da editora? '))
-        paginas = int(input('Qual a quantidade de páginas? '))
-        genero = str(input('Qual o gênero do livro? '))
-        preco = float(input('Qual o preço do livro? '))
-        disponivel = True
-        dataCadastro = date.today().strftime('%d/%m/%Y')
+            
+        try:
+            nome = self.inserirNome('Qual o nome do livro? ')
+            autor = self.inserirNome('Qual o nome do autor? ')
+            editora = self.inserirNome('Qual o nome da editora? ')
+            paginas = int(input('Qual a quantidade de páginas? '))
+            genero = self.inserirNome('Qual o gênero do livro? ')
+            preco = float(input('Qual o preço do livro? '))
+        except Exception as erro:
+            self.erro(erro)
+            return arquivos, biblioteca
         
+        disponivel = True
+        dataCadastro = self.gerarDataAtual()
+            
         biblioteca.insert(0, Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro))
         arquivos.atualizarBiblioteca(biblioteca)
         
@@ -25,11 +33,17 @@ class AcaoCadastro(FuncoesAuxiliares):
         
     def removerCadastro(self, arquivos: any, biblioteca: any, alugados: any):
         self.__tituloRemover()
-        codigoLivro = int(input('Qual o código do livro? '))
+        
+        try:
+            codigoLivro = int(input('Qual o código do livro? '))
+        except Exception as erro:
+            self.erro(erro)
+            return arquivos, biblioteca, alugados
+        
         indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
         
         if existeciaCodigo:
-            removerAlugado = self.__buscarAlugado(biblioteca[indiceLivro].getCodigo(), alugados)
+            removerAlugado = self.buscarAlugado(biblioteca[indiceLivro].getCodigo(), alugados)
             if removerAlugado != '':
                 alugados.remove(removerAlugado)
                 arquivos.atualizarAlugados(alugados)

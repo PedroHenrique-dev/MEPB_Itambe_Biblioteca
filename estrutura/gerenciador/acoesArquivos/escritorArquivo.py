@@ -13,7 +13,7 @@ class Escritor:
             nome: informacoesBiblioteca
         }
         
-        self.__json_nLinhas(informacoesArquivo, nomeArquivo)
+        self.__json_1Linha(informacoesArquivo, nomeArquivo)
             
     def __json_nLinhas(self, texto, nomeArquivo: str):
         with open(nomeArquivo, 'w') as arquivo: 

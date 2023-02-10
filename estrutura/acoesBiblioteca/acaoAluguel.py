@@ -1,18 +1,29 @@
 from estrutura.classesArquivos import *
 from estrutura.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
-from datetime import date
 
-class AcaoAluguel(FuncoesAuxiliares):
+from estrutura.tratamento import *
+
+class AcaoAluguel(FuncoesAuxiliares, TratamentoErro):
     def alugar(self, arquivos: any, biblioteca: any, alugados: any):
         self.__tituloAlugar()
-        codigoLivro = int(input('Qual o código do livro? '))
+        
+        try:
+            codigoLivro = int(input('Qual o código do livro? '))
+        except Exception as erro:
+            self.erro(erro)
+            return arquivos, biblioteca, alugados
+        
         indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
         
         if existeciaCodigo:
             podeAlugar = biblioteca[indiceLivro].validarAluguel()
             
             if podeAlugar:
-                nomePessoa = str(input('\nDigite o nome completo da pessoa que está alugando o livro: '))
+                try:
+                    nomePessoa = self.inserirNome('\nDigite o nome completo da pessoa que está alugando o livro: ')
+                except Exception as erro:
+                    self.erro(erro)
+                    return arquivos, biblioteca, alugados 
                 if len(nomePessoa) > 3:
                     codigo = biblioteca[indiceLivro].getCodigo()
                     nomeLivro = biblioteca[indiceLivro].getNome()
@@ -38,15 +49,21 @@ class AcaoAluguel(FuncoesAuxiliares):
                 
     def devolucao(self, arquivos: any, biblioteca: any, alugados: any):
         self.__tituloDevolucao()
-        codigoLivro = int(input('Qual o código do livro? '))
-        indiceLivro, existeciaCodigo = self.__verificaExistenciaLivro(codigoLivro, biblioteca)
+        
+        try:
+            codigoLivro = int(input('Qual o código do livro? '))
+        except Exception as erro:
+            self.erro(erro)
+            return arquivos, biblioteca, alugados
+        
+        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
         
         if existeciaCodigo:
             podeDevolder = biblioteca[indiceLivro].validarDevolucao()
             
             if podeDevolder:
                 codigoLivro = biblioteca[indiceLivro].getCodigo()
-                devolverAlugado = self.__buscarAlugado(codigoLivro, alugados)
+                devolverAlugado = self.buscarAlugado(codigoLivro, alugados)
                 
                 if devolverAlugado != '':
                     alugados.remove(devolverAlugado)
