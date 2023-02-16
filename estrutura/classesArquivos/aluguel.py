@@ -8,14 +8,14 @@ class Aluguel:
 
     def info(self) -> None:
         print(
-f'''_____________________________________________________
+f'''______________________________________________________
     * Livro {self.__codigo} *
 Nome da pessoa: {self.__nomePessoa}
 Codigo: {self.__codigo}
 Nome do livro: {self.__nomeLivro}
 Data do aluguel: {self.__dataAluguel}
 Data da entega: {self.__dataEntega}
-_____________________________________________________''')
+______________________________________________________''')
 
     def getNomePessoa(self):
         return self.__nomePessoa 

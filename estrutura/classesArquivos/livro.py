@@ -18,7 +18,7 @@ class Livro:
             disponibilidade = 'Indisponível'
             
         print(
-f'''_____________________________________________________
+f'''______________________________________________________
     * Livro {self.__codigo} *
 Nome: {self.__nome}
 Autor: {self.__autor}
@@ -27,7 +27,7 @@ Páginas: {self.__paginas}
 Gênero: {self.__genero}
 Disponibilidade para alugar: {disponibilidade}
 Data de cadastro: {self.__dataCadastro}
-_____________________________________________________ ''')
+______________________________________________________ ''')
     
     def getCodigo(self) -> int:
         return self.__codigo

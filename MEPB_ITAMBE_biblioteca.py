@@ -30,13 +30,13 @@ class MEPBbiblioteca(TratamentoErro, Validador):
             self.erro(erro)
     
     def iniciar(self):
-        separador = '______________________________________________________'
+        separador = '======================================================'
         permissao = False
         
         while True:
             system('clear')
             escolha = self.__menu()            
-            if permissao == False and (escolha == 1 or escolha == 3 or escolha == 4 or escolha == 7 or escolha == 8):
+            if permissao == False and (escolha == 1 or escolha == 3 or escolha == 4 or escolha == 6 or escolha == 7 or escolha == 8):
                 permissao = self.validarEntrada(str(input('Digite a senha: ')))
                 if permissao == False:
                     continue

@@ -59,7 +59,9 @@ class AcaoPesquisar(TratamentoErro):
                 self.erro(erro)
                 return
             
+            print('======================================================')
             if livrosBuscados != []:
+                print('\n    *** Livros ***')
                 total = len(livrosBuscados)
                 
                 j = 0
@@ -153,7 +155,9 @@ class AcaoPesquisar(TratamentoErro):
                 self.erro(erro)
                 return
             
+            print('======================================================')
             if alugueiBuscados != []:
+                print('\n    *** Alugueis ***')
                 total = len(alugueiBuscados)
                 
                 j = 0

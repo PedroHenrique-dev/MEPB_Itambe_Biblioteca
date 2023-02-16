@@ -5,11 +5,14 @@ from estrutura.tratamento import *
 
 class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
     def cadastrarLivro(self, arquivos: any, biblioteca: any) -> None:
-        
         self.__tituloCadastrar()
-        codigo = 1001
-        if biblioteca != []:
-            codigo += biblioteca.__len__()
+        
+        codigo = 0
+        if biblioteca == []:
+            codigo = 1001
+        else :
+            indice = biblioteca.__len__() - 1
+            codigo += biblioteca[indice].getCodigo() + 1
             
         try:
             nome = self.inserirNome('Qual o nome do livro? ')
@@ -25,7 +28,7 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
         disponivel = True
         dataCadastro = self.gerarDataAtual()
             
-        biblioteca.insert(0, Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro))
+        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro))
         arquivos.atualizarBiblioteca(biblioteca)
         
         print('\nLivro cadastrado com sucesso.')
@@ -58,9 +61,9 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
     
     def __tituloCadastrar(self):
         print('''
-=====================================================
-===================== Cadastrar =====================
-=====================================================
+======================================================
+===================== Cadastrar ======================
+======================================================
 ''')
         
     def __tituloRemover(self):
