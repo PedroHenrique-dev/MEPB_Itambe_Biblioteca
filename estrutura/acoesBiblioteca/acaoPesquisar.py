@@ -112,9 +112,8 @@ class AcaoPesquisar(TratamentoErro):
 =============== Menu Pesquisa: Aluguel ===============
 ======================================================
 1. Código do livro  |    2. Nome do livro
-3. Nome da pessoa   |
-4. Data de aluguel  |    5. Data de entrega
-0. Sair
+3. Data de aluguel  |    4. Data de entrega
+5. Nome da pessoa   |    0. Sair
               ''')
         try:
             escolhaOpcao = int(input('Digite a opção da ação desejada: '))
@@ -141,14 +140,14 @@ class AcaoPesquisar(TratamentoErro):
                         nomeLivro = self.inserirNome('Qual o nome do livro? ')
                         alugueiBuscados = self.__pesquisarAluguelPorInfo(nomeLivro, 'nomeLivro', alugados)
                     case 3:
-                        nomePessoa = self.inserirNome('Qual o nome da pessoa? ')
-                        alugueiBuscados = self.__pesquisarAluguelPorInfo(nomePessoa, 'nomePessoa', alugados)
-                    case 4:
                         dataAluguel = self.inserirNome('Qual a data do aluguel? ')
                         alugueiBuscados = self.__pesquisarAluguelPorInfo(dataAluguel, 'dataAluguel', alugados)
-                    case 5:
+                    case 4:
                         dataEntega = self.inserirNome('Qual a data de devolução? ')
                         alugueiBuscados = self.__pesquisarAluguelPorInfo(dataEntega, 'dataEntega', alugados)
+                    case 5:
+                        nomePessoa = self.inserirNome('Qual o nome da pessoa? ')
+                        alugueiBuscados = self.__pesquisarAluguelPorInfo(nomePessoa, 'nomePessoa', alugados)
                     case 0:
                         break
             except Exception as erro:

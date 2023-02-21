@@ -41,6 +41,14 @@ class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):
                 alugado.info()
         else:
             print('Não há livro alugado.')
+
+    def gastoTotalLivros(self):
+        gasto = 0
+        for livro in self.__biblioteca:
+            gasto += livro.getPreco()
+        
+        gastoTotal = f'{gasto:5.2f}'
+        print(f'Gasto total com livros: R$ {gastoTotal.replace(".",",")}')
                 
     def __tituloTodosLivros(self):
         print('''

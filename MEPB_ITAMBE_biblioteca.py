@@ -17,12 +17,12 @@ class MEPBbiblioteca(TratamentoErro, Validador):
     3. Remover              |       4. Devolver
     5. Pesquisar livro      |       6. Pesquisar aluguel
     7. Todos os livros      |       8. Todos os alugueis
-    0. Sair
+    9. Gasto total          |       0. Sair
             ''')
         try:
             escolhaOpcao = int(input('Digite a opção da ação desejada: '))
             
-            if escolhaOpcao < 0 or escolhaOpcao > 8:
+            if escolhaOpcao < 0 or escolhaOpcao > 9:
                 raise ErroSoftware('Opção inválida!')
             
             return escolhaOpcao
@@ -34,14 +34,14 @@ class MEPBbiblioteca(TratamentoErro, Validador):
         permissao = False
         
         while True:
-            system('clear')
+            system('cls')
             escolha = self.__menu()            
             if permissao == False and (escolha == 1 or escolha == 3 or escolha == 4 or escolha == 6 or escolha == 7 or escolha == 8):
                 permissao = self.validarEntrada(str(input('Digite a senha: ')))
                 if permissao == False:
                     continue
             
-            system('clear')
+            system('cls')
             match(escolha):
                 case 1:
                     self.__mepb.cadastrarLivroBiblioteca()
@@ -59,6 +59,8 @@ class MEPBbiblioteca(TratamentoErro, Validador):
                     self.__mepb.mostrarLivrosBiblioteca()
                 case 8:
                     self.__mepb.mostrarAlugadosBiblioteca()
+                case 9:
+                    self.__mepb.gastoTotalLivros()
                 case 0:
                     break
                 case None:
@@ -67,7 +69,7 @@ class MEPBbiblioteca(TratamentoErro, Validador):
             
             print(separador)
             input("\nAperte 'Enter' para continuar.")
-        system('clear')
+        system('cls')
 
 itambe = MEPBbiblioteca()
 itambe.iniciar()
