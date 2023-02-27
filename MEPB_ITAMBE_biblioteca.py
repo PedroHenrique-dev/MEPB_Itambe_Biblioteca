@@ -1,6 +1,7 @@
 from estrutura import Biblioteca
 from estrutura.tratamento import *
 from estrutura.gerenciador import *
+from sys import platform
 from os import system
 
 class MEPBbiblioteca(TratamentoErro, Validador):
@@ -34,14 +35,14 @@ class MEPBbiblioteca(TratamentoErro, Validador):
         permissao = False
         
         while True:
-            system('cls')
+            limpar()
             escolha = self.__menu()            
             if permissao == False and (escolha == 1 or escolha == 3 or escolha == 4 or escolha == 6 or escolha == 7 or escolha == 8):
                 permissao = self.validarEntrada(str(input('Digite a senha: ')))
                 if permissao == False:
                     continue
             
-            system('cls')
+            limpar()
             match(escolha):
                 case 1:
                     self.__mepb.cadastrarLivroBiblioteca()
@@ -70,6 +71,12 @@ class MEPBbiblioteca(TratamentoErro, Validador):
             print(separador)
             input("\nAperte 'Enter' para continuar.")
         system('cls')
+
+def limpar():
+    if platform == 'win32':
+        system('cls')
+    else:
+        system('clear')
 
 itambe = MEPBbiblioteca()
 itambe.iniciar()
