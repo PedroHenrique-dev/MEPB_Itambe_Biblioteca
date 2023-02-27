@@ -1,8 +1,8 @@
+from os import system
+from sys import platform
 from estrutura import Biblioteca
 from estrutura.tratamento import *
 from estrutura.gerenciador import *
-from sys import platform
-from os import system
 
 class MEPBbiblioteca(TratamentoErro, Validador):
     def __init__(self) -> None:
