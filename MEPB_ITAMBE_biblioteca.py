@@ -70,7 +70,7 @@ class MEPBbiblioteca(TratamentoErro, Validador):
             
             print(separador)
             input("\nAperte 'Enter' para continuar.")
-        system('cls')
+        limpar()
 
 def limpar():
     if platform == 'win32':
