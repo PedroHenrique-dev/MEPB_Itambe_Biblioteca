@@ -251,7 +251,7 @@
             "paginas": 192,
             "genero": "Doutrina",
             "preco": 29.2,
-            "disponivel": true,
+            "disponivel": false,
             "dataCadastro": "22/03/2023"
         },
         {
@@ -282,7 +282,7 @@
             "autor": "Cristina Marques",
             "editora": "SBN",
             "paginas": 18,
-            "genero": "Infantil",
+            "genero": "            \"genero\": \"Infantil\",",
             "preco": 4.9,
             "disponivel": true,
             "dataCadastro": "16/07/2023"
@@ -473,6 +473,50 @@
             "preco": 0.0,
             "disponivel": true,
             "dataCadastro": "16/07/2023"
+        },
+        {
+            "codigo": 1044,
+            "nome": "O Grande Conflito",
+            "autor": "Ellen G. White",
+            "editora": "CPB",
+            "paginas": 287,
+            "genero": "Adventista",
+            "preco": 0.0,
+            "disponivel": true,
+            "dataCadastro": "08/08/2023"
+        },
+        {
+            "codigo": 1045,
+            "nome": "O Grande Conflito",
+            "autor": "Ellen G. White",
+            "editora": "CPB",
+            "paginas": 287,
+            "genero": "Adventista",
+            "preco": 0.0,
+            "disponivel": true,
+            "dataCadastro": "08/08/2023"
+        },
+        {
+            "codigo": 1046,
+            "nome": "B\u00edblia para Crian\u00e7as",
+            "autor": "Nathalie Fernandes",
+            "editora": "Ciranda Cultura",
+            "paginas": 128,
+            "genero": "Infantil",
+            "preco": 0.0,
+            "disponivel": true,
+            "dataCadastro": "08/08/2023"
+        },
+        {
+            "codigo": 1047,
+            "nome": "Estatuto M.E.P.B.",
+            "autor": "Luana Santos",
+            "editora": "MEPB Nacional",
+            "paginas": 257,
+            "genero": "Estatuto",
+            "preco": 0.0,
+            "disponivel": true,
+            "dataCadastro": "08/08/2023"
         }
     ]
 }
