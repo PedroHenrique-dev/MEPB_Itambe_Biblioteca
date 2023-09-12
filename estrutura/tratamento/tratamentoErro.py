@@ -23,3 +23,7 @@ class TratamentoErro:
         if len(nome) < 2:
             raise ErroSoftware('Nome inválido. Letras insuficientes!')
         return nome
+    
+    def testeNomeValido(self, nome):
+        if len(nome) < 2:
+            raise ErroSoftware('Nome inválido. Letras insuficientes!')

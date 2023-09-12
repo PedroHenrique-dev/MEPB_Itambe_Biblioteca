@@ -3,7 +3,7 @@ from estrutura.gerenciador.acoesArquivos import *
 
 class GerenciadorArquivos(Escritor, Leitor):
     def __init__(self) -> None:
-        self.diretorio = '../MEPB_Itambe_Biblioteca/estrutura/gerenciador/arquivos/'
+        self.diretorio = 'C:/arquivosBiblioteca/'
         self.arquivoBilioteca = self.diretorio + 'biblioteca.json'
         self.arquivoAlugados = self.diretorio + 'alugados.json'
         

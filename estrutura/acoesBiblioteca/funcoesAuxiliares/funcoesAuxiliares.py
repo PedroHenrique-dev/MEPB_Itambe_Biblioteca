@@ -25,7 +25,7 @@ class FuncoesAuxiliares:
         
         if mes == 2 and dia > 28:
             dia = 3
-        elif mes == 4 or mes == 6 or mes == 9 or mes == 11:
+        elif dia > 30 and (mes == 4 or mes == 6 or mes == 9 or mes == 11):
             dia = 1
         
         novaData = date(ano, mes+1, dia)

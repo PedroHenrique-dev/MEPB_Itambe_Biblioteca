@@ -31,3 +31,15 @@ ______________________________________________________''')
     
     def getDataEntega(self):
         return self.__dataEntega
+    
+    def getInfo(self):
+        informacoes = f'''_________________________________________________
+
+    * Livro {self.__codigo} *
+Nome da pessoa: {self.__nomePessoa}
+Codigo: {self.__codigo}
+Nome do livro: {self.__nomeLivro}
+Data do aluguel: {self.__dataAluguel}
+Data da entega: {self.__dataEntega}
+'''
+        return informacoes

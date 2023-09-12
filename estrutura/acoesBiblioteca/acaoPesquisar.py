@@ -21,6 +21,24 @@ class AcaoPesquisar(TratamentoErro):
         except Exception as erro:
             self.erro(erro)
     
+    def appPesquisarLivro(self, pesquisa, tipoPesquisa, biblioteca: any):
+        if tipoPesquisa == 'codigo':
+            pesquisa = int(pesquisa)
+        
+        if pesquisa == 'Disponível':
+            pesquisa = True
+        elif pesquisa == 'Indisponível':
+            pesquisa = False
+
+        livrosBuscados = self.__pesquisarLivroPorInfo(pesquisa, tipoPesquisa, biblioteca)
+
+        informacoes = '    *** Livros ***\n'
+
+        if livrosBuscados != []:
+            for livro in livrosBuscados:
+                informacoes += livro.getInfo()
+        return informacoes
+    
     def pesquisarLivro(self, biblioteca: any):
         while True:
             system('clear')
@@ -125,29 +143,42 @@ class AcaoPesquisar(TratamentoErro):
         except Exception as erro:
             self.erro(erro)
     
+    def appPesquisarAluguel(self, pesquisa, tipoPesquisa, alugados: any):
+        if tipoPesquisa == 'codigoLivro':
+            pesquisa = int(pesquisa)
+
+        alugueisBuscados = self.__pesquisarAluguelPorInfo(pesquisa, tipoPesquisa, alugados)
+
+        informacoes = '    *** Alugueis ***\n'
+
+        if alugueisBuscados != []:
+            for aluguel in alugueisBuscados:
+                informacoes += aluguel.getInfo()
+        return informacoes
+    
     def pesquisarAluguel(self, alugados: any):
         while True:
             system('clear')
             escolha = self.__menuPesquisaAluguel()
             
             try:
-                alugueiBuscados = []
+                alugueisBuscados = []
                 match(escolha):
                     case 1:
                         codigoLivro = int(input('Qual o código do livro? '))
-                        alugueiBuscados = self.__pesquisarAluguelPorInfo(codigoLivro, 'codigoLivro', alugados)
+                        alugueisBuscados = self.__pesquisarAluguelPorInfo(codigoLivro, 'codigoLivro', alugados)
                     case 2:
                         nomeLivro = self.inserirNome('Qual o nome do livro? ')
-                        alugueiBuscados = self.__pesquisarAluguelPorInfo(nomeLivro, 'nomeLivro', alugados)
+                        alugueisBuscados = self.__pesquisarAluguelPorInfo(nomeLivro, 'nomeLivro', alugados)
                     case 3:
                         dataAluguel = self.inserirNome('Qual a data do aluguel? ')
-                        alugueiBuscados = self.__pesquisarAluguelPorInfo(dataAluguel, 'dataAluguel', alugados)
+                        alugueisBuscados = self.__pesquisarAluguelPorInfo(dataAluguel, 'dataAluguel', alugados)
                     case 4:
                         dataEntega = self.inserirNome('Qual a data de devolução? ')
-                        alugueiBuscados = self.__pesquisarAluguelPorInfo(dataEntega, 'dataEntega', alugados)
+                        alugueisBuscados = self.__pesquisarAluguelPorInfo(dataEntega, 'dataEntega', alugados)
                     case 5:
                         nomePessoa = self.inserirNome('Qual o nome da pessoa? ')
-                        alugueiBuscados = self.__pesquisarAluguelPorInfo(nomePessoa, 'nomePessoa', alugados)
+                        alugueisBuscados = self.__pesquisarAluguelPorInfo(nomePessoa, 'nomePessoa', alugados)
                     case 0:
                         break
             except Exception as erro:
@@ -155,13 +186,13 @@ class AcaoPesquisar(TratamentoErro):
                 return
             
             print('======================================================')
-            if alugueiBuscados != []:
+            if alugueisBuscados != []:
                 print('\n    *** Alugueis ***')
-                total = len(alugueiBuscados)
+                total = len(alugueisBuscados)
                 
                 j = 0
                 for i in range(total):
-                    alugueiBuscados[i].info()
+                    alugueisBuscados[i].info()
                     j += 1
                     
                     if j == 5:
@@ -191,7 +222,7 @@ class AcaoPesquisar(TratamentoErro):
                 for aluguel in alugados:
                     if aluguel.getDataAluguel() == infoBusca:
                         informacoes.append(aluguel)
-            case 'dataEntega':
+            case 'dataEntrega':
                 for aluguel in alugados:
                     if aluguel.getDataEntega() == infoBusca:
                         informacoes.append(aluguel)

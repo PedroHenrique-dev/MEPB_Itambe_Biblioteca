@@ -28,6 +28,26 @@ Gênero: {self.__genero}
 Disponibilidade para alugar: {disponibilidade}
 Data de cadastro: {self.__dataCadastro}
 ______________________________________________________ ''')
+        
+    def getInfo(self):
+        disponibilidade = ''
+        if self.__disponivel == True:
+            disponibilidade = 'Disponível'
+        else:
+            disponibilidade = 'Indisponível'
+            
+        informacoes = f'''_________________________________________________
+        
+    * Livro {self.__codigo} *
+Nome: {self.__nome}
+Autor: {self.__autor}
+Editora: {self.__editora}
+Páginas: {self.__paginas}
+Gênero: {self.__genero}
+Disponibilidade para alugar: {disponibilidade}
+Data de cadastro: {self.__dataCadastro}
+'''
+        return informacoes
     
     def getCodigo(self) -> int:
         return self.__codigo
