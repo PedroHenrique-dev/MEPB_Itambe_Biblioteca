@@ -7,8 +7,7 @@ class Aluguel:
         self.__dataEntega = dataEntega
 
     def info(self) -> None:
-        print(
-f'''______________________________________________________
+        print(f'''______________________________________________________
     * Livro {self.__codigo} *
 Nome da pessoa: {self.__nomePessoa}
 Codigo: {self.__codigo}

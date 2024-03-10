@@ -1,17 +1,18 @@
 import json
 from estrutura.classesArquivos import *
 
+
 class Leitor:
-    def lerJSON(self, nomeArquivo: str, lerbiblioteca: bool):
+    def lerJSON(self, nomeArquivo: str, lerBiblioteca: bool):
         with open(nomeArquivo) as f:
             jsonArquivo = json.load(f)
             
         with open(nomeArquivo,'r') as arquivo:
-            return self.__leitorJson(jsonArquivo, lerbiblioteca)
+            return self.__leitorJson(jsonArquivo, lerBiblioteca)
     
-    def __leitorJson(self, jsonArquivo, lerbiblioteca: bool):
+    def __leitorJson(self, jsonArquivo, lerBiblioteca: bool):
         informacoes = []
-        if lerbiblioteca:
+        if lerBiblioteca:
             for info in jsonArquivo['livros']:
                 informacoes.append(self.__lerJsonInfoLivro(info))
         else:
@@ -19,7 +20,8 @@ class Leitor:
                 informacoes.append(self.__lerJsonInfoAluguel(info))
         return informacoes
     
-    def __lerJsonInfoAluguel(self, dados):
+    @staticmethod
+    def __lerJsonInfoAluguel(dados):
         nomePessoa = str(dados['nomePessoa'])
         codigo = int(dados['codigo'])
         nomeLivro = str(dados['nomeLivro'])
@@ -28,7 +30,8 @@ class Leitor:
         
         return Aluguel(nomePessoa, codigo, nomeLivro, dataAluguel, dataEntega)
                 
-    def __lerJsonInfoLivro(self, dados):
+    @staticmethod
+    def __lerJsonInfoLivro(dados):
         codigo = int(dados['codigo'])
         nome = str(dados['nome'])
         autor = str(dados['autor'])
@@ -41,7 +44,8 @@ class Leitor:
         
         return Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro)
 
-    def __informacaoLivro(self, livro):
+    @staticmethod
+    def __informacaoLivro(livro):
         infoLivro = {
             "codigo": livro.getCodigo(),
             "nome": livro.getNome(),
@@ -54,8 +58,9 @@ class Leitor:
             "dataCadastro": livro.getDataCadastro()
         }
         return infoLivro
-    
-    def __informacaoAluguel(self, aluguel):
+
+    @staticmethod
+    def __informacaoAluguel(aluguel):
         infoAluguel = {
             "nomePessoa": aluguel.getNomePessoa(),
             "codigo": aluguel.getCodigo(),

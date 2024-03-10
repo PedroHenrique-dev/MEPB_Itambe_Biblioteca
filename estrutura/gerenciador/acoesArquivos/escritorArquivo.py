@@ -1,5 +1,6 @@
 import json
 
+
 class Escritor:    
     def gerarArquivo(self, informacoesBiblioteca, nomeArquivo: str):
         nome = nomeArquivo[-15:-5]
@@ -15,10 +16,12 @@ class Escritor:
         
         self.__json_nLinhas(informacoesArquivo, nomeArquivo)
             
-    def __json_nLinhas(self, texto, nomeArquivo: str):
+    @staticmethod
+    def __json_nLinhas(texto, nomeArquivo: str):
         with open(nomeArquivo, 'w') as arquivo: 
             arquivo.write(json.dumps(texto, indent = 4))
     
-    def __json_1Linha(self, texto, nomeArquivo: str):
+    @staticmethod
+    def __json_1Linha(texto, nomeArquivo: str):
         with open(nomeArquivo, 'w') as arquivo: 
             json.dump(texto, arquivo)

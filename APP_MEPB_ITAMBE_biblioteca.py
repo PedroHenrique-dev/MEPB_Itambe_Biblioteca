@@ -5,6 +5,7 @@ from estrutura.tratamento import ErroSoftware
 from estrutura.gerenciador.validador import Validador
 import json
 
+
 class InterfaceMEPB(Validador):
     def __init__(self) -> None:
         self.usuarioAdministrador = False
@@ -33,7 +34,7 @@ class InterfaceMEPB(Validador):
         self.labelAux2.grid(row=2, column=2, ipadx=10, ipady=10, padx=10)
 
         self.frameJanela.pack()
-        self.janela = self.fecharJanela()
+        self.fecharJanela()
 
     def menuButtonBiblioteca(self):
         insideMenu = tb.Menu(self.menuBiblioteca)
@@ -64,18 +65,20 @@ class InterfaceMEPB(Validador):
         elif optionSelected == 'Administrador':
             self.administrador()
 
-    def igreja(self, frame):
+    @staticmethod
+    def igreja(frame):
         labelIgreja = tb.Label(frame,
-            anchor='n',
-            compound='bottom',
-            font='{Rage Italic} 30 {}',
-            relief='flat',
-            state='normal',
-            text='Missão  Evangélica Pentecostal do Brasil - Itambé'
-        )
+                               anchor='n',
+                               compound='bottom',
+                               font='{Rage Italic} 30 {}',
+                               relief='flat',
+                               state='normal',
+                               text='Missão  Evangélica Pentecostal do Brasil - Itambé'
+                               )
         return labelIgreja
 
-    def abrirJanela(self):
+    @staticmethod
+    def abrirJanela():
         janela = tb.Window(themename='journal')
         janela.title('Biblioteca')
         janela.iconbitmap('C:/arquivosBiblioteca/book.ico')
@@ -83,17 +86,18 @@ class InterfaceMEPB(Validador):
         # janela.attributes('-fullscreen', True)
         janela.resizable(False, False)
         return janela
-    
+
     def fecharJanela(self):
         self.janela.mainloop()
 
-    def carregarImagem(self, frame, nomeImagem):
+    @staticmethod
+    def carregarImagem(frame, nomeImagem):
         imagem = PhotoImage(file=nomeImagem)
-        imagem = imagem.subsample(2,2)
+        imagem = imagem.subsample(2, 2)
         labelImagem = tb.Label(frame, image=imagem)
         labelImagem.imagem = imagem
         return labelImagem
-    
+
     def saidaTexto(self, texto, janela, height, width, column, row, sticky):
         saida = tb.Text(janela, height=height, width=width, font=self.fonte, state='disabled')
         saida.configure(state='normal')
@@ -101,9 +105,9 @@ class InterfaceMEPB(Validador):
         saida.insert('1.0', texto)
         saida.configure(state='disabled')
         saida.grid(column=column, row=row, sticky=sticky, padx=0, pady=3)
-    
+
     def saidaScrolledText(self, texto, janela, height, width, column, row, sticky, padx, pady):
-        saida = tb.ScrolledText(janela, wrap=WORD , height=height, width=width, font=self.fonte, state='disabled')
+        saida = tb.ScrolledText(janela, wrap=WORD, height=height, width=width, font=self.fonte, state='disabled')
         saida.configure(state='normal')
         saida.delete('1.0', 'end')
         saida.insert('1.0', texto)
@@ -111,10 +115,10 @@ class InterfaceMEPB(Validador):
         saida.grid(column=column, row=row, sticky=sticky, padx=padx, pady=pady)
 
     def mensagemStatusSaida(self, mensagemSucesso, erroProcesso, janela, column, row, sticky, ipadx):
-        mensagem = mensagemSucesso if (erroProcesso == False) else 'Erro'
-        ipadxErro=34
+        mensagem = mensagemSucesso if (not erroProcesso) else 'Erro'
+        ipadxErro = 34
 
-        if mensagemSucesso[:5] == 'Senha' and erroProcesso == True:
+        if mensagemSucesso[:5] == 'Senha' and erroProcesso:
             mensagem = 'Senha incorreta'
             ipadxErro = 0
 
@@ -130,14 +134,15 @@ class InterfaceMEPB(Validador):
 
         erroProcesso = False
         try:
-            if self.usuarioAdministrador == False:
+            if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
-            
-            informacoesLivro = (nome.get(), autor.get(), editora.get(), int(paginas.get()), genero.get(), float(preco.get()))
+
+            informacoesLivro = (
+            nome.get(), autor.get(), editora.get(), int(paginas.get()), genero.get(), float(preco.get()))
             self.mepb.appCadastrarLivroBiblioteca(informacoesLivro)
         except Exception as erro:
             erroProcesso = True
-        
+
         self.mensagemStatusSaida('Cadastrado', erroProcesso, janela, column=1, row=6, sticky='e', ipadx=8)
 
     def acaoRemover(self, event):
@@ -145,13 +150,13 @@ class InterfaceMEPB(Validador):
 
         erroProcesso = False
         try:
-            if self.usuarioAdministrador == False:
+            if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
-            
+
             self.mepb.appRemoverLivroBiblioteca(int(codigo.get()))
         except Exception as erro:
             erroProcesso = True
-            
+
         self.mensagemStatusSaida('Removido', erroProcesso, janela, column=3, row=1, sticky='e', ipadx=14)
 
     def acaoAlugar(self, event):
@@ -168,12 +173,12 @@ class InterfaceMEPB(Validador):
 
     def acaoDevolver(self, event):
         codigo, janela = event
-        
+
         erroProcesso = False
         try:
-            if self.usuarioAdministrador == False:
+            if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
-            
+
             self.mepb.appDevolucaoLivroBiblioteca(int(codigo.get()))
         except Exception as erro:
             erroProcesso = True
@@ -190,26 +195,26 @@ class InterfaceMEPB(Validador):
                 informacoes = self.mepb.appPesquisarLivroBiblioteca(pesquisa, tipoJanela)
             else:
                 if type(pesquisa.get()) == str and pesquisa.get() == '':
-                    raise ErroSoftware('Nada pesquisado!') 
-                
+                    raise ErroSoftware('Nada pesquisado!')
+
                 informacoes = self.mepb.appPesquisarLivroBiblioteca(pesquisa.get(), tipoJanela)
         except Exception as erro:
             erroProcesso = True
 
         self.janelaPesquisarLivro(janela, informacoes, tipoJanela, titulo)
-    
+
     def acaoPesquisarAluguel(self, event):
         pesquisa, janela, tipoJanela, titulo = event
 
         informacoes = ''
         erroProcesso = False
         try:
-            if self.usuarioAdministrador == False:
+            if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
-            
+
             if type(pesquisa.get()) == str and pesquisa.get() == '':
-                raise ErroSoftware('Nada pesquisado!') 
-            
+                raise ErroSoftware('Nada pesquisado!')
+
             informacoes = self.mepb.appPesquisarAluguelBiblioteca(pesquisa.get(), tipoJanela)
         except Exception as erro:
             erroProcesso = True
@@ -218,23 +223,25 @@ class InterfaceMEPB(Validador):
 
     def acaoMostrarLivros(self, event):
         informacoes = self.mepb.appMostrarLivrosBiblioteca()
-        self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw', padx=0, pady=3)
+        self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0,
+                               sticky='nw', padx=0, pady=3)
 
     def acaoMostrarAlugados(self, event):
         erroProcesso = False
         try:
-            if self.usuarioAdministrador == False:
+            if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             informacoes = self.mepb.appMostrarAlugadosBiblioteca()
-            self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw', padx=0, pady=3)
+            self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0,
+                                   sticky='nw', padx=0, pady=3)
         except Exception as erro:
             erroProcesso = True
 
     def acaoGastoTotal(self, event):
         erroProcesso = False
         try:
-            if self.usuarioAdministrador == False:
+            if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             gasto = self.mepb.appGastoTotalLivros()
@@ -248,10 +255,10 @@ class InterfaceMEPB(Validador):
         erroProcesso = False
         try:
             self.usuarioAdministrador = self.appValidarEntrada(senha.get())
-            
+
         except Exception as erro:
             erroProcesso = True
-            
+
         self.mensagemStatusSaida('Senha correta', erroProcesso, janela, column=3, row=1, sticky='e', ipadx=7)
 
     def principal(self):
@@ -266,22 +273,24 @@ class InterfaceMEPB(Validador):
 
         with open(nomeArquivo) as f:
             jsonArquivo = json.load(f)
-            
-        with open(nomeArquivo,'r') as arquivo:
+
+        with open(nomeArquivo, 'r') as arquivo:
             for info in jsonArquivo['historia']:
                 informacoes += info
-                
-        self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=9, width=74, column=0, row=1, sticky='nw', padx=10, pady=3)
+
+        self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=9, width=74, column=0, row=1,
+                               sticky='nw', padx=10, pady=3)
 
         membros.grid(column=0, row=0)
         self.frameFuncao.grid(row=1, column=1, sticky='nw', ipadx=0, ipady=10)
 
     def criarLabel(self, janela, textLabel):
         return tb.Label(janela, text=textLabel, font=self.fonte), tb.Entry(janela, font=self.fonte)
-    
-    def criarBotao(self, janela, textBotao, comando, textoComando):
-        return tb.Button(janela, text=textBotao, bootstyle='info', command=lambda:comando(textoComando))
-    
+
+    @staticmethod
+    def criarBotao(janela, textBotao, comando, textoComando):
+        return tb.Button(janela, text=textBotao, bootstyle='info', command=lambda: comando(textoComando))
+
     def janelaCadastrar(self, notebookCadastro):
         janelaAdicionar = tb.Frame(notebookCadastro)
         nomeLabel, nomeEntry = self.criarLabel(janelaAdicionar, 'Nome:    ')
@@ -307,7 +316,7 @@ class InterfaceMEPB(Validador):
         precoEntry.grid(column=1, row=5, sticky='nw')
         cadastrarButton.grid(column=1, row=6, sticky='nw', pady=10)
         notebookCadastro.add(janelaAdicionar, text='Adicionar')
-        
+
     def janelaRemover(self, notebookCadastro):
         janelaRemover = tb.Frame(notebookCadastro)
         codigoLivroLabel, codigoLivroTexto = self.criarLabel(janelaRemover, 'Código do livro:    ')
@@ -318,7 +327,7 @@ class InterfaceMEPB(Validador):
         codigoLivroTexto.grid(column=1, row=0, sticky='nw')
         removerButton.grid(column=1, row=1, sticky='nw', pady=10)
         notebookCadastro.add(janelaRemover, text='Remover')
-    
+
     def cadastro(self):
         self.frameFuncao.destroy()
         self.frameFuncao = tb.Labelframe(self.frameJanela)
@@ -331,7 +340,7 @@ class InterfaceMEPB(Validador):
         self.janelaRemover(notebookCadastro)
 
         self.frameFuncao.grid(row=1, column=1, ipadx=95, ipady=10, sticky='nw')
-    
+
     def janelaAlugar(self, notebookAluguel):
         janelaAlugar = tb.Frame(notebookAluguel)
         codigoLivroLabel, codigoLivroEntry = self.criarLabel(janelaAlugar, 'Código do livro:    ')
@@ -345,7 +354,7 @@ class InterfaceMEPB(Validador):
         nomeEntry.grid(column=1, row=1, ipadx=100, sticky='nw')
         alugarButton.grid(column=1, row=2, sticky='nw', pady=10)
         notebookAluguel.add(janelaAlugar, text='Alugar')
-        
+
     def janelaDevolver(self, notebookAluguel):
         janelaDevolver = tb.Frame(notebookAluguel)
         codigoLivroLabel, codigoLivroEntry = self.criarLabel(janelaDevolver, 'Código do livro:    ')
@@ -356,7 +365,7 @@ class InterfaceMEPB(Validador):
         codigoLivroEntry.grid(column=1, row=0, sticky='nw')
         devolverButton.grid(column=1, row=1, sticky='nw', pady=10)
         notebookAluguel.add(janelaDevolver, text='Devolver')
-      
+
     def aluguel(self):
         self.frameFuncao.destroy()
         self.frameFuncao = tb.Labelframe(self.frameJanela)
@@ -373,16 +382,20 @@ class InterfaceMEPB(Validador):
     def janelaPesquisarLivro(self, janela, textoSaida, tipoJanela, titulo):
         if tipoJanela == 'disponibilidade':
             label = tb.Label(janela, text='Disponibilidade:', font=self.fonte)
-            botaoDisponível = self.criarBotao(janela, 'Disponível', self.acaoPesquisarLivro, ('Disponível', janela, tipoJanela, titulo))
-            botaoIndisponível = self.criarBotao(janela, 'Indisponível', self.acaoPesquisarLivro, ('Indisponível', janela, tipoJanela, titulo))
-            self.saidaScrolledText(texto=textoSaida, janela=janela, height=12, width=50, column=1, row=1, sticky='nw', padx=0, pady=0)
+            botaoDisponivel = self.criarBotao(janela, 'Disponível', self.acaoPesquisarLivro,
+                                              ('Disponível', janela, tipoJanela, titulo))
+            botaoIndisponivel = self.criarBotao(janela, 'Indisponível', self.acaoPesquisarLivro,
+                                                ('Indisponível', janela, tipoJanela, titulo))
+            self.saidaScrolledText(texto=textoSaida, janela=janela, height=12, width=50, column=1, row=1, sticky='nw',
+                                   padx=0, pady=0)
 
             label.grid(column=0, row=0, sticky='nw', pady=10)
-            botaoDisponível.grid(column=1, row=0, sticky='w')
-            botaoIndisponível.grid(column=1, row=0, sticky='w', padx=100)
+            botaoDisponivel.grid(column=1, row=0, sticky='w')
+            botaoIndisponivel.grid(column=1, row=0, sticky='w', padx=100)
         else:
             label, entry = self.criarLabel(janela, titulo)
-            self.saidaScrolledText(texto=textoSaida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw', padx=0, pady=0)
+            self.saidaScrolledText(texto=textoSaida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw',
+                                   padx=0, pady=0)
             pesquisa = (entry, janela, tipoJanela, titulo)
             button = self.criarBotao(janela, 'Pesquisar', self.acaoPesquisarLivro, pesquisa)
             label.grid(column=0, row=0, sticky='nw', pady=10)
@@ -392,7 +405,7 @@ class InterfaceMEPB(Validador):
     def funcaoFramePesquisarLivro(self, notebookPesquisar, nomeJanela, tipoJanela):
         janela = tb.Frame(notebookPesquisar)
 
-        self.janelaPesquisarLivro(janela, '', tipoJanela, nomeJanela+':    ')
+        self.janelaPesquisarLivro(janela, '', tipoJanela, nomeJanela + ':    ')
         notebookPesquisar.add(janela, text=nomeJanela)
 
     def pesquisarLivro(self):
@@ -409,13 +422,14 @@ class InterfaceMEPB(Validador):
         self.funcaoFramePesquisarLivro(notebookPesquisar, 'Editora', 'editora')
         self.funcaoFramePesquisarLivro(notebookPesquisar, 'Gênero', 'genero')
         self.funcaoFramePesquisarLivro(notebookPesquisar, 'Disponibilidade', 'disponibilidade')
-        
+
         self.frameFuncao.grid(row=1, column=1, ipadx=35, ipady=16, sticky='nw')
 
-    def janelaPesquisarAluguel(self, janela, textoSaida, tipojanela, titulo):
+    def janelaPesquisarAluguel(self, janela, textoSaida, tipoJanela, titulo):
         label, entry = self.criarLabel(janela, titulo)
-        self.saidaScrolledText(texto=textoSaida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw', padx=0, pady=0)
-        pesquisa = (entry, janela, tipojanela, titulo)
+        self.saidaScrolledText(texto=textoSaida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw',
+                               padx=0, pady=0)
+        pesquisa = (entry, janela, tipoJanela, titulo)
         button = self.criarBotao(janela, 'Pesquisar', self.acaoPesquisarAluguel, pesquisa)
         label.grid(column=0, row=0, sticky='nw', pady=10)
         entry.grid(column=1, row=0, ipadx=100, sticky='nw')
@@ -423,7 +437,7 @@ class InterfaceMEPB(Validador):
 
     def funcaoFramePesquisarAluguel(self, notebookPesquisar, nomeJanela, tipoJanela):
         janela = tb.Frame(notebookPesquisar)
-        self.janelaPesquisarAluguel(janela, '', tipoJanela, nomeJanela+':    ')
+        self.janelaPesquisarAluguel(janela, '', tipoJanela, nomeJanela + ':    ')
         notebookPesquisar.add(janela, text=nomeJanela)
 
     def pesquisarAluguel(self):
@@ -446,46 +460,49 @@ class InterfaceMEPB(Validador):
         self.frameFuncao.destroy()
         self.frameFuncao = tb.Labelframe(self.frameJanela)
         self.frameFuncao.config(text='Mostrar Livros')
-        
+
         mostrarDadosLabel = tb.Label(self.frameFuncao, text='Dados:    ', font=self.fonte)
-        self.saidaScrolledText(texto='', janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw', padx=0, pady=3)
+        self.saidaScrolledText(texto='', janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw',
+                               padx=0, pady=3)
         mostrarLivrosButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoMostrarLivros, 'mostrarLivros')
         mostrarDadosLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
         mostrarLivrosButton.grid(column=1, row=1, sticky='nw', pady=10)
-        
+
         self.frameFuncao.grid(row=1, column=1, ipadx=6, ipady=3, sticky='nw')
 
     def mostrarAlugados(self):
         self.frameFuncao.destroy()
         self.frameFuncao = tb.Labelframe(self.frameJanela)
         self.frameFuncao.config(text='Mostrar Alugados')
-        
+
         mostrarDadosLabel = tb.Label(self.frameFuncao, text='Dados:    ', font=self.fonte)
-        self.saidaScrolledText(texto='', janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw', padx=0, pady=3)
-        mostrarAlugadosButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoMostrarAlugados, 'mostrarAlugados')
+        self.saidaScrolledText(texto='', janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw',
+                               padx=0, pady=3)
+        mostrarAlugadosButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoMostrarAlugados,
+                                                'mostrarAlugados')
         mostrarDadosLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
         mostrarAlugadosButton.grid(column=1, row=1, sticky='nw', pady=10)
-        
+
         self.frameFuncao.grid(row=1, column=1, ipadx=6, ipady=3, sticky='nw')
 
     def gastoTotal(self):
         self.frameFuncao.destroy()
         self.frameFuncao = tb.Labelframe(self.frameJanela)
         self.frameFuncao.config(text='Gasto Total')
-        
+
         mostrarDadosLabel = tb.Label(self.frameFuncao, text='Gasto Total:    ', font=self.fonte)
         self.saidaTexto(texto='', janela=self.frameFuncao, height=1, width=10, column=1, row=0, sticky='nw')
         gastoTotalButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoGastoTotal, 'gastoTotal')
         mostrarDadosLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
         gastoTotalButton.grid(column=1, row=1, sticky='nw', pady=10)
-        
+
         self.frameFuncao.grid(row=1, column=1, ipadx=241, ipady=133, sticky='nw')
-    
+
     def administrador(self):
         self.frameFuncao.destroy()
         self.frameFuncao = tb.Labelframe(self.frameJanela)
         self.frameFuncao.config(text='Administrador')
-        
+
         senhaLabel = tb.Label(self.frameFuncao, text='Senha:    ', font=self.fonte)
         senhaEntry = tb.Entry(self.frameFuncao, font=self.fonte, show='*')
         senha = (senhaEntry, self.frameFuncao)
@@ -495,7 +512,8 @@ class InterfaceMEPB(Validador):
         senhaLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
         senhaEntry.grid(column=1, row=0, sticky='nw', padx=0, pady=3)
         senhaButton.grid(column=1, row=1, sticky='nw', pady=10)
-        
+
         self.frameFuncao.grid(row=1, column=1, ipadx=152, ipady=133, sticky='nw')
-        
+
+
 app = InterfaceMEPB()

@@ -3,6 +3,7 @@ from estrutura.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
 
 from estrutura.tratamento import *
 
+
 class AcaoAluguel(FuncoesAuxiliares, TratamentoErro):
     def appAlugar(self, informacoesAluguel, arquivos: any, biblioteca: any, alugados: any):
         codigoLivro, nomePessoa = informacoesAluguel
@@ -129,14 +130,16 @@ class AcaoAluguel(FuncoesAuxiliares, TratamentoErro):
             
         return arquivos, biblioteca, alugados
     
-    def __tituloAlugar(self):
+    @staticmethod
+    def __tituloAlugar():
         print('''
 ======================================================
 ======================= Alugar =======================
 ======================================================
 ''')
     
-    def __tituloDevolucao(self):
+    @staticmethod
+    def __tituloDevolucao():
         print('''
 ======================================================
 ====================== Devolver ======================

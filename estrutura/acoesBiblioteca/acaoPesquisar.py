@@ -1,6 +1,7 @@
 from estrutura.tratamento import *
 from os import system
 
+
 class AcaoPesquisar(TratamentoErro):
     def __menuPesquisaLivro(self):
         print('''
@@ -34,7 +35,7 @@ class AcaoPesquisar(TratamentoErro):
 
         informacoes = '    *** Livros ***\n'
 
-        if livrosBuscados != []:
+        if livrosBuscados:
             for livro in livrosBuscados:
                 informacoes += livro.getInfo()
         return informacoes
@@ -46,7 +47,7 @@ class AcaoPesquisar(TratamentoErro):
             
             livrosBuscados = []
             try:
-                match(escolha):
+                match escolha:
                     case 1:
                         codigoLivro = int(input('Qual o código do livro? '))
                         livrosBuscados = self.__pesquisarLivroPorInfo(codigoLivro, 'codigo', biblioteca)
@@ -78,7 +79,7 @@ class AcaoPesquisar(TratamentoErro):
                 return
             
             print('======================================================')
-            if livrosBuscados != []:
+            if livrosBuscados:
                 print('\n    *** Livros ***')
                 total = len(livrosBuscados)
                 
@@ -95,9 +96,10 @@ class AcaoPesquisar(TratamentoErro):
                 
             input("\nAperte 'Enter' para continuar.")
             
-    def __pesquisarLivroPorInfo(self, infoBusca: any, tipoBusca: str, biblioteca: any):
+    @staticmethod
+    def __pesquisarLivroPorInfo(infoBusca: any, tipoBusca: str, biblioteca: any):
         informacoes = []
-        match(tipoBusca):
+        match tipoBusca:
             case 'codigo':
                 for livro in biblioteca:
                     if livro.getCodigo() == infoBusca:
@@ -151,7 +153,7 @@ class AcaoPesquisar(TratamentoErro):
 
         informacoes = '    *** Alugueis ***\n'
 
-        if alugueisBuscados != []:
+        if alugueisBuscados:
             for aluguel in alugueisBuscados:
                 informacoes += aluguel.getInfo()
         return informacoes
@@ -163,7 +165,7 @@ class AcaoPesquisar(TratamentoErro):
             
             try:
                 alugueisBuscados = []
-                match(escolha):
+                match escolha:
                     case 1:
                         codigoLivro = int(input('Qual o código do livro? '))
                         alugueisBuscados = self.__pesquisarAluguelPorInfo(codigoLivro, 'codigoLivro', alugados)
@@ -186,7 +188,7 @@ class AcaoPesquisar(TratamentoErro):
                 return
             
             print('======================================================')
-            if alugueisBuscados != []:
+            if alugueisBuscados:
                 print('\n    *** Alugueis ***')
                 total = len(alugueisBuscados)
                 
@@ -203,9 +205,10 @@ class AcaoPesquisar(TratamentoErro):
                 
             input("\nAperte 'Enter' para continuar.")
             
-    def __pesquisarAluguelPorInfo(self, infoBusca, tipoBusca: str, alugados: any):
+    @staticmethod
+    def __pesquisarAluguelPorInfo(infoBusca, tipoBusca: str, alugados: any):
         informacoes = []
-        match(tipoBusca):
+        match tipoBusca:
             case 'codigoLivro':
                 for aluguel in alugados:
                     if aluguel.getCodigo() == infoBusca:

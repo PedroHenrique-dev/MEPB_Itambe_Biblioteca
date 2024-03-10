@@ -1,7 +1,9 @@
 from datetime import date
 
+
 class FuncoesAuxiliares:
-    def verificaExistenciaLivro(self, codigoLivro: int, biblioteca: any):
+    @staticmethod
+    def verificaExistenciaLivro(codigoLivro: int, biblioteca: any):
         existeciaCodigo = False
         for i in range(len(biblioteca)):
             if biblioteca[i].getCodigo() == codigoLivro:
@@ -9,16 +11,19 @@ class FuncoesAuxiliares:
                 return i, existeciaCodigo
         return -1, existeciaCodigo
     
-    def buscarAlugado(self, codigoLivro: int, alugados: any):
+    @staticmethod
+    def buscarAlugado(codigoLivro: int, alugados: any):
         for alugado in alugados:
             if alugado.getCodigo() == codigoLivro:
                 return alugado
         return ''
     
-    def gerarDataAtual(self):
+    @staticmethod
+    def gerarDataAtual():
         return date.today().strftime('%d/%m/%Y')
     
-    def gerarDataProximoMes(self):
+    @staticmethod
+    def gerarDataProximoMes():
         ano = date.today().year
         mes = date.today().month
         dia = date.today().day

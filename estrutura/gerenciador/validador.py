@@ -1,14 +1,17 @@
 from estrutura.tratamento import ErroSoftware
 
+
 class Validador:        
-    def validarEntrada(self, senha: str):
+    @staticmethod
+    def validarEntrada(senha: str):
         if senha == 'm0kon9ji':
             return True
         else:
             print('\nSenha errada.')
             return False
     
-    def appValidarEntrada(self, senha: str):
+    @staticmethod
+    def appValidarEntrada(senha: str):
         if senha == 'm0kon9ji':
             return True
         else:

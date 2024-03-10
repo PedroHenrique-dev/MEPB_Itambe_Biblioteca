@@ -1,6 +1,7 @@
 import os
 from estrutura.gerenciador.acoesArquivos import *
 
+
 class GerenciadorArquivos(Escritor, Leitor):
     def __init__(self) -> None:
         self.diretorio = 'C:/arquivosBiblioteca/'
@@ -8,11 +9,11 @@ class GerenciadorArquivos(Escritor, Leitor):
         self.arquivoAlugados = self.diretorio + 'alugados.json'
         
         existenciaArquivo = os.path.exists(self.arquivoBilioteca)
-        if existenciaArquivo == False:
+        if not existenciaArquivo:
             self.gerarArquivo([], self.arquivoBilioteca)
         
         existenciaArquivo = os.path.exists(self.arquivoAlugados)
-        if existenciaArquivo == False:
+        if not existenciaArquivo:
             self.gerarArquivo([], self.arquivoAlugados) 
         
     def lerArquivoJSON(self, lerBiblioteca: bool):

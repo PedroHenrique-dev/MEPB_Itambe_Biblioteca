@@ -4,7 +4,8 @@ from estrutura import Biblioteca
 from estrutura.tratamento import *
 from estrutura.gerenciador import *
 
-class MEPBbiblioteca(TratamentoErro, Validador):
+
+class MEPB_Biblioteca(TratamentoErro, Validador):
     def __init__(self) -> None:
         self.__nomeIgreja = 'M.E.P.B. Itambé'
         self.__mepb = Biblioteca()
@@ -23,28 +24,29 @@ class MEPBbiblioteca(TratamentoErro, Validador):
             ''')
         try:
             escolhaOpcao = int(input('Digite a opção da ação desejada: '))
-            
+
             if escolhaOpcao < 0 or escolhaOpcao > 10:
                 raise ErroSoftware('Opção inválida!')
-            
+
             return escolhaOpcao
         except Exception as erro:
             self.erro(erro)
-    
+
     def iniciar(self):
         separador = '======================================================'
         permissao = False
-        
+
         while True:
             limpar()
-            escolha = self.__menu()            
-            if permissao == False and (escolha == 1 or escolha == 3 or escolha == 4 or escolha == 6 or escolha == 7 or escolha == 8):
+            escolha = self.__menu()
+            if not permissao and (
+                    escolha == 1 or escolha == 3 or escolha == 4 or escolha == 6 or escolha == 7 or escolha == 8):
                 permissao = self.validarEntrada(str(input('Digite a senha: ')))
-                if permissao == False:
+                if not permissao:
                     continue
-            
+
             limpar()
-            match(escolha):
+            match escolha:
                 case 1:
                     self.__mepb.cadastrarLivroBiblioteca()
                 case 2:
@@ -70,10 +72,11 @@ class MEPBbiblioteca(TratamentoErro, Validador):
                 case None:
                     input("\nAperte 'Enter' para continuar.")
                     continue
-            
+
             print(separador)
             input("\nAperte 'Enter' para continuar.")
         limpar()
+
 
 def limpar():
     if platform == 'win32':
@@ -81,5 +84,6 @@ def limpar():
     else:
         system('clear')
 
-itambe = MEPBbiblioteca()
+
+itambe = MEPB_Biblioteca()
 itambe.iniciar()
