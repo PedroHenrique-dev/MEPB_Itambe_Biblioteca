@@ -11,19 +11,20 @@ class MEPBbiblioteca(TratamentoErro, Validador):
 
     def __menu(self):
         print(f'''
-    ******************************************************
-    ************  Biblioteca {self.__nomeIgreja}  ************
-    ******************************************************
+    **********************************************************
+    **************  Biblioteca {self.__nomeIgreja}  **************
+    **********************************************************
     1. Cadastrar            |       2. Alugar
     3. Remover              |       4. Devolver
     5. Pesquisar livro      |       6. Pesquisar aluguel
     7. Todos os livros      |       8. Todos os alugueis
-    9. Gasto total          |       0. Sair
+    9. Gasto total          |       10. Quantidade de livros
+    0. Sair
             ''')
         try:
             escolhaOpcao = int(input('Digite a opção da ação desejada: '))
             
-            if escolhaOpcao < 0 or escolhaOpcao > 9:
+            if escolhaOpcao < 0 or escolhaOpcao > 10:
                 raise ErroSoftware('Opção inválida!')
             
             return escolhaOpcao
@@ -62,6 +63,8 @@ class MEPBbiblioteca(TratamentoErro, Validador):
                     self.__mepb.mostrarAlugadosBiblioteca()
                 case 9:
                     self.__mepb.gastoTotalLivros()
+                case 10:
+                    self.__mepb.mostrarQuantidadeLivros()
                 case 0:
                     break
                 case None:

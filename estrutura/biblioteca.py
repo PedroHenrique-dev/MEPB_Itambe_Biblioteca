@@ -59,6 +59,9 @@ class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):
         else:
             print('Não há livro cadastrado.')
 
+    def mostrarQuantidadeLivros(self):
+        print(f'Quantidade de livros cadastrados: {len(self.__biblioteca)}')
+
     def appMostrarAlugadosBiblioteca(self):
         informacoes = self.__appTituloTodosAlugueis()
         if self.__alugados != []:
