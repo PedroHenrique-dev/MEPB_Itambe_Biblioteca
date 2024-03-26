@@ -649,6 +649,17 @@
             "preco": 0.0,
             "disponivel": true,
             "dataCadastro": "20/02/2024"
+        },
+        {
+            "codigo": 1060,
+            "nome": "Discipulado",
+            "autor": "Dietrich Bonhoeffer",
+            "editora": "Mundo Crist\u00e3o",
+            "paginas": 292,
+            "genero": "Discipulado",
+            "preco": 0.0,
+            "disponivel": true,
+            "dataCadastro": "16/03/2024"
         }
     ]
 }
