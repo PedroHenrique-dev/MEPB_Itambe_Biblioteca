@@ -19,7 +19,7 @@ class InterfaceMEPB_Linux(Validador):
         self.janela = self.abrirJanela_linux()
 
         self.frameJanela = tb.Frame(self.janela, bootstyle='defalt')
-        self.logo = self.carregarImagem(self.frameJanela, self.configuracao.imagens + 'logo.png')
+        self.logo = self.carregarImagem(self.frameJanela, self.configuracao.imagens + 'logo.png', 6)
         self.igreja = self.igreja_linux(self.frameJanela)
         self.menuBiblioteca = tb.Menubutton(self.frameJanela, text='Menu')
         self.frameFuncao = tb.Labelframe(self.frameJanela)
@@ -97,9 +97,9 @@ class InterfaceMEPB_Linux(Validador):
         self.janela.mainloop()
 
     @staticmethod
-    def carregarImagem(frame, nomeImagem):
+    def carregarImagem(frame, nomeImagem, tamanho):
         imagem = PhotoImage(file=nomeImagem)
-        imagem = imagem.subsample(6, 6)
+        imagem = imagem.subsample(tamanho,tamanho)
         labelImagem = tb.Label(frame, image=imagem)
         labelImagem.imagem = imagem
         return labelImagem
@@ -272,7 +272,7 @@ class InterfaceMEPB_Linux(Validador):
         self.frameFuncao = tb.Labelframe(self.frameJanela)
         self.frameFuncao.config(text='Principal')
 
-        membros = self.carregarImagem(self.frameFuncao, self.configuracao.imagens + 'membros.png')
+        membros = self.carregarImagem(self.frameFuncao, self.configuracao.imagens + 'membros.png', 2)
 
         nomeArquivo = self.configuracao.info + 'historia.json'
         informacoes = ''
