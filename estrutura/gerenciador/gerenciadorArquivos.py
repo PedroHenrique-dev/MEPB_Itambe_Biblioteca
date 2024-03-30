@@ -1,12 +1,15 @@
 import os
 from estrutura.gerenciador.acoesArquivos import *
+from estrutura.config import *
 
 
 class GerenciadorArquivos(Escritor, Leitor):
     def __init__(self) -> None:
-        self.diretorio = 'C:/arquivosBiblioteca/'
-        self.arquivoBilioteca = self.diretorio + 'biblioteca.json'
-        self.arquivoAlugados = self.diretorio + 'alugados.json'
+        configuracao = Configuracao()
+        
+        diretorio = configuracao.biblioteca
+        self.arquivoBilioteca = diretorio + 'biblioteca.json'
+        self.arquivoAlugados = diretorio + 'alugados.json'
         
         existenciaArquivo = os.path.exists(self.arquivoBilioteca)
         if not existenciaArquivo:
