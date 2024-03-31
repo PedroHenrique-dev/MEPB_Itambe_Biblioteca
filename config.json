@@ -2,8 +2,8 @@
     "diretorios": {
         "localArquivos_linux": "/home/pedro/M.E.P.B./MEPB_Itambe_Biblioteca/arquivosBiblioteca/",
         "localArquivos_windows": "C:\\M.E.P.B\\MEPB_Itambe_Biblioteca\\arquivosBiblioteca\\",
-        "bibioteca": "biblioteca/",
-        "imagens": "image/",
-        "info": "info/"
+        "bibioteca": "biblioteca\\",
+        "imagens": "image\\",
+        "info": "info\\"
     }
 }

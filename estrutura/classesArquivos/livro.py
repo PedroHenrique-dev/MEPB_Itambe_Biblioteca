@@ -73,7 +73,7 @@ Data de cadastro: {self.__dataCadastro}
             return False
 
     def validarDevolucao(self):
-        if self.__disponivel:
+        if not self.__disponivel:
             self.__disponivel = True
             return True
         else:

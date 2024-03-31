@@ -2,3 +2,7 @@ __pycache__/
 /.vscode
 /.idea
 /dist
+
+*.exe
+*.spec
+/build

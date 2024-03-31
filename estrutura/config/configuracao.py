@@ -23,3 +23,8 @@ class Configuracao():
             self.biblioteca = diretorios_arquivos + diretorios['bibioteca']
             self.imagens = diretorios_arquivos + diretorios['imagens']
             self.info = diretorios_arquivos + diretorios['info']
+            
+            if platform == 'win32':
+                self.biblioteca.replace('/', '\\')
+                self.imagens.replace('/', '\\')
+                self.info.replace('/', '\\')

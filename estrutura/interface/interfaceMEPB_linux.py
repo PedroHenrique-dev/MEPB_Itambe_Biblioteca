@@ -85,12 +85,10 @@ class InterfaceMEPB_Linux(Validador):
         janela.title('Biblioteca')
         icon = PhotoImage(file=self.configuracao.imagens + 'logo.png')
         janela.iconphoto(True, icon)
-        width= janela.winfo_screenwidth()
-        height= janela.winfo_screenheight()
+        # width= janela.winfo_screenwidth()
+        # height= janela.winfo_screenheight()
         janela.geometry("%dx%d" % (1000, 520))
-        # janela.geometry('953x500')
-        # janela.attributes('-fullscreen', True)
-        # janela.resizable(False, False)
+        janela.resizable(False, False)
         return janela
 
     def fecharJanela(self):
