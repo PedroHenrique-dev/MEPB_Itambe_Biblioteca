@@ -207,7 +207,7 @@
             "paginas": 208,
             "genero": "Doutrina",
             "preco": 24.92,
-            "disponivel": true,
+            "disponivel": false,
             "dataCadastro": "03/03/2023"
         },
         {
@@ -449,7 +449,7 @@
             "paginas": 131,
             "genero": "Misticismo",
             "preco": 0.0,
-            "disponivel": false,
+            "disponivel": true,
             "dataCadastro": "16/07/2023"
         },
         {
