@@ -28,9 +28,9 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
         codigo = self.__novoCodigo(biblioteca)
 
         disponivel = True
-        dataCadastro = self.gerarDataAtual()
+        data_cadastro = self.gerarDataAtual()
 
-        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro))
+        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, data_cadastro))
         arquivos.atualizarBiblioteca(biblioteca)
 
         return arquivos, biblioteca
@@ -52,9 +52,9 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
             return arquivos, biblioteca
 
         disponivel = True
-        dataCadastro = self.gerarDataAtual()
+        data_cadastro = self.gerarDataAtual()
 
-        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro))
+        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, data_cadastro))
         arquivos.atualizarBiblioteca(biblioteca)
 
         print('\nLivro cadastrado com sucesso.')

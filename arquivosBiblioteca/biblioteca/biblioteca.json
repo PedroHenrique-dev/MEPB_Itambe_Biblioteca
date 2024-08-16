@@ -10,7 +10,7 @@
             "genero": "Bibliologia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "10/02/2023"
+            "data_cadastro": "10/02/2023"
         },
         {
             "codigo": 1002,
@@ -21,7 +21,7 @@
             "genero": "Apologética",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "10/02/2023"
+            "data_cadastro": "10/02/2023"
         },
         {
             "codigo": 1003,
@@ -32,7 +32,7 @@
             "genero": "História",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "10/02/2023"
+            "data_cadastro": "10/02/2023"
         },
         {
             "codigo": 1004,
@@ -43,7 +43,7 @@
             "genero": "Bibliologia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "10/02/2023"
+            "data_cadastro": "10/02/2023"
         },
         {
             "codigo": 1005,
@@ -54,7 +54,7 @@
             "genero": "Eclesiologia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "10/02/2023"
+            "data_cadastro": "10/02/2023"
         },
         {
             "codigo": 1006,
@@ -65,7 +65,7 @@
             "genero": "Pneumatologia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "10/02/2023"
+            "data_cadastro": "10/02/2023"
         },
         {
             "codigo": 1007,
@@ -76,7 +76,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1008,
@@ -87,7 +87,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1009,
@@ -98,7 +98,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1010,
@@ -109,7 +109,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1011,
@@ -120,7 +120,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1012,
@@ -131,7 +131,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1013,
@@ -142,7 +142,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1014,
@@ -153,7 +153,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "21/02/2023"
+            "data_cadastro": "21/02/2023"
         },
         {
             "codigo": 1015,
@@ -164,7 +164,7 @@
             "genero": "Infantil",
             "preco": 3.9,
             "disponivel": true,
-            "dataCadastro": "03/03/2023"
+            "data_cadastro": "03/03/2023"
         },
         {
             "codigo": 1016,
@@ -175,7 +175,7 @@
             "genero": "Infantil",
             "preco": 3.9,
             "disponivel": true,
-            "dataCadastro": "03/03/2023"
+            "data_cadastro": "03/03/2023"
         },
         {
             "codigo": 1017,
@@ -186,7 +186,7 @@
             "genero": "Infantil",
             "preco": 2.9,
             "disponivel": true,
-            "dataCadastro": "03/03/2023"
+            "data_cadastro": "03/03/2023"
         },
         {
             "codigo": 1018,
@@ -197,7 +197,7 @@
             "genero": "Doutrina",
             "preco": 30.91,
             "disponivel": true,
-            "dataCadastro": "03/03/2023"
+            "data_cadastro": "03/03/2023"
         },
         {
             "codigo": 1019,
@@ -208,7 +208,7 @@
             "genero": "Doutrina",
             "preco": 24.92,
             "disponivel": false,
-            "dataCadastro": "03/03/2023"
+            "data_cadastro": "03/03/2023"
         },
         {
             "codigo": 1020,
@@ -219,7 +219,7 @@
             "genero": "Infantil",
             "preco": 1.4,
             "disponivel": true,
-            "dataCadastro": "22/03/2023"
+            "data_cadastro": "22/03/2023"
         },
         {
             "codigo": 1021,
@@ -230,7 +230,7 @@
             "genero": "Apologética",
             "preco": 27.92,
             "disponivel": true,
-            "dataCadastro": "22/03/2023"
+            "data_cadastro": "22/03/2023"
         },
         {
             "codigo": 1022,
@@ -241,7 +241,7 @@
             "genero": "Autoajuda",
             "preco": 32.7,
             "disponivel": false,
-            "dataCadastro": "22/03/2023"
+            "data_cadastro": "22/03/2023"
         },
         {
             "codigo": 1023,
@@ -252,7 +252,7 @@
             "genero": "Doutrina",
             "preco": 29.2,
             "disponivel": true,
-            "dataCadastro": "22/03/2023"
+            "data_cadastro": "22/03/2023"
         },
         {
             "codigo": 1024,
@@ -263,7 +263,7 @@
             "genero": "Infantil",
             "preco": 2.9,
             "disponivel": true,
-            "dataCadastro": "22/03/2023"
+            "data_cadastro": "22/03/2023"
         },
         {
             "codigo": 1025,
@@ -274,7 +274,7 @@
             "genero": "Oração",
             "preco": 29.9,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1026,
@@ -285,7 +285,7 @@
             "genero": "Infantil",
             "preco": 4.9,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1027,
@@ -296,7 +296,7 @@
             "genero": "Infantil",
             "preco": 4.9,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1028,
@@ -307,7 +307,7 @@
             "genero": "Infantil",
             "preco": 4.9,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1029,
@@ -318,7 +318,7 @@
             "genero": "Ficção",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1030,
@@ -329,7 +329,7 @@
             "genero": "Biografia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1031,
@@ -340,7 +340,7 @@
             "genero": "Adventista",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1032,
@@ -351,7 +351,7 @@
             "genero": "Espirita",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1033,
@@ -362,7 +362,7 @@
             "genero": "Espirita",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1034,
@@ -373,7 +373,7 @@
             "genero": "Maçom",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1035,
@@ -384,7 +384,7 @@
             "genero": "Católico",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1036,
@@ -395,7 +395,7 @@
             "genero": "Ficção",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1037,
@@ -406,7 +406,7 @@
             "genero": "Doutrina",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1038,
@@ -417,7 +417,7 @@
             "genero": "psicologia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1039,
@@ -428,7 +428,7 @@
             "genero": "Misticismo",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1040,
@@ -439,7 +439,7 @@
             "genero": "Autoajuda",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1041,
@@ -450,7 +450,7 @@
             "genero": "Misticismo",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1042,
@@ -461,7 +461,7 @@
             "genero": "Misticismo",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1043,
@@ -472,7 +472,7 @@
             "genero": "Autoajuda",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/07/2023"
+            "data_cadastro": "16/07/2023"
         },
         {
             "codigo": 1044,
@@ -483,7 +483,7 @@
             "genero": "Adventista",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "08/08/2023"
+            "data_cadastro": "08/08/2023"
         },
         {
             "codigo": 1045,
@@ -494,7 +494,7 @@
             "genero": "Adventista",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "08/08/2023"
+            "data_cadastro": "08/08/2023"
         },
         {
             "codigo": 1046,
@@ -505,7 +505,7 @@
             "genero": "Infantil",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "08/08/2023"
+            "data_cadastro": "08/08/2023"
         },
         {
             "codigo": 1047,
@@ -516,7 +516,7 @@
             "genero": "Estatuto",
             "preco": 0.0,
             "disponivel": false,
-            "dataCadastro": "08/08/2023"
+            "data_cadastro": "08/08/2023"
         },
         {
             "codigo": 1048,
@@ -527,7 +527,7 @@
             "genero": "Revista da Escola Bíblica",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "28/10/2023"
+            "data_cadastro": "28/10/2023"
         },
         {
             "codigo": 1049,
@@ -538,7 +538,7 @@
             "genero": "Oração",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "06/11/2023"
+            "data_cadastro": "06/11/2023"
         },
         {
             "codigo": 1050,
@@ -549,7 +549,7 @@
             "genero": "Teologia Sistemática",
             "preco": 170.62,
             "disponivel": true,
-            "dataCadastro": "16/11/2023"
+            "data_cadastro": "16/11/2023"
         },
         {
             "codigo": 1051,
@@ -560,7 +560,7 @@
             "genero": "Teologia Sistemática",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/11/2023"
+            "data_cadastro": "16/11/2023"
         },
         {
             "codigo": 1052,
@@ -571,7 +571,7 @@
             "genero": "Soteriologia",
             "preco": 28.17,
             "disponivel": true,
-            "dataCadastro": "27/11/2023"
+            "data_cadastro": "27/11/2023"
         },
         {
             "codigo": 1053,
@@ -582,7 +582,7 @@
             "genero": "Teologia Sistemática",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "22/01/2024"
+            "data_cadastro": "22/01/2024"
         },
         {
             "codigo": 1054,
@@ -593,7 +593,7 @@
             "genero": "Católico",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1055,
@@ -604,7 +604,7 @@
             "genero": "Oração",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1056,
@@ -615,7 +615,7 @@
             "genero": "Dicionário",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1057,
@@ -626,7 +626,7 @@
             "genero": "Neo-Pentecostal",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1058,
@@ -637,7 +637,7 @@
             "genero": "Devocional",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1059,
@@ -648,7 +648,7 @@
             "genero": "Revista da Escola Bíblica",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1060,
@@ -659,7 +659,7 @@
             "genero": "Discipulado",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/03/2024"
+            "data_cadastro": "16/03/2024"
         },
         {
             "codigo": 1061,
@@ -670,7 +670,7 @@
             "genero": "Histórico",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1062,
@@ -681,7 +681,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1063,
@@ -692,7 +692,7 @@
             "genero": "Autoajuda",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1064,
@@ -703,7 +703,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1065,
@@ -714,7 +714,7 @@
             "genero": "Revista da Escola Bíblica",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "20/02/2024"
+            "data_cadastro": "20/02/2024"
         },
         {
             "codigo": 1066,
@@ -725,7 +725,7 @@
             "genero": "Antropologia",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1067,
@@ -736,7 +736,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1068,
@@ -747,7 +747,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1069,
@@ -758,7 +758,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1070,
@@ -769,7 +769,7 @@
             "genero": "Autoajuda",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1071,
@@ -780,7 +780,7 @@
             "genero": "Autoajuda",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1072,
@@ -791,7 +791,7 @@
             "genero": "Revista da Escola Bíblica",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1073,
@@ -802,7 +802,7 @@
             "genero": "Revista da Escola Bíblica",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1074,
@@ -813,7 +813,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1075,
@@ -824,7 +824,7 @@
             "genero": "Histórico",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1076,
@@ -835,7 +835,7 @@
             "genero": "Histórico",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1077,
@@ -846,7 +846,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1078,
@@ -857,7 +857,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1079,
@@ -868,7 +868,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1080,
@@ -879,7 +879,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1081,
@@ -890,7 +890,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1082,
@@ -901,7 +901,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1083,
@@ -912,7 +912,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1084,
@@ -923,7 +923,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         },
         {
             "codigo": 1085,
@@ -934,7 +934,7 @@
             "genero": "Vivência",
             "preco": 0.0,
             "disponivel": true,
-            "dataCadastro": "16/04/2024"
+            "data_cadastro": "16/04/2024"
         }
     ]
 }

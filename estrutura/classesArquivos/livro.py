@@ -1,6 +1,6 @@
 class Livro:
     def __init__(self, codigo: int, nome: str, autor: str, editora: str, paginas: int, genero: str, preco: float,
-                 disponivel: bool, dataCadastro: str) -> None:
+                 disponivel: bool, data_cadastro: str) -> None:
         self.__codigo = codigo
         self.__nome = nome
         self.__autor = autor
@@ -9,7 +9,7 @@ class Livro:
         self.__genero = genero
         self.__preco = preco
         self.__disponivel = disponivel
-        self.__dataCadastro = dataCadastro
+        self.__data_cadastro = data_cadastro
 
     def info(self) -> None:
         disponibilidade = 'Disponível' if self.__disponivel else 'Indisponível'
@@ -22,7 +22,7 @@ Editora: {self.__editora}
 Páginas: {self.__paginas}
 Gênero: {self.__genero}
 Disponibilidade para alugar: {disponibilidade}
-Data de cadastro: {self.__dataCadastro}
+Data de cadastro: {self.__data_cadastro}
 ______________________________________________________ ''')
 
     def getInfo(self):
@@ -37,7 +37,7 @@ Editora: {self.__editora}
 Páginas: {self.__paginas}
 Gênero: {self.__genero}
 Disponibilidade para alugar: {disponibilidade}
-Data de cadastro: {self.__dataCadastro}
+Data de cadastro: {self.__data_cadastro}
 '''
         return informacoes
 
@@ -79,5 +79,5 @@ Data de cadastro: {self.__dataCadastro}
         else:
             return False
 
-    def getDataCadastro(self) -> str:
-        return self.__dataCadastro
+    def getData_cadastro(self) -> str:
+        return self.__data_cadastro

@@ -40,9 +40,9 @@ class Leitor:
         genero = str(dados['genero'])
         preco = float(dados['preco'])
         disponivel = bool(dados['disponivel'])
-        dataCadastro = str(dados['dataCadastro'])
+        data_cadastro = str(dados['data_cadastro'])
         
-        return Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, dataCadastro)
+        return Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, data_cadastro)
 
     @staticmethod
     def __informacaoLivro(livro):
@@ -55,7 +55,7 @@ class Leitor:
             "genero": livro.getGenero(),
             "preco": livro.getPreco(),
             "disponivel": livro.getDisponivel(),
-            "dataCadastro": livro.getDataCadastro()
+            "data_cadastro": livro.getData_cadastro()
         }
         return infoLivro
 
