@@ -3,7 +3,7 @@
     "livros": [
         {
             "codigo": 1001,
-            "nome": " Introdução a Teologia e Bibliologia",
+            "nome": "Introdução a Teologia e Bibliologia",
             "autor": "João Evangelista Vieira Júnior",
             "editora": "Didaquê",
             "paginas": 127,
