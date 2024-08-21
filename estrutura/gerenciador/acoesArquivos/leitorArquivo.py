@@ -4,10 +4,10 @@ from estrutura.classesArquivos import *
 
 class Leitor:
     def lerJSON(self, nomeArquivo: str, lerBiblioteca: bool):
-        with open(nomeArquivo) as f:
+        with open(nomeArquivo, encoding='utf-8') as f:
             jsonArquivo = json.load(f)
             
-        with open(nomeArquivo,'r') as arquivo:
+        with open(nomeArquivo, 'r', encoding='utf-8') as arquivo:
             return self.__leitorJson(jsonArquivo, lerBiblioteca)
     
     def __leitorJson(self, jsonArquivo, lerBiblioteca: bool):
