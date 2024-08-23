@@ -1,7 +1,7 @@
-from estrutura.classesArquivos import *
-from estrutura.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
+from src.classesArquivos import *
+from src.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
 
-from estrutura.tratamento import *
+from src.tratamento import *
 
 
 class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):

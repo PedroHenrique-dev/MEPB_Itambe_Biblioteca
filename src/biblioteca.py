@@ -1,5 +1,5 @@
-from estrutura.gerenciador import *
-from estrutura.acoesBiblioteca import *
+from src.gerenciador import *
+from src.acoesBiblioteca import *
 
 
 class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):

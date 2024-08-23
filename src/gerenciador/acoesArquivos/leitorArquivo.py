@@ -1,5 +1,5 @@
 import json
-from estrutura.classesArquivos import *
+from src.classesArquivos import *
 
 
 class Leitor:

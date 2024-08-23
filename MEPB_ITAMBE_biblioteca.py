@@ -1,8 +1,8 @@
 from os import system
 from sys import platform
-from estrutura import Biblioteca
-from estrutura.tratamento import *
-from estrutura.gerenciador import *
+from src import Biblioteca
+from src.tratamento import *
+from src.gerenciador import *
 
 
 class MEPB_Biblioteca(TratamentoErro, Validador):

@@ -1,4 +1,4 @@
-from estrutura.tratamento.erroSoftware import ErroSoftware
+from src.tratamento.erroSoftware import ErroSoftware
 
 
 class TratamentoErro:

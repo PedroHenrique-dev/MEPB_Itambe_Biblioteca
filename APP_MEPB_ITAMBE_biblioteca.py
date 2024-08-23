@@ -1,4 +1,4 @@
-from estrutura.interface import *
+from src.interface import *
 from sys import platform
 
 

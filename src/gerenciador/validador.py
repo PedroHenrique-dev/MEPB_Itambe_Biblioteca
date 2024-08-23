@@ -1,4 +1,4 @@
-from estrutura.tratamento import ErroSoftware
+from src.tratamento import ErroSoftware
 
 
 class Validador:        

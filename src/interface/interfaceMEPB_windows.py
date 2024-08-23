@@ -1,10 +1,10 @@
 from tkinter import *
 import ttkbootstrap as tb
 import json
-from estrutura import Biblioteca
-from estrutura.tratamento import ErroSoftware
-from estrutura.gerenciador.validador import Validador
-from estrutura.config import Configuracao
+from src import Biblioteca
+from src.tratamento import ErroSoftware
+from src.gerenciador.validador import Validador
+from src.config import Configuracao
 
 
 class InterfaceMEPB_Windows(Validador):

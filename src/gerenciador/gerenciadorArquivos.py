@@ -1,6 +1,6 @@
 import os
-from estrutura.gerenciador.acoesArquivos import *
-from estrutura.config import *
+from src.gerenciador.acoesArquivos import *
+from src.config import *
 
 
 class GerenciadorArquivos(Escritor, Leitor):

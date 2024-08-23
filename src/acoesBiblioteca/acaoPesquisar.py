@@ -1,4 +1,4 @@
-from estrutura.tratamento import *
+from src.tratamento import *
 from os import system
 
 
