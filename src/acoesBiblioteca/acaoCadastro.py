@@ -6,39 +6,49 @@ from src.tratamento import *
 
 class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
     @staticmethod
-    def __novoCodigo(biblioteca):
-        codigo = 0
-        if not biblioteca:
-            codigo = 1001
-        else:
-            indice = biblioteca.__len__() - 1
-            codigo += biblioteca[indice].getCodigo() + 1
+    def __novoCodigo(banco, nome_colecao):
+        codigo = 1001
+        ultimo_documento = banco.get_last_document(nome_colecao)
+        if ultimo_documento != None:
+            codigo = ultimo_documento['codigo'] + 1
         return codigo
-
-    def appCadastrarLivro(self, informacoesLivro, arquivos: any, biblioteca: any):
-        nome, autor, editora, paginas, genero, preco = informacoesLivro
-
+    
+    def __criar_documento_livro(self, informacoes_livro:list, codigo:int) -> dict:
+        nome, autor, editora, paginas, genero, preco = informacoes_livro
+        
         if paginas < 6:
             raise ErroSoftware('Quantidade insuficiente!')
 
-        for info in informacoesLivro:
+        for info in informacoes_livro:
             if type(info) == str:
                 self.testeNomeValido(info)
-
-        codigo = self.__novoCodigo(biblioteca)
-
+        
         disponivel = True
         data_cadastro = self.gerarDataAtual()
+        
+        documento = {
+            "codigo": codigo,
+            "nome": nome,
+            "autor": autor,
+            "editora": editora,
+            "paginas": paginas,
+            "genero": genero,
+            "preco": preco,
+            "disponivel": disponivel,
+            "data_cadastro": data_cadastro
+        }
+        
+        return documento
 
-        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, data_cadastro))
-        arquivos.atualizarBiblioteca(biblioteca)
+    def app_cadastrar_livro(self, informacoes_livro, nome_colecao:str, banco) -> None:
+        codigo = self.__novoCodigo(banco=banco, nome_colecao=nome_colecao)
+        documento = self.__criar_documento_livro(informacoes_livro=informacoes_livro, codigo=codigo)
+        banco.add_document(string_collection=nome_colecao, document=documento)
 
-        return arquivos, biblioteca
-
-    def cadastrarLivro(self, arquivos: any, biblioteca: any) -> None:
+    def cadastrar_livro(self, nome_colecao:str, banco) -> None:
         self.__tituloCadastrar()
 
-        codigo = self.__novoCodigo(biblioteca)
+        codigo = self.__novoCodigo(banco=banco, nome_colecao=nome_colecao)
 
         try:
             nome = self.inserirNome('Qual o nome do livro? ')
@@ -49,16 +59,12 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
             preco = float(input('Qual o preço do livro? '))
         except Exception as erro:
             self.erro(erro)
-            return arquivos, biblioteca
 
-        disponivel = True
-        data_cadastro = self.gerarDataAtual()
+        informacoes_livro = nome, autor, editora, paginas, genero, preco
+        documento = self.__criar_documento_livro(informacoes_livro=informacoes_livro, codigo=codigo)
 
-        biblioteca.append(Livro(codigo, nome, autor, editora, paginas, genero, preco, disponivel, data_cadastro))
-        arquivos.atualizarBiblioteca(biblioteca)
-
+        banco.add_document(string_collection=nome_colecao, document=documento)
         print('\nLivro cadastrado com sucesso.')
-        return arquivos, biblioteca
 
     def appRemoverCadastro(self, codigoLivro, arquivos: any, biblioteca: any, alugados: any):
         indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)

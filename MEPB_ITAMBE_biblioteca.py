@@ -48,7 +48,7 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
             limpar()
             match escolha:
                 case 1:
-                    self.__mepb.cadastrarLivroBiblioteca()
+                    self.__mepb.cadastrar_livro_biblioteca()
                 case 2:
                     self.__mepb.alugarLivroBiblioteca()
                 case 3:

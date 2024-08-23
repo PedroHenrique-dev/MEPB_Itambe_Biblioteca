@@ -140,9 +140,16 @@ class InterfaceMEPB_Windows(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            informacoesLivro = (
-            nome.get(), autor.get(), editora.get(), int(paginas.get()), genero.get(), float(preco.get()))
-            self.mepb.appCadastrarLivroBiblioteca(informacoesLivro)
+            informacoes_livro = (
+                nome.get(),
+                autor.get(),
+                editora.get(),
+                int(paginas.get()),
+                genero.get(),
+                float(preco.get())
+            )
+            
+            self.mepb.app_cadastrar_livro_biblioteca(informacoes_livro)
         except Exception as erro:
             erroProcesso = True
 

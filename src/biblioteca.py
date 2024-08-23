@@ -1,19 +1,29 @@
 from src.gerenciador import *
 from src.acoesBiblioteca import *
+from .banco import Banco
 
 
 class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):
     def __init__(self) -> None:
-        super().__init__()
         self.__arquivos = GerenciadorArquivos()
+        
+        self._banco = Banco(string_connection=self.__arquivos.conexao, string_bank=self.__arquivos.nome_banco)
+        
         self.__biblioteca = self.__arquivos.lerArquivoJSON(True)
         self.__alugados = self.__arquivos.lerArquivoJSON(False)
 
-    def appCadastrarLivroBiblioteca(self, informacoesLivro):
-        self.__arquivos, self.__biblioteca = self.appCadastrarLivro(informacoesLivro, self.__arquivos, self.__biblioteca)
+    def app_cadastrar_livro_biblioteca(self, informacoes_livro):
+        self.app_cadastrar_livro(
+            informacoes_livro=informacoes_livro,
+            nome_colecao=self.__arquivos.colecoes['livros'],
+            banco=self._banco
+        )
 
-    def cadastrarLivroBiblioteca(self):
-        self.cadastrarLivro(self.__arquivos, self.__biblioteca)
+    def cadastrar_livro_biblioteca(self):
+        self.cadastrar_livro(
+            nome_colecao=self.__arquivos.colecoes['livros'],
+            banco=self._banco
+        )
 
     def appRemoverLivroBiblioteca(self, codigoLivro):
         self.__arquivos, self.__biblioteca, self.__alugados = self.appRemoverCadastro(codigoLivro, self.__arquivos, self.__biblioteca, self.__alugados)

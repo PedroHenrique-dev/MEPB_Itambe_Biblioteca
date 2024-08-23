@@ -11,6 +11,10 @@ class GerenciadorArquivos(Escritor, Leitor):
         self.arquivoBilioteca = diretorio + 'biblioteca.json'
         self.arquivoAlugados = diretorio + 'alugados.json'
         
+        self.conexao = configuracao.conexao
+        self.nome_banco = configuracao.nome_banco
+        self.colecoes = configuracao.colecoes
+        
         existenciaArquivo = os.path.exists(self.arquivoBilioteca)
         if not existenciaArquivo:
             self.gerarArquivo([], self.arquivoBilioteca)

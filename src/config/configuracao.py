@@ -3,11 +3,7 @@ from sys import platform
 
 
 class Configuracao():
-    def __init__(self) -> None:
-        self.biblioteca = str
-        self.imagens = str
-        self.info = str
-        
+    def __init__(self) -> None:        
         self.ler_config()
         
     def ler_config(self):
@@ -24,7 +20,8 @@ class Configuracao():
             self.imagens = diretorios_arquivos + diretorios['imagens']
             self.info = diretorios_arquivos + diretorios['info']
             
-            if platform == 'win32':
-                self.biblioteca.replace('/', '\\')
-                self.imagens.replace('/', '\\')
-                self.info.replace('/', '\\')
+            self.conexao = jsonArquivo['banco_mongodb']['string_connection']
+            self.nome_banco = jsonArquivo['banco_mongodb']['string_bank']
+            self.colecoes = {}
+            for colacao in jsonArquivo['banco_mongodb']['collections']:
+                self.colecoes[colacao] = colacao
