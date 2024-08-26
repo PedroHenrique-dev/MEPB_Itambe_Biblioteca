@@ -52,7 +52,7 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
                 case 2:
                     self.__mepb.alugarLivroBiblioteca()
                 case 3:
-                    self.__mepb.removerLivroBiblioteca()
+                    self.__mepb.remover_livro_biblioteca()
                 case 4:
                     self.__mepb.devolucaoLivroBiblioteca()
                 case 5:

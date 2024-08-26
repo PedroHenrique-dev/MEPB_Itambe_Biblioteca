@@ -164,7 +164,7 @@ class InterfaceMEPB_Linux(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            self.mepb.appRemoverLivroBiblioteca(int(codigo.get()))
+            self.mepb.app_remover_livro_biblioteca(int(codigo.get()))
         except Exception as erro:
             erroProcesso = True
 

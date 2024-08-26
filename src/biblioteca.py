@@ -13,23 +13,16 @@ class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):
         self.__alugados = self.__arquivos.lerArquivoJSON(False)
 
     def app_cadastrar_livro_biblioteca(self, informacoes_livro):
-        self.app_cadastrar_livro(
-            informacoes_livro=informacoes_livro,
-            nome_colecao=self.__arquivos.colecoes['livros'],
-            banco=self._banco
-        )
+        self.app_cadastrar_livro(informacoes_livro=informacoes_livro, banco=self._banco)
 
     def cadastrar_livro_biblioteca(self):
-        self.cadastrar_livro(
-            nome_colecao=self.__arquivos.colecoes['livros'],
-            banco=self._banco
-        )
+        self.cadastrar_livro(banco=self._banco)
 
-    def appRemoverLivroBiblioteca(self, codigoLivro):
-        self.__arquivos, self.__biblioteca, self.__alugados = self.appRemoverCadastro(codigoLivro, self.__arquivos, self.__biblioteca, self.__alugados)
+    def app_remover_livro_biblioteca(self, codigo_livro:int):
+        self.remover_livro(banco=self._banco, codigo_livro=codigo_livro)
 
-    def removerLivroBiblioteca(self):
-        self.__arquivos, self.__biblioteca, self.__alugados = self.removerCadastro(self.__arquivos, self.__biblioteca, self.__alugados)
+    def remover_livro_biblioteca(self):
+        self.terminal_remover_livro(self._banco)
 
     def appAlugarLivroBiblioteca(self, informacoesAluguel):
         self.__arquivos, self.__biblioteca, self.__alugados = self.appAlugar(informacoesAluguel, self.__arquivos, self.__biblioteca, self.__alugados)

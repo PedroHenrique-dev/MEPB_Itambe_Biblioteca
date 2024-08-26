@@ -1,14 +1,15 @@
-from src.classesArquivos import *
+from ..classesArquivos import *
 from src.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
-
+from ..banco import *
 from src.tratamento import *
+from typing import Type
 
 
 class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
     @staticmethod
-    def __novoCodigo(banco, nome_colecao):
+    def __novo_codigo(banco) -> int:
         codigo = 1001
-        ultimo_documento = banco.get_last_document(nome_colecao)
+        ultimo_documento = banco.get_last_document(TypeCollections.LIVROS)
         if ultimo_documento != None:
             codigo = ultimo_documento['codigo'] + 1
         return codigo
@@ -40,15 +41,15 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
         
         return documento
 
-    def app_cadastrar_livro(self, informacoes_livro, nome_colecao:str, banco) -> None:
-        codigo = self.__novoCodigo(banco=banco, nome_colecao=nome_colecao)
+    def app_cadastrar_livro(self, informacoes_livro:list, banco:Type[Banco]) -> None:
+        codigo = self.__novo_codigo(banco=banco)
         documento = self.__criar_documento_livro(informacoes_livro=informacoes_livro, codigo=codigo)
-        banco.add_document(string_collection=nome_colecao, document=documento)
+        banco.add_document(type_collection=TypeCollections.LIVROS, document=documento)
 
-    def cadastrar_livro(self, nome_colecao:str, banco) -> None:
-        self.__tituloCadastrar()
+    def cadastrar_livro(self, banco:Type[Banco]) -> None:
+        self.__titulo_cadastrar()
 
-        codigo = self.__novoCodigo(banco=banco, nome_colecao=nome_colecao)
+        codigo = self.__novo_codigo(banco=banco)
 
         try:
             nome = self.inserirNome('Qual o nome do livro? ')
@@ -63,51 +64,35 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
         informacoes_livro = nome, autor, editora, paginas, genero, preco
         documento = self.__criar_documento_livro(informacoes_livro=informacoes_livro, codigo=codigo)
 
-        banco.add_document(string_collection=nome_colecao, document=documento)
+        banco.add_document(type_collection=TypeCollections.LIVROS, document=documento)
         print('\nLivro cadastrado com sucesso.')
 
-    def appRemoverCadastro(self, codigoLivro, arquivos: any, biblioteca: any, alugados: any):
-        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
-
-        if existeciaCodigo:
-            removerAlugado = self.buscarAlugado(biblioteca[indiceLivro].getCodigo(), alugados)
-            if removerAlugado != '':
-                alugados.remove(removerAlugado)
-                arquivos.atualizarAlugados(alugados)
-            biblioteca.pop(indiceLivro)
-            arquivos.atualizarBiblioteca(biblioteca)
+    def remover_livro(self, banco:Type[Banco], codigo_livro:int) -> None:
+        existe_documento = banco.exists_document(
+            type_collection=TypeCollections.LIVROS,
+            data_type={"codigo": codigo_livro}
+        )
+        
+        if existe_documento:
+            banco.delete_document(
+                type_collection=TypeCollections.LIVROS,
+                codigo=codigo_livro
+            )
         else:
             raise ErroSoftware('Livro inexistente!')
 
-        return arquivos, biblioteca, alugados
-
-    def removerCadastro(self, arquivos: any, biblioteca: any, alugados: any):
-        self.__tituloRemover()
+    def terminal_remover_livro(self, banco:Type[Banco]) -> None:
+        self.__titulo_remover()
 
         try:
-            codigoLivro = int(input('Qual o código do livro? '))
+            codigo_livro = int(input('Qual o código do livro? '))
         except Exception as erro:
             self.erro(erro)
-            return arquivos, biblioteca, alugados
 
-        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
-
-        if existeciaCodigo:
-            removerAlugado = self.buscarAlugado(biblioteca[indiceLivro].getCodigo(), alugados)
-            if removerAlugado != '':
-                alugados.remove(removerAlugado)
-                arquivos.atualizarAlugados(alugados)
-            biblioteca.pop(indiceLivro)
-            arquivos.atualizarBiblioteca(biblioteca)
-
-            print('\nLivro removido com sucesso.')
-        else:
-            print('\nNão existe este livro nos cadastros.')
-
-        return arquivos, biblioteca, alugados
+        self.remover_livro(banco=banco, codigo_livro=codigo_livro) 
 
     @staticmethod
-    def __tituloCadastrar():
+    def __titulo_cadastrar():
         print('''
 ======================================================
 ===================== Cadastrar ======================
@@ -115,7 +100,7 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
 ''')
 
     @staticmethod
-    def __tituloRemover():
+    def __titulo_remover():
         print('''
 ======================================================
 ================== Remover Cadastro ==================
