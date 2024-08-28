@@ -1,9 +1,12 @@
-from src.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
+from datetime import date
+
 from src.tratamento import *
 from ..banco import *
 
 
-class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
+class AcaoCadastro(TratamentoErro):
+    data_atual = date.today().strftime('%d/%m/%Y')
+
     @staticmethod
     def __novo_codigo(banco) -> int:
         codigo = 1001
@@ -22,8 +25,6 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
             if type(info) == str:
                 self.testeNomeValido(info)
 
-        data_cadastro = self.gerarDataAtual()
-
         documento = {
             "codigo": codigo,
             "nome": nome,
@@ -33,7 +34,7 @@ class AcaoCadastro(FuncoesAuxiliares, TratamentoErro):
             "genero": genero,
             "preco": preco,
             "disponibilidade": True,
-            "data_cadastro": data_cadastro
+            "data_cadastro": AcaoCadastro.data_atual
         }
 
         return documento

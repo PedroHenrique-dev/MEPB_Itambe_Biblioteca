@@ -1,9 +1,26 @@
-from src.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
+from datetime import date
+
 from src.tratamento import *
 from ..banco import *
 
 
-class AcaoAluguel(FuncoesAuxiliares, TratamentoErro):
+class AcaoAluguel(TratamentoErro):
+    data_atual = date.today().strftime('%d/%m/%Y')
+
+    @staticmethod
+    def _gerar_data_proximo_mes():
+        ano = date.today().year
+        mes = date.today().month
+        dia = date.today().day
+
+        if mes == 2 and dia > 28:
+            dia = 3
+        elif dia > 30 and (mes == 4 or mes == 6 or mes == 9 or mes == 11):
+            dia = 1
+
+        nova_data = date(ano, mes + 1, dia)
+        return nova_data.strftime('%d/%m/%Y')
+
     def alugar(self, banco: Banco, informacoes_aluguel: list) -> None:
         codigo_livro, nome_pessoa = informacoes_aluguel
 
@@ -21,14 +38,13 @@ class AcaoAluguel(FuncoesAuxiliares, TratamentoErro):
 
             if disponivel:
                 try:
-                    data_aluguel = self.gerarDataAtual()
-                    data_entrega = self.gerarDataProximoMes()
+                    data_entrega = self._gerar_data_proximo_mes()
 
                     aluguel = {
                         "nome_pessoa": nome_pessoa,
                         "codigo": documento['codigo'],
                         "nome_livro": documento['nome'],
-                        "data_aluguel": data_aluguel,
+                        "data_aluguel": AcaoAluguel.data_atual,
                         "data_entrega": data_entrega,
                         "multa": 0
                     }
