@@ -141,14 +141,14 @@ class InterfaceMEPB_Linux(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            informacoes_livro = (
+            informacoes_livro = [
                 nome.get(),
                 autor.get(),
                 editora.get(),
                 int(paginas.get()),
                 genero.get(),
                 float(preco.get())
-            )
+            ]
             
             self.mepb.app_cadastrar_livro_biblioteca(informacoes_livro)
         except Exception as erro:
@@ -175,8 +175,8 @@ class InterfaceMEPB_Linux(Validador):
 
         erroProcesso = False
         try:
-            informacoesLivro = (int(codigo.get()), nome.get())
-            self.mepb.appAlugarLivroBiblioteca(informacoesLivro)
+            informacoes_aluguel = (int(codigo.get()), nome.get())
+            self.mepb.app_alugar_livro_biblioteca(informacoes_aluguel)
         except Exception as erro:
             erroProcesso = True
 
@@ -190,7 +190,7 @@ class InterfaceMEPB_Linux(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            self.mepb.appDevolucaoLivroBiblioteca(int(codigo.get()))
+            self.mepb.app_devolucao_livro_biblioteca(codigo_livro=int(codigo.get()))
         except Exception as erro:
             erroProcesso = True
 
@@ -203,12 +203,12 @@ class InterfaceMEPB_Linux(Validador):
         erroProcesso = False
         try:
             if tipoJanela == 'disponibilidade':
-                informacoes = self.mepb.appPesquisarLivroBiblioteca(pesquisa, tipoJanela)
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa, tipo_pesquisa=tipoJanela)
             else:
                 if type(pesquisa.get()) == str and pesquisa.get() == '':
                     raise ErroSoftware('Nada pesquisado!')
 
-                informacoes = self.mepb.appPesquisarLivroBiblioteca(pesquisa.get(), tipoJanela)
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa.get(), tipo_pesquisa=tipoJanela)
         except Exception as erro:
             erroProcesso = True
 

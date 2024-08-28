@@ -26,9 +26,9 @@ class Leitor:
         codigo = int(dados['codigo'])
         nomeLivro = str(dados['nomeLivro'])
         dataAluguel = str(dados['dataAluguel'])
-        dataEntega = str(dados['dataEntega'])
+        dataEntrega = str(dados['dataEntrega'])
         
-        return Aluguel(nomePessoa, codigo, nomeLivro, dataAluguel, dataEntega)
+        return Aluguel(nomePessoa, codigo, nomeLivro, dataAluguel, dataEntrega)
                 
     @staticmethod
     def __lerJsonInfoLivro(dados):
@@ -66,7 +66,7 @@ class Leitor:
             "codigo": aluguel.getCodigo(),
             "nomeLivro": aluguel.getNomeLivro(),
             "dataAluguel": aluguel.getDataAluguel(),
-            "dataEntega": aluguel.getDataEntega()
+            "dataEntrega": aluguel.getDataEntrega()
         }
         return infoAluguel
     

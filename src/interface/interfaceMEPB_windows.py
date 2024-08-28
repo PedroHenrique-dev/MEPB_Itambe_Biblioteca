@@ -174,8 +174,8 @@ class InterfaceMEPB_Windows(Validador):
 
         erroProcesso = False
         try:
-            informacoesLivro = (int(codigo.get()), nome.get())
-            self.mepb.appAlugarLivroBiblioteca(informacoesLivro)
+            informacoes_aluguel = (int(codigo.get()), nome.get())
+            self.mepb.app_alugar_livro_biblioteca(informacoes_aluguel)
         except Exception as erro:
             erroProcesso = True
 
@@ -189,7 +189,7 @@ class InterfaceMEPB_Windows(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            self.mepb.appDevolucaoLivroBiblioteca(int(codigo.get()))
+            self.mepb.app_devolucao_livro_biblioteca(codigo_livro=int(codigo.get()))
         except Exception as erro:
             erroProcesso = True
 
@@ -202,12 +202,12 @@ class InterfaceMEPB_Windows(Validador):
         erroProcesso = False
         try:
             if tipoJanela == 'disponibilidade':
-                informacoes = self.mepb.appPesquisarLivroBiblioteca(pesquisa, tipoJanela)
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa, tipo_pesquisa=tipoJanela)
             else:
                 if type(pesquisa.get()) == str and pesquisa.get() == '':
                     raise ErroSoftware('Nada pesquisado!')
 
-                informacoes = self.mepb.appPesquisarLivroBiblioteca(pesquisa.get(), tipoJanela)
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa.get(), tipo_pesquisa=tipoJanela)
         except Exception as erro:
             erroProcesso = True
 
@@ -458,11 +458,11 @@ class InterfaceMEPB_Windows(Validador):
         notebookPesquisar = tb.Notebook(self.frameFuncao, bootstyle='dark')
         notebookPesquisar.pack(padx=20)
 
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Nome da pessoa', 'nomePessoa')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Código do livro', 'codigoLivro')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Nome do livro', 'nomeLivro')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Data de aluguel', 'dataAluguel')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Data de entrega', 'dataEntrega')
+        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Nome da pessoa', 'nome_pessoa')
+        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Código do livro', 'codigo')
+        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Nome do livro', 'nome_livro')
+        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Data de aluguel', 'data_aluguel')
+        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Data de entrega', 'data_entrega')
 
         self.frameFuncao.grid(row=1, column=1, ipadx=20, ipady=16, sticky='nw')
 

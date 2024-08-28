@@ -1,145 +1,98 @@
-from src.classesArquivos import *
 from src.acoesBiblioteca.funcoesAuxiliares import FuncoesAuxiliares
-
 from src.tratamento import *
+from ..banco import *
 
 
 class AcaoAluguel(FuncoesAuxiliares, TratamentoErro):
-    def appAlugar(self, informacoesAluguel, arquivos: any, biblioteca: any, alugados: any):
-        codigoLivro, nomePessoa = informacoesAluguel
+    def alugar(self, banco: Banco, informacoes_aluguel: list) -> None:
+        codigo_livro, nome_pessoa = informacoes_aluguel
 
-        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
+        filtro_documento = {'codigo': codigo_livro}
 
-        if existeciaCodigo:
-            podeAlugar = biblioteca[indiceLivro].validarAluguel()
-            
-            if podeAlugar:
-                if len(nomePessoa) > 3:
-                    codigo = biblioteca[indiceLivro].getCodigo()
-                    nomeLivro = biblioteca[indiceLivro].getNome()
-                    
-                    dataAluguel = self.gerarDataAtual()
-                    dataEntega = self.gerarDataProximoMes()
-                    
-                    novoAluguel = Aluguel(nomePessoa, codigo, nomeLivro, dataAluguel, dataEntega)
-                    alugados.append(novoAluguel)
-                    
-                    arquivos.atualizarAlugados(alugados)
-                    arquivos.atualizarBiblioteca(biblioteca)
-                else:
-                    raise ErroSoftware('Nome inválido!')
-            else:
-                raise ErroSoftware('Livro indiponível!')
-        else:
-            raise ErroSoftware('Livro inexistente!')
+        existe_documento = banco.exists_document(
+            type_collection=TypeCollections.LIVROS,
+            data_type=filtro_documento
+        )
 
-        return arquivos, biblioteca, alugados
+        if existe_documento:
+            documentos = banco.find_document(type_collection=TypeCollections.LIVROS, data_type={"codigo": codigo_livro})
+            documento = documentos[0]
+            disponivel = documento['disponibilidade']
 
-    def alugar(self, arquivos: any, biblioteca: any, alugados: any):
-        self.__tituloAlugar()
-        
-        try:
-            codigoLivro = int(input('Qual o código do livro? '))
-        except Exception as erro:
-            self.erro(erro)
-            return arquivos, biblioteca, alugados
-        
-        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
-        
-        if existeciaCodigo:
-            podeAlugar = biblioteca[indiceLivro].validarAluguel()
-            
-            if podeAlugar:
+            if disponivel:
                 try:
-                    nomePessoa = self.inserirNome('\nDigite o nome completo da pessoa que está alugando o livro: ')
+                    data_aluguel = self.gerarDataAtual()
+                    data_entrega = self.gerarDataProximoMes()
+
+                    aluguel = {
+                        "nome_pessoa": nome_pessoa,
+                        "codigo": documento['codigo'],
+                        "nome_livro": documento['nome'],
+                        "data_aluguel": data_aluguel,
+                        "data_entrega": data_entrega,
+                        "multa": 0
+                    }
+
+                    banco.update_document(
+                        type_collection=TypeCollections.LIVROS,
+                        filter_document=filtro_documento,
+                        update_document={'$set': {'disponibilidade': False}}
+                    )
+                    banco.add_document(type_collection=TypeCollections.ALUGUEIS, document=aluguel)
+                    print('\nLivro alugado com sucesso.')
                 except Exception as erro:
                     self.erro(erro)
-                    return arquivos, biblioteca, alugados 
-                if len(nomePessoa) > 3:
-                    codigo = biblioteca[indiceLivro].getCodigo()
-                    nomeLivro = biblioteca[indiceLivro].getNome()
-                    
-                    dataAluguel = self.gerarDataAtual()
-                    dataEntega = self.gerarDataProximoMes()
-                    
-                    novoAluguel = Aluguel(nomePessoa, codigo, nomeLivro, dataAluguel, dataEntega)
-                    alugados.append(novoAluguel)
-                    
-                    arquivos.atualizarAlugados(alugados)
-                    arquivos.atualizarBiblioteca(biblioteca)
-                
-                    print('\nLivro alugado com sucesso.')
-                else:
-                    print('\nNome inválido.')
-            else:
-                print('\nO livro já está alugado.')
         else:
             print('\nNão existe este livro nos cadastros.')
-            
-        return arquivos, biblioteca, alugados
-    
-    def appDevolucao(self, codigoLivro, arquivos: any, biblioteca: any, alugados: any):
-        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
 
-        if existeciaCodigo:
-            podeDevolder = biblioteca[indiceLivro].validarDevolucao()
-            
-            if podeDevolder:
-                codigoLivro = biblioteca[indiceLivro].getCodigo()
-                devolverAlugado = self.buscarAlugado(codigoLivro, alugados)
-                
-                if devolverAlugado != '':
-                    alugados.remove(devolverAlugado)
-                    arquivos.atualizarAlugados(alugados)
-                    arquivos.atualizarBiblioteca(biblioteca)
-        else:
-            raise ErroSoftware('Livro inexistente!')
-        
-        return arquivos, biblioteca, alugados
-                
-    def devolucao(self, arquivos: any, biblioteca: any, alugados: any):
-        self.__tituloDevolucao()
-        
+    def terminal_alugar(self, banco: Banco) -> None:
+        self.__titulo_alugar()
+
         try:
-            codigoLivro = int(input('Qual o código do livro? '))
+            codigo_livro = int(input('Qual o código do livro? '))
+            nome_pessoa = self.inserirNome('\nDigite o nome completo da pessoa que está alugando o livro: ')
+            self.alugar(banco=banco, informacoes_aluguel=[codigo_livro, nome_pessoa])
         except Exception as erro:
             self.erro(erro)
-            return arquivos, biblioteca, alugados
-        
-        indiceLivro, existeciaCodigo = self.verificaExistenciaLivro(codigoLivro, biblioteca)
-        
-        if existeciaCodigo:
-            podeDevolder = biblioteca[indiceLivro].validarDevolucao()
-            
-            if podeDevolder:
-                codigoLivro = biblioteca[indiceLivro].getCodigo()
-                devolverAlugado = self.buscarAlugado(codigoLivro, alugados)
-                
-                if devolverAlugado != '':
-                    alugados.remove(devolverAlugado)
-                    arquivos.atualizarAlugados(alugados)
-                    arquivos.atualizarBiblioteca(biblioteca)
-                    
-                    print('\nLivro devolvido com sucesso.')
-                else:
-                    print('\nO livro não foi alugado.')
-            else:
-                print('\nO livro não foi alugado.')
-        else:
-            print('\nNão existe este livro nos cadastros.')
-            
-        return arquivos, biblioteca, alugados
-    
+
     @staticmethod
-    def __tituloAlugar():
+    def app_devolucao(banco: Banco, codigo_livro: int) -> None:
+        filtro_documento = {'codigo': codigo_livro}
+
+        existe_documento = banco.exists_document(
+            type_collection=TypeCollections.ALUGUEIS,
+            data_type=filtro_documento
+        )
+
+        if existe_documento:
+            banco.delete_document(type_collection=TypeCollections.ALUGUEIS, code_document_delete=codigo_livro)
+            banco.update_document(
+                type_collection=TypeCollections.LIVROS,
+                filter_document=filtro_documento,
+                update_document={'$set': {'disponibilidade': True}}
+            )
+        else:
+            raise ErroSoftware('Livro inexistente!')
+
+    def devolucao(self, banco: Banco) -> None:
+        self.__titulo_devolucao()
+
+        try:
+            codigo_livro = int(input('Qual o código do livro? '))
+            self.app_devolucao(banco=banco, codigo_livro=codigo_livro)
+        except Exception as erro:
+            self.erro(erro)
+
+    @staticmethod
+    def __titulo_alugar() -> None:
         print('''
 ======================================================
 ======================= Alugar =======================
 ======================================================
 ''')
-    
+
     @staticmethod
-    def __tituloDevolucao():
+    def __titulo_devolucao() -> None:
         print('''
 ======================================================
 ====================== Devolver ======================

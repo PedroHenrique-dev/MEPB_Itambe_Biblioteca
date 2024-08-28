@@ -1,52 +1,52 @@
-from src.gerenciador import *
 from src.acoesBiblioteca import *
+from src.gerenciador import *
 from .banco import Banco
 
 
 class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):
     def __init__(self) -> None:
         self.__arquivos = GerenciadorArquivos()
-        
+
         self._banco = Banco(string_connection=self.__arquivos.conexao, string_bank=self.__arquivos.nome_banco)
-        
+
         self.__biblioteca = self.__arquivos.lerArquivoJSON(True)
         self.__alugados = self.__arquivos.lerArquivoJSON(False)
 
-    def app_cadastrar_livro_biblioteca(self, informacoes_livro):
-        self.app_cadastrar_livro(informacoes_livro=informacoes_livro, banco=self._banco)
+    def app_cadastrar_livro_biblioteca(self, informacoes_livro: list) -> None:
+        self.app_cadastrar_livro(banco=self._banco, informacoes_livro=informacoes_livro)
 
-    def cadastrar_livro_biblioteca(self):
+    def cadastrar_livro_biblioteca(self) -> None:
         self.cadastrar_livro(banco=self._banco)
 
-    def app_remover_livro_biblioteca(self, codigo_livro:int):
+    def app_remover_livro_biblioteca(self, codigo_livro: int) -> None:
         self.remover_livro(banco=self._banco, codigo_livro=codigo_livro)
 
-    def remover_livro_biblioteca(self):
+    def remover_livro_biblioteca(self) -> None:
         self.terminal_remover_livro(self._banco)
 
-    def appAlugarLivroBiblioteca(self, informacoesAluguel):
-        self.__arquivos, self.__biblioteca, self.__alugados = self.appAlugar(informacoesAluguel, self.__arquivos, self.__biblioteca, self.__alugados)
+    def app_alugar_livro_biblioteca(self, informacoes_aluguel: list) -> None:
+        self.alugar(banco=self._banco, informacoes_aluguel=informacoes_aluguel)
 
-    def alugarLivroBiblioteca(self):
-        self.__arquivos, self.__biblioteca, self.__alugados = self.alugar(self.__arquivos, self.__biblioteca, self.__alugados)
+    def alugar_livro_biblioteca(self) -> None:
+        self.terminal_alugar(banco=self._banco)
 
-    def appDevolucaoLivroBiblioteca(self, codigoLivro):
-        self.__arquivos, self.__biblioteca, self.__alugados = self.appDevolucao(codigoLivro, self.__arquivos, self.__biblioteca, self.__alugados)
+    def app_devolucao_livro_biblioteca(self, codigo_livro: int) -> None:
+        self.app_devolucao(banco=self._banco, codigo_livro=codigo_livro)
 
-    def devolucaoLivroBiblioteca(self):
-        self.__arquivos, self.__biblioteca, self.__alugados = self.devolucao(self.__arquivos, self.__biblioteca, self.__alugados)
+    def devolucao_livro_biblioteca(self) -> None:
+        self.devolucao(banco=self._banco)
 
-    def appPesquisarLivroBiblioteca(self, pesquisa, tipoPesquisa):
-        return self.appPesquisarLivro(pesquisa, tipoPesquisa, self.__biblioteca)
+    def app_pesquisar_livro_biblioteca(self, pesquisa: str, tipo_pesquisa: str):
+        return self.pesquisar_livro(banco=self._banco, pesquisa=pesquisa, tipo_pesquisa=tipo_pesquisa)
 
-    def pesquisarLivroBiblioteca(self):
-        self.pesquisarLivro(self.__biblioteca)
+    def pesquisar_livro_biblioteca(self):
+        self.terminal_pesquisar_livro(banco=self._banco)
 
     def appPesquisarAluguelBiblioteca(self, pesquisa, tipoPesquisa):
-        return self.appPesquisarAluguel(pesquisa, tipoPesquisa, self.__alugados)
+        return self.pesquisar_aluguel(banco=self._banco, pesquisa=pesquisa, tipo_pesquisa=tipoPesquisa)
 
     def pesquisarAluguelBiblioteca(self):
-        self.pesquisarAluguel(self.__alugados)
+        self.terminal_pesquisar_aluguel(self.__alugados)
 
     def appMostrarLivrosBiblioteca(self):
         informacoes = self.__appTituloTodosLivros()

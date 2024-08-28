@@ -1,8 +1,9 @@
 from os import system
 from sys import platform
+
 from src import Biblioteca
-from src.tratamento import *
 from src.gerenciador import *
+from src.tratamento import *
 
 
 class MEPB_Biblioteca(TratamentoErro, Validador):
@@ -23,12 +24,12 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
     0. Sair
             ''')
         try:
-            escolhaOpcao = int(input('Digite a opção da ação desejada: '))
+            escolha_opcao = int(input('Digite a opção da ação desejada: '))
 
-            if escolhaOpcao < 0 or escolhaOpcao > 10:
+            if escolha_opcao < 0 or escolha_opcao > 10:
                 raise ErroSoftware('Opção inválida!')
 
-            return escolhaOpcao
+            return escolha_opcao
         except Exception as erro:
             self.erro(erro)
 
@@ -50,13 +51,13 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
                 case 1:
                     self.__mepb.cadastrar_livro_biblioteca()
                 case 2:
-                    self.__mepb.alugarLivroBiblioteca()
+                    self.__mepb.alugar_livro_biblioteca()
                 case 3:
                     self.__mepb.remover_livro_biblioteca()
                 case 4:
-                    self.__mepb.devolucaoLivroBiblioteca()
+                    self.__mepb.devolucao_livro_biblioteca()
                 case 5:
-                    self.__mepb.pesquisarLivroBiblioteca()
+                    self.__mepb.pesquisar_livro_biblioteca()
                 case 6:
                     self.__mepb.pesquisarAluguelBiblioteca()
                 case 7:
@@ -78,12 +79,13 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
         limpar()
 
 
-def limpar():
+def limpar() -> None:
     if platform == 'win32':
         system('cls')
     else:
         system('clear')
 
 
-itambe = MEPB_Biblioteca()
-itambe.iniciar()
+if __name__ == '__main__':
+    itambe = MEPB_Biblioteca()
+    itambe.iniciar()

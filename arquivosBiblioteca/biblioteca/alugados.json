@@ -6,14 +6,14 @@
             "codigo": 1019,
             "nomeLivro": "Bases da Fé Cristã",
             "dataAluguel": "11/08/2024",
-            "dataEntega": "11/09/2024"
+            "dataEntrega": "11/09/2024"
         },
         {
             "nomePessoa": "Bábara",
             "codigo": 1022,
             "nomeLivro": "Manso e Humilde",
             "dataAluguel": "11/08/2024",
-            "dataEntega": "11/09/2024"
+            "dataEntrega": "11/09/2024"
         }
     ]
 }

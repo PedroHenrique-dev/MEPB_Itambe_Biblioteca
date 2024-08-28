@@ -1,3 +1,3 @@
-from .acaoCadastro import AcaoCadastro
-from .acaoAluguel import AcaoAluguel
-from .acaoPesquisar import AcaoPesquisar
+from src.acoesBiblioteca.acaoCadastro import AcaoCadastro
+from src.acoesBiblioteca.acaoAluguel import AcaoAluguel
+from src.acoesBiblioteca.acaoPesquisar import AcaoPesquisar
