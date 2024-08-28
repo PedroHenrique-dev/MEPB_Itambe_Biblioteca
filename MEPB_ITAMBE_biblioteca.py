@@ -2,8 +2,8 @@ from os import system
 from sys import platform
 
 from src import Biblioteca
-from src.gerenciador import *
-from src.tratamento import *
+from src.gerenciador import Validador
+from src.tratamento import TratamentoErro, ErroSoftware
 
 
 class MEPB_Biblioteca(TratamentoErro, Validador):

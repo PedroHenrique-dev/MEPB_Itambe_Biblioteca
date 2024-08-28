@@ -23,7 +23,7 @@ class AcaoCadastro(TratamentoErro):
 
         for info in informacoes_livro:
             if type(info) == str:
-                self.testeNomeValido(info)
+                self.teste_nome_valido(info)
 
         documento = {
             "codigo": codigo,
@@ -50,11 +50,11 @@ class AcaoCadastro(TratamentoErro):
         codigo = self.__novo_codigo(banco=banco)
 
         try:
-            nome = self.inserirNome('Qual o nome do livro? ')
-            autor = self.inserirNome('Qual o nome do autor? ')
-            editora = self.inserirNome('Qual o nome da editora? ')
+            nome = self.inserir_nome('Qual o nome do livro? ')
+            autor = self.inserir_nome('Qual o nome do autor? ')
+            editora = self.inserir_nome('Qual o nome da editora? ')
             paginas = int(input('Qual a quantidade de páginas? '))
-            genero = self.inserirNome('Qual o gênero do livro? ')
+            genero = self.inserir_nome('Qual o gênero do livro? ')
             preco = float(input('Qual o preço do livro? '))
 
             informacoes_livro = [nome, autor, editora, paginas, genero, preco]

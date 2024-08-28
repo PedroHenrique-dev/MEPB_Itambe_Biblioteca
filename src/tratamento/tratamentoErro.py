@@ -21,13 +21,13 @@ class TratamentoErro:
             return
 
     @staticmethod
-    def inserirNome(pergunta: str):
+    def inserir_nome(pergunta: str):
         nome = str(input(pergunta))
         if len(nome) < 2:
             raise ErroSoftware('Nome inválido. Letras insuficientes!')
         return nome
 
     @staticmethod
-    def testeNomeValido(nome):
+    def teste_nome_valido(nome):
         if len(nome) < 2:
             raise ErroSoftware('Nome inválido. Letras insuficientes!')

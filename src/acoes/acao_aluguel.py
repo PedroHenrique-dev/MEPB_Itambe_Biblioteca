@@ -66,7 +66,7 @@ class AcaoAluguel(TratamentoErro):
 
         try:
             codigo_livro = int(input('Qual o código do livro? '))
-            nome_pessoa = self.inserirNome('\nDigite o nome completo da pessoa que está alugando o livro: ')
+            nome_pessoa = self.inserir_nome('\nDigite o nome completo da pessoa que está alugando o livro: ')
             self.alugar(banco=banco, informacoes_aluguel=[codigo_livro, nome_pessoa])
         except Exception as erro:
             self.erro(erro)

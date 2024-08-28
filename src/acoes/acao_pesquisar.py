@@ -61,19 +61,19 @@ class AcaoPesquisar(TratamentoErro):
                         pesquisa = int(input('Qual o código do livro? '))
                         tipo_pesquisa = 'codigo'
                     case 2:
-                        pesquisa = self.inserirNome('Qual o nome do livro? ')
+                        pesquisa = self.inserir_nome('Qual o nome do livro? ')
                         tipo_pesquisa = 'nome'
                     case 3:
-                        pesquisa = self.inserirNome('Qual o nome do autor? ')
+                        pesquisa = self.inserir_nome('Qual o nome do autor? ')
                         tipo_pesquisa = 'autor'
                     case 4:
-                        pesquisa = self.inserirNome('Qual o nome da editora? ')
+                        pesquisa = self.inserir_nome('Qual o nome da editora? ')
                         tipo_pesquisa = 'editora'
                     case 5:
-                        pesquisa = self.inserirNome('Qual o gênero do livro? ')
+                        pesquisa = self.inserir_nome('Qual o gênero do livro? ')
                         tipo_pesquisa = 'genero'
                     case 6:
-                        pesquisa = self.inserirNome('Qual a disponibilidade do livro? (Disponível | Indisponível): ')
+                        pesquisa = self.inserir_nome('Qual a disponibilidade do livro? (Disponível | Indisponível): ')
                         tipo_pesquisa = 'disponibilidade'
                     case 0:
                         break
@@ -133,16 +133,16 @@ class AcaoPesquisar(TratamentoErro):
                         pesquisa = int(input('Qual o código do livro? '))
                         tipo_pesquisa = 'codigo'
                     case 2:
-                        pesquisa = self.inserirNome('Qual o nome do livro? ')
+                        pesquisa = self.inserir_nome('Qual o nome do livro? ')
                         tipo_pesquisa = 'nome_livro'
                     case 3:
-                        pesquisa = self.inserirNome('Qual a data do aluguel? ')
+                        pesquisa = self.inserir_nome('Qual a data do aluguel? ')
                         tipo_pesquisa = 'data_aluguel'
                     case 4:
-                        pesquisa = self.inserirNome('Qual a data de devolução? ')
+                        pesquisa = self.inserir_nome('Qual a data de devolução? ')
                         tipo_pesquisa = 'data_entrega'
                     case 5:
-                        pesquisa = self.inserirNome('Qual o nome da pessoa? ')
+                        pesquisa = self.inserir_nome('Qual o nome da pessoa? ')
                         tipo_pesquisa = 'nome_pessoa'
                     case 0:
                         break
