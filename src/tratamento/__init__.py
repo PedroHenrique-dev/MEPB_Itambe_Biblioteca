@@ -1,2 +1,2 @@
-from .tratamentoErro import TratamentoErro
-from .erroSoftware import ErroSoftware
+from .tratamento_erro import TratamentoErro
+from .erro_software import ErroSoftware
