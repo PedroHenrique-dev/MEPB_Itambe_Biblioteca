@@ -1,7 +1,7 @@
 from os import system
 
-from src.tratamento import *
-from ..banco import *
+from src.banco import TypeCollections, Banco
+from src.tratamento import TratamentoErro, ErroSoftware
 
 
 class AcaoPesquisar(TratamentoErro):

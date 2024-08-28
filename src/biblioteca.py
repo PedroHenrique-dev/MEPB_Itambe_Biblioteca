@@ -1,4 +1,4 @@
-from src.acoesBiblioteca import *
+from src.acoes import *
 from src.gerenciador import *
 from .banco import Banco
 

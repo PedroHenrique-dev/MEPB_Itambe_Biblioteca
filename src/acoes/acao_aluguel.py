@@ -1,7 +1,7 @@
 from datetime import date
 
-from src.tratamento import *
-from ..banco import *
+from src.banco import Banco, TypeCollections
+from src.tratamento import TratamentoErro, ErroSoftware
 
 
 class AcaoAluguel(TratamentoErro):
