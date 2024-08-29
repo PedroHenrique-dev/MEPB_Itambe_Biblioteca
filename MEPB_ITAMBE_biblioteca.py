@@ -59,15 +59,15 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
                 case 5:
                     self.__mepb.pesquisar_livro_biblioteca()
                 case 6:
-                    self.__mepb.pesquisarAluguelBiblioteca()
+                    self.__mepb.pesquisar_aluguel_biblioteca()
                 case 7:
-                    self.__mepb.mostrarLivrosBiblioteca()
+                    self.__mepb.mostrar_livros_biblioteca()
                 case 8:
-                    self.__mepb.mostrarAlugadosBiblioteca()
+                    self.__mepb.mostrar_alugados_biblioteca()
                 case 9:
-                    self.__mepb.gastoTotalLivros()
+                    self.__mepb.terminal_gasto_total_livros()
                 case 10:
-                    self.__mepb.mostrarQuantidadeLivros()
+                    self.__mepb.mostrar_quantidade_livros()
                 case 0:
                     break
                 case None:

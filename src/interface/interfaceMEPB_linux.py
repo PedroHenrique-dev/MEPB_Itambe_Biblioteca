@@ -43,8 +43,8 @@ class InterfaceMEPB_Linux(Validador):
         insideMenu = tb.Menu(self.menuBiblioteca)
 
         optionMenu = StringVar()
-        for option in ['Principal', 'Cadastro', 'Aluguel', 'Pesquisar Livro', 'Pesquisar Aluguel', 'Mostrar Livros', 'Mostrar Alugados', 'Gasto Total', 'Administrador']:
-            insideMenu.add_radiobutton(label=option, variable=optionMenu, command=lambda option=option: self.menuSelecionado(option))
+        for opcao in ['Principal', 'Cadastro', 'Aluguel', 'Pesquisar Livro', 'Pesquisar Aluguel', 'Mostrar Livros', 'Mostrar Alugados', 'Gasto Total', 'Administrador']:
+            insideMenu.add_radiobutton(label=opcao, variable=optionMenu, command=lambda option=opcao: self.menuSelecionado(option))
 
         self.menuBiblioteca['menu'] = insideMenu
 
@@ -215,7 +215,7 @@ class InterfaceMEPB_Linux(Validador):
         self.janelaPesquisarLivro(janela, informacoes, tipoJanela, titulo)
 
     def acaoPesquisarAluguel(self, event):
-        pesquisa, janela, tipoJanela, titulo = event
+        pesquisa, janela, tipo_janela, titulo = event
 
         informacoes = ''
         erroProcesso = False
@@ -226,14 +226,14 @@ class InterfaceMEPB_Linux(Validador):
             if type(pesquisa.get()) == str and pesquisa.get() == '':
                 raise ErroSoftware('Nada pesquisado!')
 
-            informacoes = self.mepb.appPesquisarAluguelBiblioteca(pesquisa.get(), tipoJanela)
+            informacoes = self.mepb.app_pesquisar_aluguel_biblioteca(pesquisa=pesquisa.get(), tipo_pesquisa=tipo_janela)
         except Exception as erro:
             erroProcesso = True
 
-        self.janelaPesquisarAluguel(janela, informacoes, tipoJanela, titulo)
+        self.janelaPesquisarAluguel(janela, informacoes, tipo_janela, titulo)
 
     def acaoMostrarLivros(self, event):
-        informacoes = self.mepb.appMostrarLivrosBiblioteca()
+        informacoes = self.mepb.app_mostrar_livros_biblioteca()
         self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0,
                                sticky='nw', padx=0, pady=3)
 
@@ -243,7 +243,7 @@ class InterfaceMEPB_Linux(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            informacoes = self.mepb.appMostrarAlugadosBiblioteca()
+            informacoes = self.mepb.app_mostrar_alugados_biblioteca()
             self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0,
                                    sticky='nw', padx=0, pady=3)
         except Exception as erro:
@@ -255,7 +255,7 @@ class InterfaceMEPB_Linux(Validador):
             if not self.usuarioAdministrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            gasto = self.mepb.appGastoTotalLivros()
+            gasto = self.mepb.app_gasto_total_livros()
             self.saidaTexto(texto=gasto, janela=self.frameFuncao, height=1, width=10, column=1, row=0, sticky='nw')
         except Exception as erro:
             erroProcesso = True

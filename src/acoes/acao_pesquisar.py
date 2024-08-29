@@ -48,13 +48,13 @@ class AcaoPesquisar(TratamentoErro):
                 informacoes += self._exibir_info_livro(documento=documento)
         return informacoes
 
-    def terminal_pesquisar_livro(self, banco: Banco):
+    def terminal_pesquisar_livro(self, banco: Banco) -> None:
         while True:
             system('clear')
             escolha = self.__menu_pesquisa_livro()
 
-            pesquisa = str
-            tipo_pesquisa = str
+            pesquisa = None
+            tipo_pesquisa = None
             try:
                 match escolha:
                     case 1:
@@ -125,8 +125,8 @@ class AcaoPesquisar(TratamentoErro):
             system('clear')
             escolha = self.__menu_pesquisa_aluguel()
 
-            pesquisa = str
-            tipo_pesquisa = str
+            pesquisa = None
+            tipo_pesquisa = None
             try:
                 match escolha:
                     case 1:
