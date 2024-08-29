@@ -2,8 +2,8 @@ from os import system
 from sys import platform
 
 from src import Biblioteca
-from src.gerenciador import Validador
 from src.tratamento import TratamentoErro, ErroSoftware
+from src.validador import Validador
 
 
 class MEPB_Biblioteca(TratamentoErro, Validador):
@@ -42,7 +42,7 @@ class MEPB_Biblioteca(TratamentoErro, Validador):
             escolha = self.__menu()
             if not permissao and (
                     escolha == 1 or escolha == 3 or escolha == 4 or escolha == 6 or escolha == 7 or escolha == 8):
-                permissao = self.validarEntrada(str(input('Digite a senha: ')))
+                permissao = self.validar_entrada(str(input('Digite a senha: ')))
                 if not permissao:
                     continue
 

@@ -1,19 +1,18 @@
 from src.tratamento import ErroSoftware
 
 
-class Validador:        
+class Validador:
     @staticmethod
-    def validarEntrada(senha: str):
+    def validar_entrada(senha: str):
         if senha == 'm0kon9ji':
             return True
         else:
             print('\nSenha errada.')
             return False
-    
+
     @staticmethod
-    def appValidarEntrada(senha: str):
+    def app_validar_entrada(senha: str):
         if senha == 'm0kon9ji':
             return True
         else:
             raise ErroSoftware('Senha inválida!')
-        

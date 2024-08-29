@@ -1,6 +1,6 @@
 from .acoes import AcaoCadastro, AcaoAluguel, AcaoPesquisar
 from .banco import Banco, TypeCollections
-from .config import Configuracao
+from .configuracao import Configuracao
 
 
 class Biblioteca(AcaoCadastro, AcaoAluguel, AcaoPesquisar):

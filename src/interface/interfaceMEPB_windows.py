@@ -3,8 +3,8 @@ import ttkbootstrap as tb
 import json
 from src import Biblioteca
 from src.tratamento import ErroSoftware
-from src.gerenciador.validador import Validador
-from src.config import Configuracao
+from src.validador import Validador
+from src.configuracao import Configuracao
 
 
 class InterfaceMEPB_Windows(Validador):
@@ -264,7 +264,7 @@ class InterfaceMEPB_Windows(Validador):
 
         erroProcesso = False
         try:
-            self.usuarioAdministrador = self.appValidarEntrada(senha.get())
+            self.usuarioAdministrador = self.app_validar_entrada(senha.get())
 
         except Exception as erro:
             erroProcesso = True
