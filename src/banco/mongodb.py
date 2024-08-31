@@ -16,6 +16,8 @@ class Banco:
                 return 'livros'
             case TypeCollections.ALUGUEIS:
                 return 'alugueis'
+            case TypeCollections.USUARIOS:
+                return  'usuarios'
 
     def _get_collection(self, type_collection: TypeCollections):
         return self._db_connection.get_collection(self._get_string_collection(type_collection))
