@@ -45,11 +45,22 @@ class AcaoCadastro(TratamentoErro):
 
     @staticmethod
     def remover_livro(banco: Banco, codigo_livro: int) -> None:
-        existe_documento = banco.exists_document(
+        existe_livro = banco.exists_document(
             type_collection=TypeCollections.LIVROS,
             data_type={"_id": codigo_livro}
         )
-        if existe_documento:
+        
+        existe_aluguel = banco.exists_document(
+            type_collection=TypeCollections.ALUGUEIS,
+            data_type={"_id": codigo_livro}
+        )
+        
+        if existe_livro:
+            if existe_aluguel:
+                banco.delete_document(
+                    type_collection=TypeCollections.ALUGUEIS,
+                    code_document_delete=codigo_livro
+                )
             banco.delete_document(
                 type_collection=TypeCollections.LIVROS,
                 code_document_delete=codigo_livro

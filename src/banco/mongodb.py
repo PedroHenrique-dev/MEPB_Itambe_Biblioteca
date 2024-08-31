@@ -54,6 +54,5 @@ class Banco:
         last_document = collection.find().sort('_id', -1).limit(1)
 
         for document in last_document:
-            del document['_id']
             return document
         return {}
