@@ -7,10 +7,12 @@ from src.tratamento import TratamentoErro, ErroSoftware
 class AcaoCadastro(TratamentoErro):
     data_atual = date.today().strftime('%d/%m/%Y')
 
-    @staticmethod
-    def _novo_codigo(banco: Banco) -> int:
+    def __init__(self, banco: Banco):
+        self._banco = banco
+
+    def _novo_codigo(self) -> int:
         codigo = 1001
-        ultimo_documento = banco.get_last_document(TypeCollections.LIVROS)
+        ultimo_documento = self._banco.get_last_document(TypeCollections.LIVROS)
 
         if ultimo_documento != {}:
             codigo = ultimo_documento['_id'] + 1
@@ -38,30 +40,29 @@ class AcaoCadastro(TratamentoErro):
         }
         return documento
 
-    def cadastrar_livro(self, banco: Banco, informacoes_livro: list) -> None:
-        codigo = self._novo_codigo(banco=banco)
+    def cadastrar_livro(self, informacoes_livro: list) -> None:
+        codigo = self._novo_codigo()
         livro = self._criar_documento_livro(informacoes_livro=informacoes_livro, codigo=codigo)
-        banco.add_document(type_collection=TypeCollections.LIVROS, document=livro)
+        self._banco.add_document(type_collection=TypeCollections.LIVROS, document=livro)
 
-    @staticmethod
-    def remover_livro(banco: Banco, codigo_livro: int) -> None:
-        existe_livro = banco.exists_document(
+    def remover_livro(self, codigo_livro: int) -> None:
+        existe_livro = self._banco.exists_document(
             type_collection=TypeCollections.LIVROS,
             data_type={"_id": codigo_livro}
         )
-        
-        existe_aluguel = banco.exists_document(
+
+        existe_aluguel = self._banco.exists_document(
             type_collection=TypeCollections.ALUGUEIS,
             data_type={"_id": codigo_livro}
         )
-        
+
         if existe_livro:
             if existe_aluguel:
-                banco.delete_document(
+                self._banco.delete_document(
                     type_collection=TypeCollections.ALUGUEIS,
                     code_document_delete=codigo_livro
                 )
-            banco.delete_document(
+            self._banco.delete_document(
                 type_collection=TypeCollections.LIVROS,
                 code_document_delete=codigo_livro
             )

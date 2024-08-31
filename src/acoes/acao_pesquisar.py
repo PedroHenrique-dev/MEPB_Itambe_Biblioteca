@@ -3,25 +3,26 @@ from src.tratamento import TratamentoErro
 
 
 class AcaoPesquisar(TratamentoErro):
-    def pesquisar_livro(self, banco: Banco, pesquisa: str, tipo_pesquisa: str, mensagem_vazio:str ) -> str:
+    def __init__(self, banco: Banco):
+        self._banco = banco
+
+    def pesquisar_livro(self, pesquisa: str, tipo_pesquisa: str, mensagem_vazio: str) -> str:
         return self._pesquisar(
-            banco=banco,
             type_collection=TypeCollections.LIVROS,
             pesquisa=pesquisa,
             tipo_pesquisa=tipo_pesquisa,
             mensagem_vazio=mensagem_vazio
         )
 
-    def pesquisar_aluguel(self, banco: Banco, pesquisa: str, tipo_pesquisa: str, mensagem_vazio:str) -> str:
+    def pesquisar_aluguel(self, pesquisa: str, tipo_pesquisa: str, mensagem_vazio: str) -> str:
         return self._pesquisar(
-            banco=banco,
             type_collection=TypeCollections.ALUGUEIS,
             pesquisa=pesquisa,
             tipo_pesquisa=tipo_pesquisa,
             mensagem_vazio=mensagem_vazio
         )
 
-    def _pesquisar(self, banco: Banco, type_collection:TypeCollections, pesquisa: str, tipo_pesquisa: str, mensagem_vazio: str):
+    def _pesquisar(self, type_collection: TypeCollections, pesquisa: str, tipo_pesquisa: str, mensagem_vazio: str) -> str:
         if pesquisa == 'Disponível':
             pesquisa = True
         elif pesquisa == 'Indisponível':
@@ -37,7 +38,7 @@ class AcaoPesquisar(TratamentoErro):
         if not pesquisar_todos:
             filtro_documento = {tipo_pesquisa: pesquisa}
 
-        existe_documento = banco.exists_document(
+        existe_documento = self._banco.exists_document(
             type_collection=type_collection,
             data_type=filtro_documento
         )
@@ -53,7 +54,7 @@ class AcaoPesquisar(TratamentoErro):
             informacoes = '    *** Livros ***\n'
 
         if existe_documento:
-            documentos = banco.find_document(type_collection=type_collection, data_type=filtro_documento)
+            documentos = self._banco.find_document(type_collection=type_collection, data_type=filtro_documento)
             for documento in documentos:
                 match type_collection:
                     case TypeCollections.LIVROS:
