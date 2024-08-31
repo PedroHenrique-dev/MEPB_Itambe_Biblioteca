@@ -13,8 +13,6 @@ class InterfaceMEPB_Windows(Validador):
     def __init__(self) -> None:
         self.configuracao = Configuracao()
 
-        self.usuario_administrador = False
-
         self.mepb = Biblioteca()
         self.fonte = ('Arial', 13)
 
@@ -141,9 +139,6 @@ class InterfaceMEPB_Windows(Validador):
 
         erro_processo = False
         try:
-            if not self.usuario_administrador:
-                raise ErroSoftware('Usuário não autorizado!')
-
             informacoes_livro = [
                 nome.get(),
                 autor.get(),
@@ -165,9 +160,6 @@ class InterfaceMEPB_Windows(Validador):
 
         erro_processo = False
         try:
-            if not self.usuario_administrador:
-                raise ErroSoftware('Usuário não autorizado!')
-
             self.mepb.app_remover_livro_biblioteca(int(codigo.get()))
         except Exception as erro:
             erro_processo = True
@@ -193,9 +185,6 @@ class InterfaceMEPB_Windows(Validador):
 
         erro_processo = False
         try:
-            if not self.usuario_administrador:
-                raise ErroSoftware('Usuário não autorizado!')
-
             self.mepb.app_devolucao_livro_biblioteca(codigo_livro=int(codigo.get()))
         except Exception as erro:
             erro_processo = True
@@ -226,9 +215,6 @@ class InterfaceMEPB_Windows(Validador):
 
         informacoes = ''
         try:
-            if not self.usuario_administrador:
-                raise ErroSoftware('Usuário não autorizado!')
-
             if type(pesquisa.get()) == str and pesquisa.get() == '':
                 raise ErroSoftware('Nada pesquisado!')
 
@@ -245,9 +231,6 @@ class InterfaceMEPB_Windows(Validador):
 
     def acao_mostrar_alugados(self, _):
         try:
-            if not self.usuario_administrador:
-                raise ErroSoftware('Usuário não autorizado!')
-
             informacoes = self.mepb.app_mostrar_alugados_biblioteca()
             self.saida_scrolled_text(texto=informacoes, janela=self.frame_funcao, height=15, width=64, column=1, row=0,
                                      sticky='nw', padx=0, pady=3)
@@ -256,9 +239,6 @@ class InterfaceMEPB_Windows(Validador):
 
     def acao_gasto_total(self, _):
         try:
-            if not self.usuario_administrador:
-                raise ErroSoftware('Usuário não autorizado!')
-
             gasto = self.mepb.app_gasto_total_livros()
             self.saida_texto(texto=gasto, janela=self.frame_funcao, height=1, width=10, column=1, row=0, sticky='nw')
         except Exception as erro:
@@ -269,8 +249,7 @@ class InterfaceMEPB_Windows(Validador):
 
         erro_processo = False
         try:
-            self.usuario_administrador = self.app_validar_entrada(senha.get())
-
+            self.mepb.app_validar_entrada(senha=senha.get())
         except Exception as erro:
             erro_processo = True
             ErroSoftware(erro)
