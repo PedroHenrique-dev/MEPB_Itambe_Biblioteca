@@ -1,86 +1,90 @@
-from tkinter import *
-import ttkbootstrap as tb
 import json
+from tkinter import StringVar, PhotoImage, WORD
+
+import ttkbootstrap as tb
+
 from src import Biblioteca
+from src.configuracao import Configuracao
 from src.tratamento import ErroSoftware
 from src.validador import Validador
-from src.configuracao import Configuracao
 
 
 class InterfaceMEPB_Windows(Validador):
     def __init__(self) -> None:
         self.configuracao = Configuracao()
-        
-        self.usuarioAdministrador = False
+
+        self.usuario_administrador = False
 
         self.mepb = Biblioteca()
         self.fonte = ('Arial', 13)
 
-        self.janela = self.abrirJanela_windows()
+        self.janela = self.abrir_janela_windows()
 
-        self.frameJanela = tb.Frame(self.janela, bootstyle='defalt')
-        self.logo = self.carregarImagem(self.frameJanela, self.configuracao.imagens + 'logo.png', 6)
-        self.igreja = self.igreja_windows(self.frameJanela)
-        self.menuBiblioteca = tb.Menubutton(self.frameJanela, text='Menu')
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.menuButtonBiblioteca()
+        self.frame_janela = tb.Frame(self.janela, bootstyle='default')
+        self.logo = self.carregar_imagem(self.frame_janela, self.configuracao.imagens + 'logo.png', 6)
+        self.igreja = self.igreja_windows(self.frame_janela)
+        self.menu_biblioteca = tb.Menubutton(self.frame_janela, text='Menu')
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.menu_button_biblioteca()
         self.principal()
 
         self.logo.grid(row=0, column=0, padx=50, pady=10, sticky='w')
         self.igreja.grid(row=0, column=1)
-        self.menuBiblioteca.grid(row=1, column=0, sticky='n', ipadx=5, ipady=5)
-        self.frameFuncao.grid(row=1, column=1)
+        self.menu_biblioteca.grid(row=1, column=0, sticky='n', ipadx=5, ipady=5)
+        self.frame_funcao.grid(row=1, column=1)
 
-        self.labelAux1 = tb.Label(self.frameJanela, text='   ')
-        self.labelAux2 = tb.Label(self.frameJanela, text='   ')
-        self.labelAux1.grid(row=2, column=1, pady=10)
-        self.labelAux2.grid(row=2, column=2, ipadx=10, ipady=10, padx=10)
+        self.label_aux1 = tb.Label(self.frame_janela, text='   ')
+        self.label_aux2 = tb.Label(self.frame_janela, text='   ')
+        self.label_aux1.grid(row=2, column=1, pady=10)
+        self.label_aux2.grid(row=2, column=2, ipadx=10, ipady=10, padx=10)
 
-        self.frameJanela.pack()
-        self.fecharJanela()
+        self.frame_janela.pack()
+        self.fechar_janela()
 
-    def menuButtonBiblioteca(self):
-        insideMenu = tb.Menu(self.menuBiblioteca)
+    def menu_button_biblioteca(self):
+        inside_menu = tb.Menu(self.menu_biblioteca)
 
-        optionMenu = StringVar()
-        for opcao in ['Principal', 'Cadastro', 'Aluguel', 'Pesquisar Livro', 'Pesquisar Aluguel', 'Mostrar Livros', 'Mostrar Alugados', 'Gasto Total', 'Administrador']:
-            insideMenu.add_radiobutton(label=opcao, variable=optionMenu, command=lambda option=opcao: self.menuSelecionado(option))
+        option_menu = StringVar()
+        for opcao in ['Principal', 'Cadastro', 'Aluguel', 'Pesquisar Livro', 'Pesquisar Aluguel', 'Mostrar Livros',
+                      'Mostrar Alugados', 'Gasto Total', 'Administrador']:
+            inside_menu.add_radiobutton(label=opcao, variable=option_menu,
+                                        command=lambda option=opcao: self.menu_selecionado(option))
 
-        self.menuBiblioteca['menu'] = insideMenu
+        self.menu_biblioteca['menu'] = inside_menu
 
-    def menuSelecionado(self, optionSelected):
-        if optionSelected == 'Principal':
+    def menu_selecionado(self, option_selected):
+        if option_selected == 'Principal':
             self.principal()
-        elif optionSelected == 'Cadastro':
+        elif option_selected == 'Cadastro':
             self.cadastro()
-        elif optionSelected == 'Aluguel':
+        elif option_selected == 'Aluguel':
             self.aluguel()
-        elif optionSelected == 'Pesquisar Livro':
-            self.pesquisarLivro()
-        elif optionSelected == 'Pesquisar Aluguel':
-            self.pesquisarAluguel()
-        elif optionSelected == 'Mostrar Livros':
-            self.mostrarLivros()
-        elif optionSelected == 'Mostrar Alugados':
-            self.mostrarAlugados()
-        elif optionSelected == 'Gasto Total':
-            self.gastoTotal()
-        elif optionSelected == 'Administrador':
+        elif option_selected == 'Pesquisar Livro':
+            self.pesquisar_livro()
+        elif option_selected == 'Pesquisar Aluguel':
+            self.pesquisar_aluguel()
+        elif option_selected == 'Mostrar Livros':
+            self.mostrar_livros()
+        elif option_selected == 'Mostrar Alugados':
+            self.mostrar_alugados()
+        elif option_selected == 'Gasto Total':
+            self.gasto_total()
+        elif option_selected == 'Administrador':
             self.administrador()
 
     @staticmethod
     def igreja_windows(frame):
-        labelIgreja_windows = tb.Label(frame,
-                               anchor='n',
-                               compound='bottom',
-                               font='{Rage Italic} 30 {}',
-                               relief='flat',
-                               state='normal',
-                               text='Missão  Evangélica Pentecostal do Brasil - Itambé'
-                               )
-        return labelIgreja_windows
+        label_igreja_windows = tb.Label(frame,
+            anchor='n',
+            compound='bottom',
+            font='{Rage Italic} 30 {}',
+            relief='flat',
+            state='normal',
+            text='Missão  Evangélica Pentecostal do Brasil - Itambé'
+        )
+        return label_igreja_windows
 
-    def abrirJanela_windows(self):
+    def abrir_janela_windows(self):
         janela = tb.Window(themename='journal')
         janela.title('Biblioteca')
         janela.iconbitmap(self.configuracao.imagens + 'book.ico')
@@ -90,18 +94,18 @@ class InterfaceMEPB_Windows(Validador):
         janela.resizable(False, False)
         return janela
 
-    def fecharJanela(self):
+    def fechar_janela(self):
         self.janela.mainloop()
 
     @staticmethod
-    def carregarImagem(frame, nomeImagem, tamanho):
-        imagem = PhotoImage(file=nomeImagem)
-        imagem = imagem.subsample(tamanho,tamanho)
-        labelImagem = tb.Label(frame, image=imagem)
-        labelImagem.imagem = imagem
-        return labelImagem
+    def carregar_imagem(frame, nome_imagem, tamanho):
+        imagem = PhotoImage(file=nome_imagem)
+        imagem = imagem.subsample(tamanho, tamanho)
+        label_imagem = tb.Label(frame, image=imagem)
+        label_imagem.imagem = imagem
+        return label_imagem
 
-    def saidaTexto(self, texto, janela, height, width, column, row, sticky):
+    def saida_texto(self, texto, janela, height, width, column, row, sticky):
         saida = tb.Text(janela, height=height, width=width, font=self.fonte, state='disabled')
         saida.configure(state='normal')
         saida.delete('1.0', 'end')
@@ -109,7 +113,7 @@ class InterfaceMEPB_Windows(Validador):
         saida.configure(state='disabled')
         saida.grid(column=column, row=row, sticky=sticky, padx=0, pady=3)
 
-    def saidaScrolledText(self, texto, janela, height, width, column, row, sticky, padx, pady):
+    def saida_scrolled_text(self, texto, janela, height, width, column, row, sticky, padx, pady):
         saida = tb.ScrolledText(janela, wrap=WORD, height=height, width=width, font=self.fonte, state='disabled')
         saida.configure(state='normal')
         saida.delete('1.0', 'end')
@@ -117,109 +121,112 @@ class InterfaceMEPB_Windows(Validador):
         saida.configure(state='disabled')
         saida.grid(column=column, row=row, sticky=sticky, padx=padx, pady=pady)
 
-    def mensagemStatusSaida(self, mensagemSucesso, erroProcesso, janela, column, row, sticky, ipadx):
-        mensagem = mensagemSucesso if (not erroProcesso) else 'Erro'
-        ipadxErro = 34
+    def mensagem_status_saida(self, mensagem_sucesso, erro_processo, janela, column, row, sticky, ipadx):
+        mensagem = mensagem_sucesso if (not erro_processo) else 'Erro'
+        ipadx_erro = 34
 
-        if mensagemSucesso[:5] == 'Senha' and erroProcesso:
+        if mensagem_sucesso[:5] == 'Senha' and erro_processo:
             mensagem = 'Senha incorreta'
-            ipadxErro = 0
+            ipadx_erro = 0
 
-        if erroProcesso:
+        if erro_processo:
             status = tb.Label(janela, text=mensagem, font=self.fonte, bootstyle="inverse-primary")
-            status.grid(column=column, row=row, sticky=sticky, ipadx=ipadxErro, ipady=5)
+            status.grid(column=column, row=row, sticky=sticky, ipadx=ipadx_erro, ipady=5)
         else:
             status = tb.Label(janela, text=mensagem, font=self.fonte, bootstyle="inverse-success")
             status.grid(column=column, row=row, sticky=sticky, ipadx=ipadx, ipady=5)
 
-    def acaoCadastrar(self, event):
+    def acao_cadastrar(self, event):
         nome, autor, editora, paginas, genero, preco, janela = event
 
-        erroProcesso = False
+        erro_processo = False
         try:
-            if not self.usuarioAdministrador:
+            if not self.usuario_administrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
-            informacoes_livro = (
+            informacoes_livro = [
                 nome.get(),
                 autor.get(),
                 editora.get(),
                 int(paginas.get()),
                 genero.get(),
                 float(preco.get())
-            )
-            
+            ]
+
             self.mepb.app_cadastrar_livro_biblioteca(informacoes_livro)
         except Exception as erro:
-            erroProcesso = True
+            erro_processo = True
+            ErroSoftware(erro)
 
-        self.mensagemStatusSaida('Cadastrado', erroProcesso, janela, column=1, row=6, sticky='e', ipadx=8)
+        self.mensagem_status_saida('Cadastrado', erro_processo, janela, column=1, row=6, sticky='e', ipadx=8)
 
-    def acaoRemover(self, event):
+    def acao_remover(self, event):
         codigo, janela = event
 
-        erroProcesso = False
+        erro_processo = False
         try:
-            if not self.usuarioAdministrador:
+            if not self.usuario_administrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             self.mepb.app_remover_livro_biblioteca(int(codigo.get()))
         except Exception as erro:
-            erroProcesso = True
+            erro_processo = True
+            ErroSoftware(erro)
 
-        self.mensagemStatusSaida('Removido', erroProcesso, janela, column=3, row=1, sticky='e', ipadx=14)
+        self.mensagem_status_saida('Removido', erro_processo, janela, column=3, row=1, sticky='e', ipadx=14)
 
-    def acaoAlugar(self, event):
+    def acao_alugar(self, event):
         codigo, nome, janela = event
 
-        erroProcesso = False
+        erro_processo = False
         try:
-            informacoes_aluguel = (int(codigo.get()), nome.get())
+            informacoes_aluguel = [int(codigo.get()), nome.get()]
             self.mepb.app_alugar_livro_biblioteca(informacoes_aluguel)
         except Exception as erro:
-            erroProcesso = True
+            erro_processo = True
+            ErroSoftware(erro)
 
-        self.mensagemStatusSaida('Alugado', erroProcesso, janela, column=1, row=2, sticky='e', ipadx=21)
+        self.mensagem_status_saida('Alugado', erro_processo, janela, column=1, row=2, sticky='e', ipadx=21)
 
-    def acaoDevolver(self, event):
+    def acao_devolver(self, event):
         codigo, janela = event
 
-        erroProcesso = False
+        erro_processo = False
         try:
-            if not self.usuarioAdministrador:
+            if not self.usuario_administrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             self.mepb.app_devolucao_livro_biblioteca(codigo_livro=int(codigo.get()))
         except Exception as erro:
-            erroProcesso = True
+            erro_processo = True
+            ErroSoftware(erro)
 
-        self.mensagemStatusSaida('Devolvido', erroProcesso, janela, column=3, row=1, sticky='e', ipadx=15)
+        self.mensagem_status_saida('Devolvido', erro_processo, janela, column=3, row=1, sticky='e', ipadx=15)
 
-    def acaoPesquisarLivro(self, event):
-        pesquisa, janela, tipoJanela, titulo = event
+    def acao_pesquisar_livro(self, event):
+        pesquisa, janela, tipo_janela, titulo = event
 
         informacoes = ''
-        erroProcesso = False
         try:
-            if tipoJanela == 'disponibilidade':
-                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa, tipo_pesquisa=tipoJanela)
+            if tipo_janela == 'disponibilidade':
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa, tipo_pesquisa=tipo_janela)
             else:
                 if type(pesquisa.get()) == str and pesquisa.get() == '':
                     raise ErroSoftware('Nada pesquisado!')
 
-                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa.get(), tipo_pesquisa=tipoJanela)
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa.get(),
+                                                                       tipo_pesquisa=tipo_janela)
         except Exception as erro:
-            erroProcesso = True
+            ErroSoftware(erro)
 
-        self.janelaPesquisarLivro(janela, informacoes, tipoJanela, titulo)
+        self.janela_pesquisar_livro(janela, informacoes, tipo_janela, titulo)
 
-    def acaoPesquisarAluguel(self, event):
+    def acao_pesquisar_aluguel(self, event):
         pesquisa, janela, tipo_janela, titulo = event
 
         informacoes = ''
-        erroProcesso = False
         try:
-            if not self.usuarioAdministrador:
+            if not self.usuario_administrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             if type(pesquisa.get()) == str and pesquisa.get() == '':
@@ -227,300 +234,303 @@ class InterfaceMEPB_Windows(Validador):
 
             informacoes = self.mepb.app_pesquisar_aluguel_biblioteca(pesquisa=pesquisa.get(), tipo_pesquisa=tipo_janela)
         except Exception as erro:
-            erroProcesso = True
+            ErroSoftware(erro)
 
-        self.janelaPesquisarAluguel(janela, informacoes, tipo_janela, titulo)
+        self.janela_pesquisar_aluguel(janela, informacoes, tipo_janela, titulo)
 
-    def acaoMostrarLivros(self, event):
+    def acao_mostrar_livros(self, _):
         informacoes = self.mepb.app_mostrar_livros_biblioteca()
-        self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0,
-                               sticky='nw', padx=0, pady=3)
+        self.saida_scrolled_text(texto=informacoes, janela=self.frame_funcao, height=15, width=64, column=1, row=0,
+                                 sticky='nw', padx=0, pady=3)
 
-    def acaoMostrarAlugados(self, event):
-        erroProcesso = False
+    def acao_mostrar_alugados(self, _):
         try:
-            if not self.usuarioAdministrador:
+            if not self.usuario_administrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             informacoes = self.mepb.app_mostrar_alugados_biblioteca()
-            self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=15, width=64, column=1, row=0,
-                                   sticky='nw', padx=0, pady=3)
+            self.saida_scrolled_text(texto=informacoes, janela=self.frame_funcao, height=15, width=64, column=1, row=0,
+                                     sticky='nw', padx=0, pady=3)
         except Exception as erro:
-            erroProcesso = True
+            ErroSoftware(erro)
 
-    def acaoGastoTotal(self, event):
-        erroProcesso = False
+    def acao_gasto_total(self, _):
         try:
-            if not self.usuarioAdministrador:
+            if not self.usuario_administrador:
                 raise ErroSoftware('Usuário não autorizado!')
 
             gasto = self.mepb.app_gasto_total_livros()
-            self.saidaTexto(texto=gasto, janela=self.frameFuncao, height=1, width=10, column=1, row=0, sticky='nw')
+            self.saida_texto(texto=gasto, janela=self.frame_funcao, height=1, width=10, column=1, row=0, sticky='nw')
         except Exception as erro:
-            erroProcesso = True
+            ErroSoftware(erro)
 
-    def acaoAdministrador(self, event):
+    def acao_administrador(self, event):
         senha, janela = event
 
-        erroProcesso = False
+        erro_processo = False
         try:
-            self.usuarioAdministrador = self.app_validar_entrada(senha.get())
+            self.usuario_administrador = self.app_validar_entrada(senha.get())
 
         except Exception as erro:
-            erroProcesso = True
+            erro_processo = True
+            ErroSoftware(erro)
 
-        self.mensagemStatusSaida('Senha correta', erroProcesso, janela, column=3, row=1, sticky='e', ipadx=7)
+        self.mensagem_status_saida('Senha correta', erro_processo, janela, column=3, row=1, sticky='e', ipadx=7)
 
     def principal(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Principal')
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Principal')
 
-        membros = self.carregarImagem(self.frameFuncao, self.configuracao.imagens + 'membros.png', 2)
+        membros = self.carregar_imagem(self.frame_funcao, self.configuracao.imagens + 'membros.png', 2)
 
-        nomeArquivo = self.configuracao.info + 'historia.json'
+        nome_arquivo = self.configuracao.info + 'historia.json'
         informacoes = ''
 
-        with open(nomeArquivo) as f:
-            jsonArquivo = json.load(f)
+        with open(nome_arquivo) as f:
+            json_arquivo = json.load(f)
 
-        with open(nomeArquivo, 'r') as arquivo:
-            for info in jsonArquivo['historia']:
+        with open(nome_arquivo, 'r'):
+            for info in json_arquivo['historia']:
                 informacoes += info
 
-        self.saidaScrolledText(texto=informacoes, janela=self.frameFuncao, height=9, width=74, column=0, row=1,
-                               sticky='nw', padx=10, pady=3)
+        self.saida_scrolled_text(texto=informacoes, janela=self.frame_funcao, height=9, width=74, column=0, row=1,
+                                 sticky='nw', padx=10, pady=3)
 
         membros.grid(column=0, row=0)
-        self.frameFuncao.grid(row=1, column=1, sticky='nw', ipadx=0, ipady=10)
+        self.frame_funcao.grid(row=1, column=1, sticky='nw', ipadx=0, ipady=10)
 
-    def criarLabel(self, janela, textLabel):
-        return tb.Label(janela, text=textLabel, font=self.fonte), tb.Entry(janela, font=self.fonte)
+    def criar_label(self, janela, text_label):
+        return tb.Label(janela, text=text_label, font=self.fonte), tb.Entry(janela, font=self.fonte)
 
     @staticmethod
-    def criarBotao(janela, textBotao, comando, textoComando):
-        return tb.Button(janela, text=textBotao, bootstyle='info', command=lambda: comando(textoComando))
+    def criar_botao(janela, text_botao, comando, texto_comando):
+        return tb.Button(janela, text=text_botao, bootstyle='info', command=lambda: comando(texto_comando))
 
-    def janelaCadastrar(self, notebookCadastro):
-        janelaAdicionar = tb.Frame(notebookCadastro)
-        nomeLabel, nomeEntry = self.criarLabel(janelaAdicionar, 'Nome:    ')
-        autorLabel, autorEntry = self.criarLabel(janelaAdicionar, 'Autor:    ')
-        editoraLabel, editoraEntry = self.criarLabel(janelaAdicionar, 'Editora:    ')
-        paginasLabel, paginasEntry = self.criarLabel(janelaAdicionar, 'Páginas:    ')
-        generoLabel, generoEntry = self.criarLabel(janelaAdicionar, 'Gênero:    ')
-        precoLabel, precoEntry = self.criarLabel(janelaAdicionar, 'Preço:    ')
-        infoCadastro = (nomeEntry, autorEntry, editoraEntry, paginasEntry, generoEntry, precoEntry, janelaAdicionar)
-        cadastrarButton = self.criarBotao(janelaAdicionar, 'Adicionar', self.acaoCadastrar, infoCadastro)
-        self.saidaTexto(texto='', janela=janelaAdicionar, height=1, width=10, column=1, row=6, sticky='e')
-        nomeLabel.grid(column=0, row=0, sticky='nw', pady=10)
-        nomeEntry.grid(column=1, row=0, ipadx=100, sticky='nw')
-        autorLabel.grid(column=0, row=1, sticky='nw', pady=10)
-        autorEntry.grid(column=1, row=1, ipadx=100, sticky='nw')
-        editoraLabel.grid(column=0, row=2, sticky='nw', pady=10)
-        editoraEntry.grid(column=1, row=2, ipadx=100, sticky='nw')
-        paginasLabel.grid(column=0, row=3, sticky='nw', pady=10)
-        paginasEntry.grid(column=1, row=3, sticky='nw')
-        generoLabel.grid(column=0, row=4, sticky='nw', pady=10)
-        generoEntry.grid(column=1, row=4, ipadx=100, sticky='nw')
-        precoLabel.grid(column=0, row=5, sticky='nw', pady=10)
-        precoEntry.grid(column=1, row=5, sticky='nw')
-        cadastrarButton.grid(column=1, row=6, sticky='nw', pady=10)
-        notebookCadastro.add(janelaAdicionar, text='Adicionar')
+    def janela_cadastrar(self, notebook_cadastro):
+        janela_adicionar = tb.Frame(notebook_cadastro)
+        nome_label, nome_entry = self.criar_label(janela_adicionar, 'Nome:    ')
+        autor_label, autor_entry = self.criar_label(janela_adicionar, 'Autor:    ')
+        editora_label, editora_entry = self.criar_label(janela_adicionar, 'Editora:    ')
+        paginas_label, paginas_entry = self.criar_label(janela_adicionar, 'Páginas:    ')
+        genero_label, genero_entry = self.criar_label(janela_adicionar, 'Gênero:    ')
+        preco_label, preco_entry = self.criar_label(janela_adicionar, 'Preço:    ')
+        info_cadastro = (
+            nome_entry, autor_entry, editora_entry, paginas_entry, genero_entry, preco_entry, janela_adicionar)
+        cadastrar_button = self.criar_botao(janela_adicionar, 'Adicionar', self.acao_cadastrar, info_cadastro)
+        self.saida_texto(texto='', janela=janela_adicionar, height=1, width=10, column=1, row=6, sticky='e')
+        nome_label.grid(column=0, row=0, sticky='nw', pady=10)
+        nome_entry.grid(column=1, row=0, ipadx=100, sticky='nw')
+        autor_label.grid(column=0, row=1, sticky='nw', pady=10)
+        autor_entry.grid(column=1, row=1, ipadx=100, sticky='nw')
+        editora_label.grid(column=0, row=2, sticky='nw', pady=10)
+        editora_entry.grid(column=1, row=2, ipadx=100, sticky='nw')
+        paginas_label.grid(column=0, row=3, sticky='nw', pady=10)
+        paginas_entry.grid(column=1, row=3, sticky='nw')
+        genero_label.grid(column=0, row=4, sticky='nw', pady=10)
+        genero_entry.grid(column=1, row=4, ipadx=100, sticky='nw')
+        preco_label.grid(column=0, row=5, sticky='nw', pady=10)
+        preco_entry.grid(column=1, row=5, sticky='nw')
+        cadastrar_button.grid(column=1, row=6, sticky='nw', pady=10)
+        notebook_cadastro.add(janela_adicionar, text='Adicionar')
 
-    def janelaRemover(self, notebookCadastro):
-        janelaRemover = tb.Frame(notebookCadastro)
-        codigoLivroLabel, codigoLivroTexto = self.criarLabel(janelaRemover, 'Código do livro:    ')
-        remover = (codigoLivroTexto, janelaRemover)
-        removerButton = self.criarBotao(janelaRemover, 'Remover', self.acaoRemover, remover)
-        self.saidaTexto(texto='', janela=janelaRemover, height=1, width=10, column=3, row=1, sticky='e')
-        codigoLivroLabel.grid(column=0, row=0, sticky='nw', pady=10)
-        codigoLivroTexto.grid(column=1, row=0, sticky='nw')
-        removerButton.grid(column=1, row=1, sticky='nw', pady=10)
-        notebookCadastro.add(janelaRemover, text='Remover')
+    def janela_remover(self, notebook_cadastro):
+        janela_remover = tb.Frame(notebook_cadastro)
+        codigo_livro_label, codigo_livro_texto = self.criar_label(janela_remover, 'Código do livro:    ')
+        remover = (codigo_livro_texto, janela_remover)
+        remover_button = self.criar_botao(janela_remover, 'Remover', self.acao_remover, remover)
+        self.saida_texto(texto='', janela=janela_remover, height=1, width=10, column=3, row=1, sticky='e')
+        codigo_livro_label.grid(column=0, row=0, sticky='nw', pady=10)
+        codigo_livro_texto.grid(column=1, row=0, sticky='nw')
+        remover_button.grid(column=1, row=1, sticky='nw', pady=10)
+        notebook_cadastro.add(janela_remover, text='Remover')
 
     def cadastro(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Cadastro')
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Cadastro')
 
-        notebookCadastro = tb.Notebook(self.frameFuncao, bootstyle='dark')
-        notebookCadastro.pack(padx=20)
+        notebook_cadastro = tb.Notebook(self.frame_funcao, bootstyle='dark')
+        notebook_cadastro.pack(padx=20)
 
-        self.janelaCadastrar(notebookCadastro)
-        self.janelaRemover(notebookCadastro)
+        self.janela_cadastrar(notebook_cadastro)
+        self.janela_remover(notebook_cadastro)
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=95, ipady=10, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=95, ipady=10, sticky='nw')
 
-    def janelaAlugar(self, notebookAluguel):
-        janelaAlugar = tb.Frame(notebookAluguel)
-        codigoLivroLabel, codigoLivroEntry = self.criarLabel(janelaAlugar, 'Código do livro:    ')
-        nomePessoaLabel, nomeEntry = self.criarLabel(janelaAlugar, 'Nome completo:    ')
-        alugar = (codigoLivroEntry, nomeEntry, janelaAlugar)
-        alugarButton = self.criarBotao(janelaAlugar, 'Alugar', self.acaoAlugar, alugar)
-        self.saidaTexto(texto='', janela=janelaAlugar, height=1, width=10, column=1, row=2, sticky='e')
-        codigoLivroLabel.grid(column=0, row=0, sticky='nw', pady=10)
-        codigoLivroEntry.grid(column=1, row=0, sticky='nw')
-        nomePessoaLabel.grid(column=0, row=1, sticky='nw')
-        nomeEntry.grid(column=1, row=1, ipadx=100, sticky='nw')
-        alugarButton.grid(column=1, row=2, sticky='nw', pady=10)
-        notebookAluguel.add(janelaAlugar, text='Alugar')
+    def janela_alugar(self, notebook_aluguel):
+        janela_alugar = tb.Frame(notebook_aluguel)
+        codigo_livro_label, codigo_livro_entry = self.criar_label(janela_alugar, 'Código do livro:    ')
+        nome_pessoa_label, nome_entry = self.criar_label(janela_alugar, 'Nome completo:    ')
+        alugar = (codigo_livro_entry, nome_entry, janela_alugar)
+        alugar_button = self.criar_botao(janela_alugar, 'Alugar', self.acao_alugar, alugar)
+        self.saida_texto(texto='', janela=janela_alugar, height=1, width=10, column=1, row=2, sticky='e')
+        codigo_livro_label.grid(column=0, row=0, sticky='nw', pady=10)
+        codigo_livro_entry.grid(column=1, row=0, sticky='nw')
+        nome_pessoa_label.grid(column=0, row=1, sticky='nw')
+        nome_entry.grid(column=1, row=1, ipadx=100, sticky='nw')
+        alugar_button.grid(column=1, row=2, sticky='nw', pady=10)
+        notebook_aluguel.add(janela_alugar, text='Alugar')
 
-    def janelaDevolver(self, notebookAluguel):
-        janelaDevolver = tb.Frame(notebookAluguel)
-        codigoLivroLabel, codigoLivroEntry = self.criarLabel(janelaDevolver, 'Código do livro:    ')
-        devolver = (codigoLivroEntry, janelaDevolver)
-        devolverButton = self.criarBotao(janelaDevolver, 'Devolver', self.acaoDevolver, devolver)
-        self.saidaTexto(texto='', janela=janelaDevolver, height=1, width=10, column=3, row=1, sticky='e')
-        codigoLivroLabel.grid(column=0, row=0, sticky='nw', pady=10)
-        codigoLivroEntry.grid(column=1, row=0, sticky='nw')
-        devolverButton.grid(column=1, row=1, sticky='nw', pady=10)
-        notebookAluguel.add(janelaDevolver, text='Devolver')
+    def janela_devolver(self, notebook_aluguel):
+        janela_devolver = tb.Frame(notebook_aluguel)
+        codigo_livro_label, codigo_livro_entry = self.criar_label(janela_devolver, 'Código do livro:    ')
+        devolver = (codigo_livro_entry, janela_devolver)
+        devolver_button = self.criar_botao(janela_devolver, 'Devolver', self.acao_devolver, devolver)
+        self.saida_texto(texto='', janela=janela_devolver, height=1, width=10, column=3, row=1, sticky='e')
+        codigo_livro_label.grid(column=0, row=0, sticky='nw', pady=10)
+        codigo_livro_entry.grid(column=1, row=0, sticky='nw')
+        devolver_button.grid(column=1, row=1, sticky='nw', pady=10)
+        notebook_aluguel.add(janela_devolver, text='Devolver')
 
     def aluguel(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Aluguel')
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Aluguel')
 
-        notebookAluguel = tb.Notebook(self.frameFuncao, bootstyle='dark')
-        notebookAluguel.pack(padx=20)
+        notebook_aluguel = tb.Notebook(self.frame_funcao, bootstyle='dark')
+        notebook_aluguel.pack(padx=20)
 
-        self.janelaAlugar(notebookAluguel)
-        self.janelaDevolver(notebookAluguel)
+        self.janela_alugar(notebook_aluguel)
+        self.janela_devolver(notebook_aluguel)
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=68, ipady=101, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=68, ipady=101, sticky='nw')
 
-    def janelaPesquisarLivro(self, janela, textoSaida, tipoJanela, titulo):
-        if tipoJanela == 'disponibilidade':
+    def janela_pesquisar_livro(self, janela, texto_saida, tipo_janela, titulo):
+        if tipo_janela == 'disponibilidade':
             label = tb.Label(janela, text='Disponibilidade:', font=self.fonte)
-            botaoDisponivel = self.criarBotao(janela, 'Disponível', self.acaoPesquisarLivro,
-                                              ('Disponível', janela, tipoJanela, titulo))
-            botaoIndisponivel = self.criarBotao(janela, 'Indisponível', self.acaoPesquisarLivro,
-                                                ('Indisponível', janela, tipoJanela, titulo))
-            self.saidaScrolledText(texto=textoSaida, janela=janela, height=12, width=50, column=1, row=1, sticky='nw',
-                                   padx=0, pady=0)
+            botao_disponivel = self.criar_botao(janela, 'Disponível', self.acao_pesquisar_livro,
+                                                ('Disponível', janela, tipo_janela, titulo))
+            botao_indisponivel = self.criar_botao(janela, 'Indisponível', self.acao_pesquisar_livro,
+                                                  ('Indisponível', janela, tipo_janela, titulo))
+            self.saida_scrolled_text(texto=texto_saida, janela=janela, height=12, width=50, column=1, row=1,
+                                     sticky='nw',
+                                     padx=0, pady=0)
 
             label.grid(column=0, row=0, sticky='nw', pady=10)
-            botaoDisponivel.grid(column=1, row=0, sticky='w')
-            botaoIndisponivel.grid(column=1, row=0, sticky='w', padx=100)
+            botao_disponivel.grid(column=1, row=0, sticky='w')
+            botao_indisponivel.grid(column=1, row=0, sticky='w', padx=100)
         else:
-            label, entry = self.criarLabel(janela, titulo)
-            self.saidaScrolledText(texto=textoSaida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw',
-                                   padx=0, pady=0)
-            pesquisa = (entry, janela, tipoJanela, titulo)
-            button = self.criarBotao(janela, 'Pesquisar', self.acaoPesquisarLivro, pesquisa)
+            label, entry = self.criar_label(janela, titulo)
+            self.saida_scrolled_text(texto=texto_saida, janela=janela, height=10, width=50, column=1, row=1,
+                                     sticky='nw',
+                                     padx=0, pady=0)
+            pesquisa = (entry, janela, tipo_janela, titulo)
+            button = self.criar_botao(janela, 'Pesquisar', self.acao_pesquisar_livro, pesquisa)
             label.grid(column=0, row=0, sticky='nw', pady=10)
             entry.grid(column=1, row=0, sticky='nw')
             button.grid(column=1, row=2, sticky='nw', pady=10)
 
-    def funcaoFramePesquisarLivro(self, notebookPesquisar, nomeJanela, tipoJanela):
-        janela = tb.Frame(notebookPesquisar)
+    def funcao_frame_pesquisar_livro(self, notebook_pesquisar, nome_janela, tipo_janela):
+        janela = tb.Frame(notebook_pesquisar)
 
-        self.janelaPesquisarLivro(janela, '', tipoJanela, nomeJanela + ':    ')
-        notebookPesquisar.add(janela, text=nomeJanela)
+        self.janela_pesquisar_livro(janela, '', tipo_janela, nome_janela + ':    ')
+        notebook_pesquisar.add(janela, text=nome_janela)
 
-    def pesquisarLivro(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Pesquisar Livro')
+    def pesquisar_livro(self):
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Pesquisar Livro')
 
-        notebookPesquisar = tb.Notebook(self.frameFuncao, bootstyle='dark')
-        notebookPesquisar.pack(padx=20)
+        notebook_pesquisar = tb.Notebook(self.frame_funcao, bootstyle='dark')
+        notebook_pesquisar.pack(padx=20)
 
-        self.funcaoFramePesquisarLivro(notebookPesquisar, 'Código', 'codigo')
-        self.funcaoFramePesquisarLivro(notebookPesquisar, 'Nome', 'nome')
-        self.funcaoFramePesquisarLivro(notebookPesquisar, 'Autor', 'autor')
-        self.funcaoFramePesquisarLivro(notebookPesquisar, 'Editora', 'editora')
-        self.funcaoFramePesquisarLivro(notebookPesquisar, 'Gênero', 'genero')
-        self.funcaoFramePesquisarLivro(notebookPesquisar, 'Disponibilidade', 'disponibilidade')
+        self.funcao_frame_pesquisar_livro(notebook_pesquisar, 'Código', 'codigo')
+        self.funcao_frame_pesquisar_livro(notebook_pesquisar, 'Nome', 'nome')
+        self.funcao_frame_pesquisar_livro(notebook_pesquisar, 'Autor', 'autor')
+        self.funcao_frame_pesquisar_livro(notebook_pesquisar, 'Editora', 'editora')
+        self.funcao_frame_pesquisar_livro(notebook_pesquisar, 'Gênero', 'genero')
+        self.funcao_frame_pesquisar_livro(notebook_pesquisar, 'Disponibilidade', 'disponibilidade')
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=35, ipady=16, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=35, ipady=16, sticky='nw')
 
-    def janelaPesquisarAluguel(self, janela, textoSaida, tipoJanela, titulo):
-        label, entry = self.criarLabel(janela, titulo)
-        self.saidaScrolledText(texto=textoSaida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw',
-                               padx=0, pady=0)
-        pesquisa = (entry, janela, tipoJanela, titulo)
-        button = self.criarBotao(janela, 'Pesquisar', self.acaoPesquisarAluguel, pesquisa)
+    def janela_pesquisar_aluguel(self, janela, texto_saida, tipo_janela, titulo):
+        label, entry = self.criar_label(janela, titulo)
+        self.saida_scrolled_text(texto=texto_saida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw',
+                                 padx=0, pady=0)
+        pesquisa = (entry, janela, tipo_janela, titulo)
+        button = self.criar_botao(janela, 'Pesquisar', self.acao_pesquisar_aluguel, pesquisa)
         label.grid(column=0, row=0, sticky='nw', pady=10)
         entry.grid(column=1, row=0, ipadx=100, sticky='nw')
         button.grid(column=1, row=2, sticky='nw', pady=10)
 
-    def funcaoFramePesquisarAluguel(self, notebookPesquisar, nomeJanela, tipoJanela):
-        janela = tb.Frame(notebookPesquisar)
-        self.janelaPesquisarAluguel(janela, '', tipoJanela, nomeJanela + ':    ')
-        notebookPesquisar.add(janela, text=nomeJanela)
+    def funcao_frame_pesquisar_aluguel(self, notebook_pesquisar, nome_janela, tipo_janela):
+        janela = tb.Frame(notebook_pesquisar)
+        self.janela_pesquisar_aluguel(janela, '', tipo_janela, nome_janela + ':    ')
+        notebook_pesquisar.add(janela, text=nome_janela)
 
-    def pesquisarAluguel(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Pesquisar Aluguel')
+    def pesquisar_aluguel(self):
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Pesquisar Aluguel')
 
-        notebookPesquisar = tb.Notebook(self.frameFuncao, bootstyle='dark')
-        notebookPesquisar.pack(padx=20)
+        notebook_pesquisar = tb.Notebook(self.frame_funcao, bootstyle='dark')
+        notebook_pesquisar.pack(padx=20)
 
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Nome da pessoa', 'nome_pessoa')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Código do livro', 'codigo')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Nome do livro', 'nome_livro')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Data de aluguel', 'data_aluguel')
-        self.funcaoFramePesquisarAluguel(notebookPesquisar, 'Data de entrega', 'data_entrega')
+        self.funcao_frame_pesquisar_aluguel(notebook_pesquisar, 'Nome da pessoa', 'nome_pessoa')
+        self.funcao_frame_pesquisar_aluguel(notebook_pesquisar, 'Código do livro', 'codigo')
+        self.funcao_frame_pesquisar_aluguel(notebook_pesquisar, 'Nome do livro', 'nome_livro')
+        self.funcao_frame_pesquisar_aluguel(notebook_pesquisar, 'Data de aluguel', 'data_aluguel')
+        self.funcao_frame_pesquisar_aluguel(notebook_pesquisar, 'Data de entrega', 'data_entrega')
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=20, ipady=16, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=20, ipady=16, sticky='nw')
 
-    def mostrarLivros(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Mostrar Livros')
+    def mostrar_livros(self):
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Mostrar Livros')
 
-        mostrarDadosLabel = tb.Label(self.frameFuncao, text='Dados:    ', font=self.fonte)
-        self.saidaScrolledText(texto='', janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw',
-                               padx=0, pady=3)
-        mostrarLivrosButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoMostrarLivros, 'mostrarLivros')
-        mostrarDadosLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
-        mostrarLivrosButton.grid(column=1, row=1, sticky='nw', pady=10)
+        mostrar_dados_label = tb.Label(self.frame_funcao, text='Dados:    ', font=self.fonte)
+        self.saida_scrolled_text(texto='', janela=self.frame_funcao, height=15, width=64, column=1, row=0, sticky='nw',
+                                 padx=0, pady=3)
+        mostrar_livros_button = self.criar_botao(self.frame_funcao, 'Pesquisar', self.acao_mostrar_livros,
+                                                 'mostrarLivros')
+        mostrar_dados_label.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
+        mostrar_livros_button.grid(column=1, row=1, sticky='nw', pady=10)
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=6, ipady=3, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=6, ipady=3, sticky='nw')
 
-    def mostrarAlugados(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Mostrar Alugados')
+    def mostrar_alugados(self):
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Mostrar Alugados')
 
-        mostrarDadosLabel = tb.Label(self.frameFuncao, text='Dados:    ', font=self.fonte)
-        self.saidaScrolledText(texto='', janela=self.frameFuncao, height=15, width=64, column=1, row=0, sticky='nw',
-                               padx=0, pady=3)
-        mostrarAlugadosButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoMostrarAlugados,
-                                                'mostrarAlugados')
-        mostrarDadosLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
-        mostrarAlugadosButton.grid(column=1, row=1, sticky='nw', pady=10)
+        mostrar_dados_label = tb.Label(self.frame_funcao, text='Dados:    ', font=self.fonte)
+        self.saida_scrolled_text(texto='', janela=self.frame_funcao, height=15, width=64, column=1, row=0, sticky='nw',
+                                 padx=0, pady=3)
+        mostrar_alugados_button = self.criar_botao(self.frame_funcao, 'Pesquisar', self.acao_mostrar_alugados,
+                                                   'mostrarAlugados')
+        mostrar_dados_label.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
+        mostrar_alugados_button.grid(column=1, row=1, sticky='nw', pady=10)
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=6, ipady=3, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=6, ipady=3, sticky='nw')
 
-    def gastoTotal(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Gasto Total')
+    def gasto_total(self):
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Gasto Total')
 
-        mostrarDadosLabel = tb.Label(self.frameFuncao, text='Gasto Total:    ', font=self.fonte)
-        self.saidaTexto(texto='', janela=self.frameFuncao, height=1, width=10, column=1, row=0, sticky='nw')
-        gastoTotalButton = self.criarBotao(self.frameFuncao, 'Pesquisar', self.acaoGastoTotal, 'gastoTotal')
-        mostrarDadosLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
-        gastoTotalButton.grid(column=1, row=1, sticky='nw', pady=10)
+        mostrar_dados_label = tb.Label(self.frame_funcao, text='Gasto Total:    ', font=self.fonte)
+        self.saida_texto(texto='', janela=self.frame_funcao, height=1, width=10, column=1, row=0, sticky='nw')
+        gasto_total_button = self.criar_botao(self.frame_funcao, 'Pesquisar', self.acao_gasto_total, 'gastoTotal')
+        mostrar_dados_label.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
+        gasto_total_button.grid(column=1, row=1, sticky='nw', pady=10)
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=241, ipady=133, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=241, ipady=133, sticky='nw')
 
     def administrador(self):
-        self.frameFuncao.destroy()
-        self.frameFuncao = tb.Labelframe(self.frameJanela)
-        self.frameFuncao.config(text='Administrador')
+        self.frame_funcao.destroy()
+        self.frame_funcao = tb.Labelframe(self.frame_janela)
+        self.frame_funcao.config(text='Administrador')
 
-        senhaLabel = tb.Label(self.frameFuncao, text='Senha:    ', font=self.fonte)
-        senhaEntry = tb.Entry(self.frameFuncao, font=self.fonte, show='*')
-        senha = (senhaEntry, self.frameFuncao)
-        senhaButton = self.criarBotao(self.frameFuncao, 'Entrar', self.acaoAdministrador, senha)
-        self.saidaTexto(texto='', janela=self.frameFuncao, height=1, width=12, column=3, row=1, sticky='e')
+        senha_label = tb.Label(self.frame_funcao, text='Senha:    ', font=self.fonte)
+        senha_entry = tb.Entry(self.frame_funcao, font=self.fonte, show='*')
+        senha = (senha_entry, self.frame_funcao)
+        senha_button = self.criar_botao(self.frame_funcao, 'Entrar', self.acao_administrador, senha)
+        self.saida_texto(texto='', janela=self.frame_funcao, height=1, width=12, column=3, row=1, sticky='e')
 
-        senhaLabel.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
-        senhaEntry.grid(column=1, row=0, sticky='nw', padx=0, pady=3)
-        senhaButton.grid(column=1, row=1, sticky='nw', pady=10)
+        senha_label.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
+        senha_entry.grid(column=1, row=0, sticky='nw', padx=0, pady=3)
+        senha_button.grid(column=1, row=1, sticky='nw', pady=10)
 
-        self.frameFuncao.grid(row=1, column=1, ipadx=152, ipady=133, sticky='nw')
+        self.frame_funcao.grid(row=1, column=1, ipadx=152, ipady=133, sticky='nw')
