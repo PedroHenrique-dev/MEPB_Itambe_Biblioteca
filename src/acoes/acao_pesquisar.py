@@ -1,161 +1,74 @@
-from os import system
-
 from src.banco import TypeCollections, Banco
-from src.tratamento import TratamentoErro, ErroSoftware
+from src.tratamento import TratamentoErro
 
 
 class AcaoPesquisar(TratamentoErro):
-    def __menu_pesquisa_livro(self) -> int:
-        print('''
-======================================================
-================ Menu Pesquisa: Livro ================
-======================================================
-1. Código   |    2. Nome      |    3. Autor
-4. Editora  |    5. Gênero    |    6. Disponibilidade
-0. Sair
-              ''')
-        try:
-            escolha_opcao = int(input('Digite a opção da ação desejada: '))
+    def pesquisar_livro(self, banco: Banco, pesquisa: str, tipo_pesquisa: str, mensagem_vazio:str ) -> str:
+        return self._pesquisar(
+            banco=banco,
+            type_collection=TypeCollections.LIVROS,
+            pesquisa=pesquisa,
+            tipo_pesquisa=tipo_pesquisa,
+            mensagem_vazio=mensagem_vazio
+        )
 
-            if escolha_opcao < 0 or escolha_opcao > 6:
-                raise ErroSoftware('Opção inválida!')
+    def pesquisar_aluguel(self, banco: Banco, pesquisa: str, tipo_pesquisa: str, mensagem_vazio:str) -> str:
+        return self._pesquisar(
+            banco=banco,
+            type_collection=TypeCollections.ALUGUEIS,
+            pesquisa=pesquisa,
+            tipo_pesquisa=tipo_pesquisa,
+            mensagem_vazio=mensagem_vazio
+        )
 
-            return escolha_opcao
-        except Exception as erro:
-            self.erro(erro)
-
-    def pesquisar_livro(self, banco: Banco, pesquisa: str, tipo_pesquisa: str) -> str:
+    def _pesquisar(self, banco: Banco, type_collection:TypeCollections, pesquisa: str, tipo_pesquisa: str, mensagem_vazio: str):
         if pesquisa == 'Disponível':
             pesquisa = True
         elif pesquisa == 'Indisponível':
             pesquisa = False
 
-        if type(pesquisa) == str and tipo_pesquisa == 'codigo':
+        pesquisar_todos = pesquisa == '' and tipo_pesquisa == ''
+
+        if isinstance(pesquisa, str) and tipo_pesquisa == 'codigo':
+            tipo_pesquisa = '_id'
             pesquisa = int(pesquisa)
 
-        filtro_documento = {tipo_pesquisa: pesquisa}
+        filtro_documento = {}
+        if not pesquisar_todos:
+            filtro_documento = {tipo_pesquisa: pesquisa}
 
         existe_documento = banco.exists_document(
-            type_collection=TypeCollections.LIVROS,
+            type_collection=type_collection,
             data_type=filtro_documento
         )
 
-        informacoes = '    *** Livros ***\n'
+        informacoes = ''
+        if pesquisar_todos:
+            match type_collection:
+                case TypeCollections.LIVROS:
+                    informacoes = self._app_titulo_todos_livros()
+                case TypeCollections.ALUGUEIS:
+                    informacoes = self._app_titulo_todos_alugueis()
+        else:
+            informacoes = '    *** Livros ***\n'
 
         if existe_documento:
-            documentos = banco.find_document(type_collection=TypeCollections.LIVROS, data_type=filtro_documento)
+            documentos = banco.find_document(type_collection=type_collection, data_type=filtro_documento)
             for documento in documentos:
-                informacoes += self._exibir_info_livro(documento=documento)
-        return informacoes
-
-    def terminal_pesquisar_livro(self, banco: Banco) -> None:
-        while True:
-            system('clear')
-            escolha = self.__menu_pesquisa_livro()
-
-            pesquisa = None
-            tipo_pesquisa = None
-            try:
-                match escolha:
-                    case 1:
-                        pesquisa = int(input('Qual o código do livro? '))
-                        tipo_pesquisa = 'codigo'
-                    case 2:
-                        pesquisa = self.inserir_nome('Qual o nome do livro? ')
-                        tipo_pesquisa = 'nome'
-                    case 3:
-                        pesquisa = self.inserir_nome('Qual o nome do autor? ')
-                        tipo_pesquisa = 'autor'
-                    case 4:
-                        pesquisa = self.inserir_nome('Qual o nome da editora? ')
-                        tipo_pesquisa = 'editora'
-                    case 5:
-                        pesquisa = self.inserir_nome('Qual o gênero do livro? ')
-                        tipo_pesquisa = 'genero'
-                    case 6:
-                        pesquisa = self.inserir_nome('Qual a disponibilidade do livro? (Disponível | Indisponível): ')
-                        tipo_pesquisa = 'disponibilidade'
-                    case 0:
-                        break
-                print(self.pesquisar_livro(banco=banco, pesquisa=pesquisa, tipo_pesquisa=tipo_pesquisa))
-            except Exception as erro:
-                self.erro(erro)
-            input("\nAperte 'Enter' para continuar.")
-
-    def __menu_pesquisa_aluguel(self):
-        print('''
-======================================================
-=============== Menu Pesquisa: Aluguel ===============
-======================================================
-1. Código do livro  |    2. Nome do livro
-3. Data de aluguel  |    4. Data de entrega
-5. Nome da pessoa   |    0. Sair
-              ''')
-        try:
-            escolha_opcao = int(input('Digite a opção da ação desejada: '))
-
-            if escolha_opcao < 0 or escolha_opcao > 5:
-                raise ErroSoftware('Opção inválida!')
-
-            return escolha_opcao
-        except Exception as erro:
-            self.erro(erro)
-
-    def pesquisar_aluguel(self, banco: Banco, pesquisa: str, tipo_pesquisa: str) -> str:
-        if tipo_pesquisa == 'codigo':
-            pesquisa = int(pesquisa)
-
-        filtro_documento = {tipo_pesquisa: pesquisa}
-
-        existe_documento = banco.exists_document(
-            type_collection=TypeCollections.ALUGUEIS,
-            data_type=filtro_documento
-        )
-
-        informacoes = '    *** Alugueis ***\n'
-
-        if existe_documento:
-            documentos = banco.find_document(type_collection=TypeCollections.ALUGUEIS, data_type=filtro_documento)
-            for documento in documentos:
-                informacoes += self._exibir_info_aluguel(documento=documento)
-        return informacoes
-
-    def terminal_pesquisar_aluguel(self, banco: Banco):
-        while True:
-            system('clear')
-            escolha = self.__menu_pesquisa_aluguel()
-
-            pesquisa = None
-            tipo_pesquisa = None
-            try:
-                match escolha:
-                    case 1:
-                        pesquisa = int(input('Qual o código do livro? '))
-                        tipo_pesquisa = 'codigo'
-                    case 2:
-                        pesquisa = self.inserir_nome('Qual o nome do livro? ')
-                        tipo_pesquisa = 'nome_livro'
-                    case 3:
-                        pesquisa = self.inserir_nome('Qual a data do aluguel? ')
-                        tipo_pesquisa = 'data_aluguel'
-                    case 4:
-                        pesquisa = self.inserir_nome('Qual a data de devolução? ')
-                        tipo_pesquisa = 'data_entrega'
-                    case 5:
-                        pesquisa = self.inserir_nome('Qual o nome da pessoa? ')
-                        tipo_pesquisa = 'nome_pessoa'
-                    case 0:
-                        break
-                print(self.pesquisar_aluguel(banco=banco, pesquisa=pesquisa, tipo_pesquisa=tipo_pesquisa))
-            except Exception as erro:
-                self.erro(erro)
-            input("\nAperte 'Enter' para continuar.")
+                match type_collection:
+                    case TypeCollections.LIVROS:
+                        informacoes += self._exibir_info_livro(documento=documento)
+                    case TypeCollections.ALUGUEIS:
+                        informacoes += self._exibir_info_aluguel(documento=documento)
+            return informacoes
+        else:
+            return mensagem_vazio
 
     @staticmethod
     def _exibir_info_livro(documento: dict) -> str:
         disponibilidade = 'Disponível' if documento['disponibilidade'] else 'Indisponível'
         return f'''__________________________________________________
-    * Livro {documento['codigo']} *
+    * Livro {documento['_id']} *
 Nome: {documento['nome']}
 Autor: {documento['autor']}
 Editora: {documento['editora']}
@@ -168,11 +81,27 @@ __________________________________________________ '''
     @staticmethod
     def _exibir_info_aluguel(documento: dict) -> str:
         return f'''__________________________________________________
-    * Livro {documento['codigo']} *
+    * Livro {documento['_id']} *
 Nome da pessoa: {documento['nome_pessoa']}
-Codigo: {documento['codigo']}
+Codigo: {documento['_id']}
 Nome do livro: {documento['nome_livro']}
 Data do aluguel: {documento['data_aluguel']}
 Data da entrega: {documento['data_entrega']}
 Multa: {documento['multa']}
 __________________________________________________'''
+
+    @staticmethod
+    def _app_titulo_todos_livros() -> str:
+        return '''
+============================================
+===============  Todos os Livros  ================
+============================================
+'''
+
+    @staticmethod
+    def _app_titulo_todos_alugueis() -> str:
+        return '''
+============================================
+==============  Todos os Alugueis  ===============
+============================================
+'''

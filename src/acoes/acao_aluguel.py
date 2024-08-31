@@ -10,29 +10,28 @@ class AcaoAluguel(TratamentoErro):
     @staticmethod
     def _gerar_data_proximo_mes():
         ano = date.today().year
-        mes = date.today().month
+        mes = date.today().month + 1
         dia = date.today().day
 
         if mes == 2 and dia > 28:
             dia = 3
-        elif dia > 30 and (mes == 4 or mes == 6 or mes == 9 or mes == 11):
+        elif dia == 31 and (mes == 4 or mes == 6 or mes == 9 or mes == 11):
             dia = 1
 
-        nova_data = date(ano, mes + 1, dia)
+        nova_data = date(ano, mes, dia)
         return nova_data.strftime('%d/%m/%Y')
 
     def alugar(self, banco: Banco, informacoes_aluguel: list) -> None:
         codigo_livro, nome_pessoa = informacoes_aluguel
 
-        filtro_documento = {'codigo': codigo_livro}
-
+        filtro_documento = {'_id': codigo_livro}
         existe_documento = banco.exists_document(
             type_collection=TypeCollections.LIVROS,
             data_type=filtro_documento
         )
 
         if existe_documento:
-            documentos = banco.find_document(type_collection=TypeCollections.LIVROS, data_type={"codigo": codigo_livro})
+            documentos = banco.find_document(type_collection=TypeCollections.LIVROS, data_type={"_id": codigo_livro})
             documento = documentos[0]
             disponivel = documento['disponibilidade']
 
@@ -41,39 +40,28 @@ class AcaoAluguel(TratamentoErro):
                     data_entrega = self._gerar_data_proximo_mes()
 
                     aluguel = {
+                        "_id": documento['_id'],
                         "nome_pessoa": nome_pessoa,
-                        "codigo": documento['codigo'],
                         "nome_livro": documento['nome'],
                         "data_aluguel": AcaoAluguel.data_atual,
                         "data_entrega": data_entrega,
                         "multa": 0
                     }
 
+                    banco.add_document(type_collection=TypeCollections.ALUGUEIS, document=aluguel)
                     banco.update_document(
                         type_collection=TypeCollections.LIVROS,
                         filter_document=filtro_documento,
                         update_document={'$set': {'disponibilidade': False}}
                     )
-                    banco.add_document(type_collection=TypeCollections.ALUGUEIS, document=aluguel)
-                    print('\nLivro alugado com sucesso.')
                 except Exception as erro:
                     self.erro(erro)
-        else:
-            print('\nNão existe este livro nos cadastros.')
-
-    def terminal_alugar(self, banco: Banco) -> None:
-        self.__titulo_alugar()
-
-        try:
-            codigo_livro = int(input('Qual o código do livro? '))
-            nome_pessoa = self.inserir_nome('\nDigite o nome completo da pessoa que está alugando o livro: ')
-            self.alugar(banco=banco, informacoes_aluguel=[codigo_livro, nome_pessoa])
-        except Exception as erro:
-            self.erro(erro)
+            else:
+                self.erro(erro)
 
     @staticmethod
-    def app_devolucao(banco: Banco, codigo_livro: int) -> None:
-        filtro_documento = {'codigo': codigo_livro}
+    def devolucao(banco: Banco, codigo_livro: int) -> None:
+        filtro_documento = {'_id': codigo_livro}
 
         existe_documento = banco.exists_document(
             type_collection=TypeCollections.ALUGUEIS,
@@ -89,28 +77,3 @@ class AcaoAluguel(TratamentoErro):
             )
         else:
             raise ErroSoftware('Livro inexistente!')
-
-    def devolucao(self, banco: Banco) -> None:
-        self.__titulo_devolucao()
-
-        try:
-            codigo_livro = int(input('Qual o código do livro? '))
-            self.app_devolucao(banco=banco, codigo_livro=codigo_livro)
-        except Exception as erro:
-            self.erro(erro)
-
-    @staticmethod
-    def __titulo_alugar() -> None:
-        print('''
-======================================================
-======================= Alugar =======================
-======================================================
-''')
-
-    @staticmethod
-    def __titulo_devolucao() -> None:
-        print('''
-======================================================
-====================== Devolver ======================
-======================================================
-''')

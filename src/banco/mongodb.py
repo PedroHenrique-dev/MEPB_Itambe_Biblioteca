@@ -26,7 +26,7 @@ class Banco:
 
     def delete_document(self, type_collection: TypeCollections, code_document_delete: int) -> None:
         collection = self._get_collection(type_collection)
-        collection.delete_one({'codigo': code_document_delete})
+        collection.delete_one({'_id': code_document_delete})
 
     def update_document(self, type_collection: TypeCollections, filter_document: dict, update_document: dict) -> None:
         collection = self._get_collection(type_collection)
@@ -38,7 +38,6 @@ class Banco:
         documents = []
 
         for document in response:
-            del document['_id']
             documents.append(document)
         return documents
 
