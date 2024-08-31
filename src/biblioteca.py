@@ -3,7 +3,7 @@ from .banco import Banco, TypeCollections
 from .configuracao import Configuracao
 
 
-class Biblioteca():
+class Biblioteca:
     def __init__(self) -> None:
         configuracao = Configuracao()
         self._banco = Banco(string_connection=configuracao.conexao, string_bank=configuracao.nome_banco)
