@@ -9,9 +9,5 @@
     "banco_mongodb": {
         "string_connection": "mongodb://localhost:27017",
         "string_bank": "Biblioteca-MEPB",
-        "collections": [
-            "livros",
-            "alugueis"
-        ]
     }
 }

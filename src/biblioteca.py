@@ -5,11 +5,10 @@ from .tratamento import ErroSoftware
 
 
 class Biblioteca:
-    def __init__(self) -> None:
+    def __init__(self, configuracao: Configuracao) -> None:
         self.usuario_administrador = False
         self._mensagem_usuario_autorizado = 'Usuário não autorizado!'
 
-        configuracao = Configuracao()
         self._banco = Banco(string_connection=configuracao.conexao, string_bank=configuracao.nome_banco)
 
         self._cadastro = AcaoCadastro(banco=self._banco)
@@ -71,7 +70,7 @@ class Biblioteca:
         gasto_total = f'{gasto:5.2f}'
         return f'R$ {gasto_total.replace(".", ",")}'
 
-    def app_validar_entrada(self, senha:str) -> None:
+    def app_validar_entrada(self, senha: str) -> None:
         filtro_documento = {'_id': senha}
         existe_documento = self._banco.exists_document(
             type_collection=TypeCollections.USUARIOS,
