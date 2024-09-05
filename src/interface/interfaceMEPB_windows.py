@@ -73,13 +73,13 @@ class InterfaceMEPB_Windows(Validador):
     @staticmethod
     def igreja_windows(frame):
         label_igreja_windows = tb.Label(frame,
-                                        anchor='n',
-                                        compound='bottom',
-                                        font='{Rage Italic} 30 {}',
-                                        relief='flat',
-                                        state='normal',
-                                        text='Missão  Evangélica Pentecostal do Brasil - Itambé'
-                                        )
+            anchor='n',
+            compound='bottom',
+            font='{Rage Italic} 30 {}',
+            relief='flat',
+            state='normal',
+            text='Missão  Evangélica Pentecostal do Brasil - Itambé'
+        )
         return label_igreja_windows
 
     def abrir_janela_windows(self):
