@@ -15,10 +15,9 @@ class Configuracao:
     def ler_config(self):
         nome_arquivo = './config/config.json'
 
-        with open(nome_arquivo, encoding='utf-8') as f:
-            json_arquivo = json.load(f)
+        with open(nome_arquivo, 'r', encoding='utf-8') as arquivo:
+            json_arquivo = json.load(arquivo)
 
-        with open(nome_arquivo, 'r', encoding='utf-8'):
             diretorios = json_arquivo['diretorios']
             diretorios_arquivos = diretorios['localArquivos_windows'] if platform == 'win32' else diretorios['localArquivos_linux']
 

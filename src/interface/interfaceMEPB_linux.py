@@ -1,16 +1,17 @@
-from tkinter import *
-import ttkbootstrap as tb
 import json
+from tkinter import *
+
+import ttkbootstrap as tb
+
 from src import Biblioteca
 from src.configuracao import Configuracao
 from src.tratamento import ErroSoftware
-from src.validador import Validador
 
 
-class InterfaceMEPB_Linux(Validador):
+class InterfaceMEPB_Linux:
     def __init__(self) -> None:
         self.configuracao = Configuracao()
-        
+
         self.mepb = Biblioteca()
         self.fonte = ('Arial', 13)
 
@@ -41,8 +42,10 @@ class InterfaceMEPB_Linux(Validador):
         inside_menu = tb.Menu(self.menu_biblioteca)
 
         option_menu = StringVar()
-        for opcao in ['Principal', 'Cadastro', 'Aluguel', 'Pesquisar Livro', 'Pesquisar Aluguel', 'Mostrar Livros', 'Mostrar Alugados', 'Gasto Total', 'Administrador']:
-            inside_menu.add_radiobutton(label=opcao, variable=option_menu, command=lambda option=opcao: self.menu_selecionado(option))
+        for opcao in ['Principal', 'Cadastro', 'Aluguel', 'Pesquisar Livro', 'Pesquisar Aluguel', 'Mostrar Livros',
+                      'Mostrar Alugados', 'Gasto Total', 'Administrador']:
+            inside_menu.add_radiobutton(label=opcao, variable=option_menu,
+                                        command=lambda option=opcao: self.menu_selecionado(option))
 
         self.menu_biblioteca['menu'] = inside_menu
 
@@ -65,19 +68,19 @@ class InterfaceMEPB_Linux(Validador):
             self.gasto_total()
         elif option_selected == 'Administrador':
             self.administrador()
-    
+
     @staticmethod
     def igreja_linux(frame):
         label_igreja_linux = tb.Label(frame,
-            anchor='n',
-            compound='bottom',
-            font='{Z003} 30 {}',
-            relief='flat',
-            state='normal',
-            text='Missão  Evangélica Pentecostal do Brasil - Itambé'
-        )
+                                      anchor='n',
+                                      compound='bottom',
+                                      font='{Z003} 30 {}',
+                                      relief='flat',
+                                      state='normal',
+                                      text='Missão  Evangélica Pentecostal do Brasil - Itambé'
+                                      )
         return label_igreja_linux
-    
+
     def abrir_janela_linux(self):
         janela = tb.Window(themename='journal')
         janela.title('Biblioteca')
@@ -95,7 +98,7 @@ class InterfaceMEPB_Linux(Validador):
     @staticmethod
     def carregar_imagem(frame, nome_imagem, tamanho):
         imagem = PhotoImage(file=nome_imagem)
-        imagem = imagem.subsample(tamanho,tamanho)
+        imagem = imagem.subsample(tamanho, tamanho)
         label_imagem = tb.Label(frame, image=imagem)
         label_imagem.imagem = imagem
         return label_imagem
@@ -144,7 +147,7 @@ class InterfaceMEPB_Linux(Validador):
                 genero.get(),
                 float(preco.get())
             ]
-            
+
             self.mepb.app_cadastrar_livro_biblioteca(informacoes_livro)
         except Exception as erro:
             erro_processo = True
@@ -200,7 +203,8 @@ class InterfaceMEPB_Linux(Validador):
                 if type(pesquisa.get()) == str and pesquisa.get() == '':
                     raise ErroSoftware('Nada pesquisado!')
 
-                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa.get(), tipo_pesquisa=tipo_janela)
+                informacoes = self.mepb.app_pesquisar_livro_biblioteca(pesquisa=pesquisa.get(),
+                                                                       tipo_pesquisa=tipo_janela)
         except Exception as erro:
             ErroSoftware(erro)
 
@@ -287,7 +291,8 @@ class InterfaceMEPB_Linux(Validador):
         paginas_label, paginas_entry = self.criar_label(janela_adicionar, 'Páginas:    ')
         genero_label, genero_entry = self.criar_label(janela_adicionar, 'Gênero:    ')
         preco_label, preco_entry = self.criar_label(janela_adicionar, 'Preço:    ')
-        info_cadastro = (nome_entry, autor_entry, editora_entry, paginas_entry, genero_entry, preco_entry, janela_adicionar)
+        info_cadastro = (
+            nome_entry, autor_entry, editora_entry, paginas_entry, genero_entry, preco_entry, janela_adicionar)
         cadastrar_button = self.criar_botao(janela_adicionar, 'Adicionar', self.acao_cadastrar, info_cadastro)
         self.saida_texto(texto='', janela=janela_adicionar, height=1, width=10, column=1, row=6, sticky='e')
         nome_label.grid(column=0, row=0, sticky='nw', pady=10)
@@ -371,18 +376,19 @@ class InterfaceMEPB_Linux(Validador):
         if tipo_janela == 'disponibilidade':
             label = tb.Label(janela, text='Disponibilidade:', font=self.fonte)
             botao_disponivel = self.criar_botao(janela, 'Disponível', self.acao_pesquisar_livro,
-                                               ('Disponível', janela, tipo_janela, titulo))
+                                                ('Disponível', janela, tipo_janela, titulo))
             botao_indisponivel = self.criar_botao(janela, 'Indisponível', self.acao_pesquisar_livro,
-                                                 ('Indisponível', janela, tipo_janela, titulo))
-            self.saida_scrolled_text(texto=texto_saida, janela=janela, height=12, width=50, column=1, row=1, sticky='nw',
-                                     padx=0, pady=0)
+                                                  ('Indisponível', janela, tipo_janela, titulo))
+            self.saida_scrolled_text(texto=texto_saida, janela=janela, height=12, width=50, column=1, row=1,
+                                     sticky='nw', padx=0, pady=0)
 
             label.grid(column=0, row=0, sticky='nw', pady=10)
             botao_disponivel.grid(column=1, row=0, sticky='w')
             botao_indisponivel.grid(column=1, row=0, sticky='w', padx=100)
         else:
             label, entry = self.criar_label(janela, titulo)
-            self.saida_scrolled_text(texto=texto_saida, janela=janela, height=10, width=50, column=1, row=1, sticky='nw',
+            self.saida_scrolled_text(texto=texto_saida, janela=janela, height=10, width=50, column=1, row=1,
+                                     sticky='nw',
                                      padx=0, pady=0)
             pesquisa = (entry, janela, tipo_janela, titulo)
             button = self.criar_botao(janela, 'Pesquisar', self.acao_pesquisar_livro, pesquisa)
@@ -452,7 +458,8 @@ class InterfaceMEPB_Linux(Validador):
         mostrar_dados_label = tb.Label(self.frame_funcao, text='Dados:    ', font=self.fonte)
         self.saida_scrolled_text(texto='', janela=self.frame_funcao, height=15, width=64, column=1, row=0, sticky='nw',
                                  padx=0, pady=3)
-        mostrar_livros_button = self.criar_botao(self.frame_funcao, 'Pesquisar', self.acao_mostrar_livros, 'mostrarLivros')
+        mostrar_livros_button = self.criar_botao(self.frame_funcao, 'Pesquisar', self.acao_mostrar_livros,
+                                                 'mostrarLivros')
         mostrar_dados_label.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
         mostrar_livros_button.grid(column=1, row=1, sticky='nw', pady=10)
 
@@ -467,7 +474,7 @@ class InterfaceMEPB_Linux(Validador):
         self.saida_scrolled_text(texto='', janela=self.frame_funcao, height=15, width=64, column=1, row=0, sticky='nw',
                                  padx=0, pady=3)
         mostrar_alugados_button = self.criar_botao(self.frame_funcao, 'Pesquisar', self.acao_mostrar_alugados,
-                                                'mostrarAlugados')
+                                                   'mostrarAlugados')
         mostrar_dados_label.grid(column=0, row=0, sticky='nw', padx=10, pady=10)
         mostrar_alugados_button.grid(column=1, row=1, sticky='nw', pady=10)
 
