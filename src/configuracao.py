@@ -18,8 +18,8 @@ class Configuracao:
         with open(nome_arquivo, 'r', encoding='utf-8') as arquivo:
             json_arquivo = json.load(arquivo)
 
-            diretorios = json_arquivo['diretorios']
-            diretorios_arquivos = diretorios['localArquivos_windows'] if platform == 'win32' else diretorios['localArquivos_linux']
+            diretorios = json_arquivo['diretorios_windows'] if platform == 'win32' else json_arquivo['diretorios_linux']
+            diretorios_arquivos = diretorios['local_arquivos']
 
             self.imagens = diretorios_arquivos + diretorios['imagens']
             self.info = diretorios_arquivos + diretorios['info']
